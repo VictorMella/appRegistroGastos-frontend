@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module'
 import { CoreModule } from './core/core.module'
 import { MenuComponent } from './menu/menu.component'
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { MenuComponent } from './menu/menu.component'
     SharedModule,
     RouterModule,
     CoreModule,
-
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

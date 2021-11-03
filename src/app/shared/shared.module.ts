@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
@@ -24,5 +24,9 @@ defineLocale('es', esLocale);
     NgSelectModule,
     BsDatepickerModule,
   ],
+  providers: [
+    DatePipe,
+
+  ]
 })
 export class SharedModule { }

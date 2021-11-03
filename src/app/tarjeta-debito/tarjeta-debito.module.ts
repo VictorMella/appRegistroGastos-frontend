@@ -9,6 +9,7 @@ import { VisualizarRegistroComponent } from './components/visualizar-registro/vi
 import { SharedModule } from '../shared/shared.module'
 
 
+
 @NgModule({
   declarations: [TarjetaDebitoComponent, CrearRegistroComponent, VisualizarRegistroComponent],
   imports: [
@@ -16,7 +17,8 @@ import { SharedModule } from '../shared/shared.module'
     TarjetaDebitoRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
 
   ]
 })
