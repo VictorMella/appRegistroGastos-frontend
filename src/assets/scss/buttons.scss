@@ -1,0 +1,10 @@
+@import "mixins.scss";
+@import "colors.scss";
+
+@each $type in $typeColors {
+  $color1: map.get(map.get($mainColors, $type), "0");
+  $color2: map.get(map.get($mainColors, $type), "1");
+  .button-#{$type} {
+    @include custom-button($color1, $color2);
+  }
+}

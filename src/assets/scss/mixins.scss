@@ -1,0 +1,34 @@
+@mixin custom-button(
+  $color1,
+  $color2
+  ){
+    $background: $color1;
+    $color: $color2;
+    $border: $color1;
+    $selected-background: darken($color1, 7.5%);
+    $selected-color: $color;
+    $selected-border: darken($color1, 7.5%);
+    $disabled-background: lighten($color1, 7.5%);
+    $disabled-color: lighten($color2, 7.5%);
+    $disabled-border: lighten($color1, 7.5%);
+
+    color: $color !important;
+    border-color: $border !important;
+    background-color: $background !important;
+
+    &:hover, &.hover, &:active, &.active{
+      color: $selected-color !important;
+      border-color: $selected-border !important;
+      background-color: $selected-background !important;
+    }
+    &.focus, &:focus{
+      box-shadow: 0 0 0 0.2rem rgba($color1,.25) !important;
+    }
+    &.disabled, &:disabled {
+      color: $disabled-color !important;
+      border-color: $disabled-border !important;
+      background-color: $disabled-background !important;
+      cursor: default;
+  }
+
+}

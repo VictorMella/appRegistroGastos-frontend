@@ -1,0 +1,193 @@
+@import "colors.scss";
+
+html {
+  font-size: 14px;
+  // height: calc(100% - 70px); // alto calculado si proyecto queda como iframe en sn5
+}
+body {
+  font-family: "Helvetica", sans-serif !important;
+  background-color: #f5f5f5 !important;
+  // height: calc(100% - 70px); // alto calculado si proyecto queda como iframe en sn5
+  height: fit-content;
+  padding-bottom: 15rem;
+}
+
+th[sortable-column] {
+  .sortable-content {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+
+    .wrap-icon {
+      margin-left: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      &::before,
+      &::after {
+        margin-bottom: 2px;
+        line-height: 5px;
+        opacity: 0.3;
+      }
+
+      &::before {
+        font-family: "Font Awesome 5 Pro";
+        content: "\f0d8";
+      }
+
+      &::after {
+        font-family: "Font Awesome 5 Pro";
+        content: "\f0d7";
+      }
+
+      &.asc::before,
+      &.desc::after {
+        opacity: 1;
+      }
+    }
+  }
+  &.active {
+    background-color: #8dc0db40;
+  }
+}
+
+.table {
+  thead {
+    tr > th {
+      text-align: center;
+      vertical-align: middle;
+      border-top: none !important;
+      border-bottom-color: #dddddd !important;
+      border-bottom-width: 2px;
+    }
+  }
+  tbody {
+    tr > td {
+      vertical-align: middle;
+      color: black;
+      border-top: none !important;
+      &.no-padding {
+        padding: 0 !important;
+      }
+      &.tdtext {
+        text-align: left;
+      }
+      &.tdnumber {
+        text-align: right;
+      }
+      &.tddate,
+      &.tdbutton,
+      &.tdicon,
+      &.tdsimbol {
+        text-align: center;
+      }
+    }
+  }
+}
+
+input:focus,
+textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ced4da !important;
+}
+
+.form-control {
+  border-radius: 0 !important;
+}
+
+.ng-select {
+  .ng-select-container {
+    border-radius: 0 !important;
+  }
+  &.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+    box-shadow: none !important;
+    border-color: #b3b3b3 !important;
+  }
+}
+
+.ng-select-multiple {
+  .ng-select-container {
+    .ng-value-container {
+      .ng-value {
+        background: white !important;
+        border: 1px solid #d3d3d3 !important;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.pagination {
+  color: blue;
+  margin-bottom: 0 !important;
+  .page-item.active .page-link {
+    background-color: $color-red;
+    border-color: $color-red;
+  }
+  .page-item:not(.active) .page-link {
+    color: black;
+  }
+}
+
+.modal-content {
+  box-shadow: 0px 8px 20px 5px #7b7b7b;
+}
+
+.modal-body {
+  max-height: 65vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.cursor__pointer {
+  cursor: pointer;
+}
+
+.cursor__notallowed {
+  cursor: not-allowed !important;
+}
+
+.full-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.padding_1rem {
+  padding: 1rem !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
+.cursor__notallowed {
+  cursor: not-allowed !important;
+}
+
+.btn {
+  &:disabled,
+  &.disabled,
+  fieldset:disabled & {
+    pointer-events: all !important;
+  }
+}

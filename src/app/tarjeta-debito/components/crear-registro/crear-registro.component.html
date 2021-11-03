@@ -1,0 +1,40 @@
+<form class="form-container" [formGroup]="form" (submit)="onSubmitForm()">
+  <div class="item">
+    <label for="type" class="form-label"><strong>Input:Text<span
+          class="color-red"><strong>*</strong></span></strong></label>
+    <input [class.msgErrorFields]="onValidateErrorFields('text')" type="text" class="form-control"
+      formControlName="text">
+    <span class="validation-message" *ngIf="onValidateErrorFields('text')"> * mensaje validación </span>
+  </div>
+  <div class="item">
+    <label for="type" class="form-label"><strong>Input:Number<span
+          class="color-red"><strong>*</strong></span></strong></label>
+    <input [class.msgErrorFields]="onValidateErrorFields('number')" type="number" formControlName="number"
+      class="form-control" prevent-key-number>
+    <span class="validation-message" *ngIf="onValidateErrorFields('number')"> * mensaje validación </span>
+  </div>
+  <div class="item">
+    <label for="currency" class="form-label"><strong>select simple<span
+          class="color-red"><strong>*</strong></span></strong></label>
+    <ng-select *ngIf="!false" [clearable]="false" formControlName="selectSimple"
+      [class.msgErrorFields]="onValidateErrorFields('selectSimple')"
+      [placeholder]="'seleccione...'">
+      <ng-option *ngFor="let item of listProducts" [value]="item">{{item.name}}</ng-option>
+    </ng-select>
+    <span *ngIf="onValidateErrorFields('selectSimple')" class="validation-message"> * mensaje validación </span>
+  </div>
+<!--   [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY', showWeekNumbers: false, containerClass: 'theme-default' }" -->
+  <div class="item">
+    <div class="input-group">
+      <input type="text" bsDatepicker
+        formControlName="date"
+        [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY', showWeekNumbers: false, containerClass: 'theme-default' }"
+        class="form-control" id="datetime">
+      <i class="icon far fa-calendar"></i>
+    </div>
+  </div>
+  <button class="btn btn-success" type="submit">submit</button>
+  <!-- <button class="btn btn-success" type="submit"
+    [class.cursor__notallowed]="form.invalid"
+    [disabled]="form.invalid">submit</button> -->
+</form>

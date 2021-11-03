@@ -1,0 +1,44 @@
+$color-red: #ff3a3b;
+$color-white: #ffffff;
+$color-excel: #1c7346;
+$color-yellow: #ffa900;
+$color-green: #019a2a;
+$color-blue: #01669a;
+$color-grey: #6c757d;
+
+$typeColors: "success", "danger", "primary", "excel", "grey";
+
+$mainColors: (
+  "success": (
+    "0": $color-green,
+    "1": $color-white,
+  ),
+  "danger": (
+    "0": $color-red,
+    "1": $color-white,
+  ),
+  "primary": (
+    "0": $color-blue,
+    "1": $color-white,
+  ),
+  "excel": (
+    "0": $color-excel,
+    "1": $color-white,
+  ),
+  "grey": (
+    "0": $color-grey,
+    "1": $color-white,
+  ),
+);
+
+.color-green {
+  color: $color-green;
+}
+
+.color-yellow {
+  color: $color-yellow;
+}
+
+.color-red {
+  color: $color-red;
+}
