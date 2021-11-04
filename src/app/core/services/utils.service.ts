@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IMenuItem } from '../interfaces/menuItem.interface'
+import { ITipoTransaccion } from '../interfaces/tipoTransaccion.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,22 @@ export class UtilsService {
     }
   ]
 
+  tipoTransaccion: ITipoTransaccion[] = [
+    {
+      id: 1, nombre: 'Efectivo'
+    },
+    {
+      id: 2, nombre: 'Transferencia'
+    }
+  ]
+
   constructor() { }
 
   getMenu() {
     return this.menuItems
+  }
+
+  getTipoTransaccion() {
+    return this.tipoTransaccion
   }
 }

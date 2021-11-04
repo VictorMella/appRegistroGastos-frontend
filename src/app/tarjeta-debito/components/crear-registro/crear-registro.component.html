@@ -1,40 +1,52 @@
-<form class="form-container" [formGroup]="form" (submit)="onSubmitForm()">
-  <div class="item">
-    <label for="type" class="form-label"><strong>Input:Text<span
-          class="color-red"><strong>*</strong></span></strong></label>
-    <input [class.msgErrorFields]="onValidateErrorFields('text')" type="text" class="form-control"
-      formControlName="text">
-    <span class="validation-message" *ngIf="onValidateErrorFields('text')"> * mensaje validación </span>
-  </div>
-  <div class="item">
-    <label for="type" class="form-label"><strong>Input:Number<span
-          class="color-red"><strong>*</strong></span></strong></label>
-    <input [class.msgErrorFields]="onValidateErrorFields('number')" type="number" formControlName="number"
-      class="form-control" prevent-key-number>
-    <span class="validation-message" *ngIf="onValidateErrorFields('number')"> * mensaje validación </span>
-  </div>
-  <div class="item">
-    <label for="currency" class="form-label"><strong>select simple<span
-          class="color-red"><strong>*</strong></span></strong></label>
-    <ng-select *ngIf="!false" [clearable]="false" formControlName="selectSimple"
-      [class.msgErrorFields]="onValidateErrorFields('selectSimple')"
-      [placeholder]="'seleccione...'">
-      <ng-option *ngFor="let item of listProducts" [value]="item">{{item.name}}</ng-option>
-    </ng-select>
-    <span *ngIf="onValidateErrorFields('selectSimple')" class="validation-message"> * mensaje validación </span>
-  </div>
+<div class="formulario-contains">
+  <div class="formulario">
+    <form class="form-container" [formGroup]="form" (submit)="onSubmitForm()">
+      <div class="item">
+        <label for="type" class="form-label"><strong>Monto<span class="color-red"><strong>*
+              </strong></span> <i class="icon far fa-money-bill-wave"></i> </strong></label>
+        <input auto-focus [class.msgErrorFields]="onValidateErrorFields('monto')" type="number" formControlName="monto"
+          class="form-control" prevent-key-number>
+        <span class="validation-message" *ngIf="onValidateErrorFields('monto')"> * mensaje validación </span>
+      </div>
+      <div class="item">
+        <label for="descripcion" class="form-label"><strong>Descripción
+            <i class="icon far fa-comment-alt-lines"></i>
+          </strong></label>
+        <textarea class="form-control"
+          [class.msgErrorFields]="onValidateErrorFields('descripcion')" formControlName="descripcion"
+          maxlength="1500"></textarea>
+        <span class="validation-message" *ngIf="onValidateErrorFields('descripcion')">
+          * mensaje validación
+        </span>
+      </div>
+      <div class="item">
+        <label for="tipoTransaccion" class="form-label"><strong>Tipo de transacción<span
+              class="color-red"><strong>*</strong></span>
+            <i class="icon far fa-comments-alt-dollar"></i>
+          </strong></label>
+        <ng-select *ngIf="!false" [clearable]="false" formControlName="tipoTransaccion"
+          [class.msgErrorFields]="onValidateErrorFields('tipoTransaccion')" [placeholder]="'seleccione...'">
+          <ng-option *ngFor="let item of listTiposTransacccion" [value]="item">{{item.nombre}}</ng-option>
+        </ng-select>
+        <span *ngIf="onValidateErrorFields('tipoTransaccion')" class="validation-message"> * mensaje validación </span>
+      </div>
 
-  <div class="item">
-    <div class="input-group">
-      <input type="text" bsDatepicker
-        formControlName="date"
-        [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY', showWeekNumbers: false, containerClass: 'theme-default' }"
-        class="form-control" id="datetime">
-      <i class="icon far fa-calendar"></i>
-    </div>
+      <div class="item">
+        <label for="fachaCompra" class="form-label"><strong> Seleccione la fecha de la compra </strong>
+          <i class="icon far fa-calendar"></i>
+        </label>
+        <div class="input-group">
+          <input type="text" bsDatepicker formControlName="fachaCompra"
+            [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY', showWeekNumbers: false, adaptivePosition: true }"
+            class="form-control" id="datetime">
+
+        </div>
+      </div>
+      <div class="item"> <button class="btn btn-success" type="submit">Guardar registro</button> </div>
+    </form>
+
   </div>
-  <button class="btn btn-success" type="submit">submit</button>
-  <!-- <button class="btn btn-success" type="submit"
-    [class.cursor__notallowed]="form.invalid"
-    [disabled]="form.invalid">submit</button> -->
-</form>
+  <div class="images">
+    <img src="../../assets/images/control-cost.jpg" alt="">
+  </div>
+</div>

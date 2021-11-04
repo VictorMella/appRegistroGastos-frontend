@@ -8,9 +8,16 @@
 
 app-menu{
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 0px;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 10px;
   z-index: 99999;
+  background-color: #375a7f;
+  height: 70px;
+  padding: 20px 30px;
+
   li{
     cursor: pointer;
   }
@@ -19,4 +26,5 @@ app-menu{
 html, body{
   width: 100%;
   height: 100%;
+  background-color: black;
 }

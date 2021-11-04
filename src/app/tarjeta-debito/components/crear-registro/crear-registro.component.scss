@@ -1,24 +1,61 @@
 @import "../../../../assets/scss/colors.scss";
-
-.form-container {
+.formulario-contains{
   display: flex;
-  align-items: center;
-  width: 60%;
-  margin: auto;
-  .item {
-    padding: 0 1rem;
-    &:nth-child(5) {
+  flex-direction: row;
+  width: 90%;
+  margin: 130px auto;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    margin-top: 50px;
+  }
+  .formulario{
+    width: 50%;
+    background-color: #444;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      margin-top: 60px;
+    }
+    .form-container {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      .input-group {
-        align-items: center;
-        .icon {
-          margin-left: 0.5rem;
+
+      margin: auto;
+      .item {
+        margin-top: 10px;
+        padding: 0 1rem;
+        width: 100%;
+        .msgErrorFields {
+          border-color: $color-red !important;
+          border: 1px solid $color-red;
+        }
+        label, i{
+          font-size: 20px;
+          margin-left: 5px;
         }
       }
+      .btn{
+        width: 100%;
+        margin: 10px 0px;
+      }
     }
-    .msgErrorFields {
-      border-color: $color-red !important
+  }
+  .images{
+    width: 50%;
+    text-align: center;
+    img{
+      border-radius: 5%;
+    }
+    @media screen and (max-width: 768px) {
+      display: none;
+
     }
   }
 }
+
+

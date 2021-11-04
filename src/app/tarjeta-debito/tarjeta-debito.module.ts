@@ -7,6 +7,7 @@ import { TarjetaDebitoComponent } from './tarjeta-debito.component';
 import { CrearRegistroComponent } from './components/crear-registro/crear-registro.component';
 import { VisualizarRegistroComponent } from './components/visualizar-registro/visualizar-registro.component';
 import { SharedModule } from '../shared/shared.module'
+import { CoreModule } from '../core/core.module'
 
 
 
@@ -18,8 +19,7 @@ import { SharedModule } from '../shared/shared.module'
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-
-
+    CoreModule
   ]
 })
 export class TarjetaDebitoModule { }
