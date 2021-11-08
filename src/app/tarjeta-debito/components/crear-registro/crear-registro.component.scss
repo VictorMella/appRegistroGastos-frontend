@@ -3,14 +3,15 @@
   display: flex;
   flex-direction: row;
   width: 90%;
-  margin: 130px auto;
+  margin: 130px auto !important;
+  justify-content: space-between;
 
   @media screen and (max-width: 768px) {
     flex-direction: column;
     margin-top: 50px;
   }
   .formulario{
-    width: 50%;
+    width: 49%;
     background-color: #444;
     color: white;
     border-radius: 10px;
@@ -24,7 +25,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-
       margin: auto;
       .item {
         margin-top: 10px;
@@ -46,8 +46,11 @@
     }
   }
   .images{
-    width: 50%;
+    width: 49%;
     text-align: center;
+    padding: 20px;
+    background-color: #444;
+    border-radius: 10px;
     img{
       border-radius: 5%;
     }

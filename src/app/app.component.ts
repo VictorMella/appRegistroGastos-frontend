@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'appRegistroCuentasFrontend';
+  separators: any = {}
+  constructor() {
+    this.separators.decimalsSeparator = ','
+    this.separators.thoudsandsSeparator = '.'
+    sessionStorage.setItem('separators', JSON.stringify(this.separators));
+  }
 }

@@ -25,10 +25,11 @@
     "bootstrap": "^5.0.2",
     "date-fns": "^2.22.1",
     "ngx-bootstrap": "^6.2.0",
+    "ngx-toastr": "^14.0.0",
+    "npkill": "^0.8.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2",
-    "ngx-toastr": "^14.0.0"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.0",
