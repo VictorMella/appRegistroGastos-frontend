@@ -7,31 +7,36 @@
         <th> Descripción</th>
         <th> Tipo de transaccción</th>
         <th> Fecha de la compra</th>
+        <th> Opciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of registrosCreados">
-        <td>
-          <p>{{ item.monto }}</p>
+        <td class="tdmoneda">
+          <p>{{ item.monto | pCurrency}}</p>
         </td>
-        <td>
+        <td class="tdtext">
           <p>{{ item.descripcion }}</p>
         </td>
-        <td>
+        <td class="tdtext">
           <p>{{ item.tipo }}</p>
         </td>
-        <td>
-          <p>{{ item.fechaCompra }}</p>
+        <td class="tddate">
+          <p>{{ item.fechaCompra | date: 'dd-MM-yyyy'}}</p>
+        </td>
+        <td class="tdbutton">
+         <button class="btn button-success">Editar registro</button>
+         <button class="btn button-danger">Borrar registro</button>
         </td>
       </tr>
     </tbody>
   </table>
 
   <!-- *ngIf="isSearch && !activeLoading && registrosCreados.length > 0" -->
-  <app-paginator class="width__100" *ngIf="registrosCreados.length > 0" [config]="pagination"
+  <app-paginador class="width__100" *ngIf="registrosCreados.length > 0" [config]="pagination"
     (changePagination)="onChangePagination($event)">
-  </app-paginator>
-  <div class="alert alert-warning">
-    <!-- {{'no-se-registran-adjuntos-en-detalle' | translate}} -->
-  </div>
+  </app-paginador>
+ <!-- <div class="alert alert-warning">
+     {{'no-se-registran-adjuntos-en-detalle' | translate}}
+  </div> -->
 </div>

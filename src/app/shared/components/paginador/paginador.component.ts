@@ -30,6 +30,7 @@ export class PaginadorComponent implements OnInit, OnChanges {
     this.totalPages = Math.floor(this.config.total / this.currentSize) + 1
     this.currentPagination = { page: this.currentPage, itemsPerPage: this.currentSize }
     this._setInfo()
+    console.log(this.config)
   }
 
   sizeChanged(e) {

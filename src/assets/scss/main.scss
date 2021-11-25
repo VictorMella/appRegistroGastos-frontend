@@ -73,7 +73,8 @@ th[sortable-column] {
       &.tdtext {
         text-align: left;
       }
-      &.tdnumber {
+      &.tdnumber,
+      &.tdmoneda {
         text-align: right;
       }
       &.tddate,
@@ -123,8 +124,8 @@ textarea:focus {
   color: blue;
   margin-bottom: 0 !important;
   .page-item.active .page-link {
-    background-color: $color-red;
-    border-color: $color-red;
+    background-color: #157347;
+    border-color: #146c43
   }
   .page-item:not(.active) .page-link {
     color: black;
