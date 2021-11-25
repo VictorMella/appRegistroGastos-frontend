@@ -1,1 +1,31 @@
-<p>paginador works!</p>
+<div class="paginator-info full-center">
+  <label for="">{{ info }}</label>
+</div>
+<div class="paginator full-center">
+  <div class="paginator-sizes full-center">
+      <label for="">Registros por página</label>
+
+      <div class="btn-group push-left" dropdown [dropup]="true">
+          <button id="button-sizes" dropdownToggle type="button" class="btn  dropdown-toggle" aria-controls="dropdown-sizes">
+      {{ currentSize }}<span class="caret"></span>
+    </button>
+          <ul id="dropdown-sizes" *dropdownMenu class="dropdown-menu cursor__pointer" role="menu" aria-labelledby="button-sizes">
+              <li *ngFor="let size of config.sizes" role="menuitem">
+                  <a class="dropdown-item" [class.active]="size === currentSize" (click)="sizeChanged(size)">{{ size }}</a>
+              </li>
+          </ul>
+      </div>
+  </div>
+  <div class="paginator-pages full-center">
+      <pagination [boundaryLinks]="true" [totalItems]="config.total" pageBtnClass="red" [maxSize]="5" [itemsPerPage]="config.itemsPerPage" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+          lastText="&raquo;">
+      </pagination>
+  </div>
+  <div class="paginator-goto full-center">
+      <div>
+          <input type="text" class="form-control left-pair width__50" (keyup)="keyupGoto($event)" [(ngModel)]="gotoPage">
+          <button class="btn button-danger right-pair width__50" (click)="goto()">Ir a</button>
+      </div>
+  </div>
+</div>
+

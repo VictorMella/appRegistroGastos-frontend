@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ErrorSrcImgDirective } from './directives/error-src-img.directive';
-import { AutoFocusDirective } from './directives/auto-focus.directive';
-import { PreventKeyNumberDirective } from './directives/prevent-key-number.directive';
-import { SortableColumnDirective } from './directives/sortable-column.directive';
-import { FormatCurrencyPipe } from './pipes/format-currency.pipe';
-import { CurrencyDirective } from './directives/currency.directive';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { ErrorSrcImgDirective } from './directives/error-src-img.directive'
+import { AutoFocusDirective } from './directives/auto-focus.directive'
+import { PreventKeyNumberDirective } from './directives/prevent-key-number.directive'
+import { SortableColumnDirective } from './directives/sortable-column.directive'
+import { FormatCurrencyPipe } from './pipes/format-currency.pipe'
+import { CurrencyDirective } from './directives/currency.directive'
 
 
 
@@ -13,10 +13,10 @@ import { CurrencyDirective } from './directives/currency.directive';
   declarations: [
     SortableColumnDirective,
     ErrorSrcImgDirective,
-      AutoFocusDirective,
-      PreventKeyNumberDirective,
-      FormatCurrencyPipe,
-      CurrencyDirective
+    AutoFocusDirective,
+    PreventKeyNumberDirective,
+    FormatCurrencyPipe,
+    CurrencyDirective
   ],
   imports: [
     CommonModule
@@ -25,7 +25,9 @@ import { CurrencyDirective } from './directives/currency.directive';
     SortableColumnDirective,
     ErrorSrcImgDirective,
     AutoFocusDirective,
-    PreventKeyNumberDirective
+    PreventKeyNumberDirective,
+    CurrencyDirective,
+    FormatCurrencyPipe
   ]
 })
 export class CoreModule { }

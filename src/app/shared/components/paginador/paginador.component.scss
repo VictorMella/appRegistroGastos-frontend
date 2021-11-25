@@ -1,0 +1,74 @@
+@import "colors.scss";
+
+.paginator {
+  width: fit-content;
+  float: left;
+  padding-bottom: 10px;
+  width: 100%;
+  &-sizes {
+    margin: 0 10px;
+    width: fit-content;
+    float: left;
+    label {
+      padding-right: 5px;
+    }
+    button.btn {
+      color: #000 !important;
+      border-color: #d9d9d9 !important;
+      background-color: $color-white !important;
+    }
+  }
+  &-pages {
+    margin: 0 10px;
+    width: fit-content;
+    float: left;
+  }
+  &-goto {
+    float: left;
+    margin: 0 10px;
+    > div {
+      width: 90px;
+      input,
+      button {
+        float: left;
+        width: 50%;
+      }
+      button {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    min-width: 3rem !important;
+    text-align: right !important;
+    .dropdown-item {
+      padding: 0.25rem 0.5rem !important;
+      &.active,
+      &:active,
+      &:hover {
+        background-color: $color-red !important;
+        color: $color-white;
+      }
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .paginator {
+    display: flex;
+    flex-direction: column;
+    > div {
+      width: auto !important;
+    }
+    &-sizes {
+      padding-bottom: 10px;
+    }
+    &-pages {
+      padding-bottom: 10px;
+    }
+  }
+}

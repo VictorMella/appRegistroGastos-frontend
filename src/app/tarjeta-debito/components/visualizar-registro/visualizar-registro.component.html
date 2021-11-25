@@ -1,1 +1,37 @@
-<p>visualizar-registro works!</p>
+<div class="contans-table">
+  <h4>Registro de gastos</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th> Monto</th>
+        <th> Descripción</th>
+        <th> Tipo de transaccción</th>
+        <th> Fecha de la compra</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of registrosCreados">
+        <td>
+          <p>{{ item.monto }}</p>
+        </td>
+        <td>
+          <p>{{ item.descripcion }}</p>
+        </td>
+        <td>
+          <p>{{ item.tipo }}</p>
+        </td>
+        <td>
+          <p>{{ item.fechaCompra }}</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- *ngIf="isSearch && !activeLoading && registrosCreados.length > 0" -->
+  <app-paginator class="width__100" *ngIf="registrosCreados.length > 0" [config]="pagination"
+    (changePagination)="onChangePagination($event)">
+  </app-paginator>
+  <div class="alert alert-warning">
+    <!-- {{'no-se-registran-adjuntos-en-detalle' | translate}} -->
+  </div>
+</div>

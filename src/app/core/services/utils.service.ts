@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { IMenuItem } from '../interfaces/menuItem.interface'
+import { IPagination } from '../interfaces/pagination.interface'
 import { ITipoTransaccion } from '../interfaces/tipoTransaccion.interface'
 
 @Injectable({
@@ -8,15 +9,15 @@ import { ITipoTransaccion } from '../interfaces/tipoTransaccion.interface'
 export class UtilsService {
   menuItems: IMenuItem[] = [
     {
-      ruta: '/debito/crear-registro',
+      ruta: '/debito',
       nombre: 'Debito'
     },
     {
-      ruta: '/credito/crear-registro',
+      ruta: '/credito',
       nombre: 'Credito'
     },
     {
-      ruta: '/internacional/crear-registro',
+      ruta: '/internacional',
       nombre: 'Internacional'
     }
   ]
@@ -28,15 +29,24 @@ export class UtilsService {
     {
       id: 2, nombre: 'Transferencia'
     }
-  ]
+  ];
 
   constructor() { }
 
-  getMenu() {
+  getMenu(): IMenuItem[] {
     return this.menuItems
   }
 
-  getTipoTransaccion() {
+  getTipoTransaccion(): ITipoTransaccion[] {
     return this.tipoTransaccion
+  }
+
+  public setPagitation(currentPage: number, itemsPerPage: number, total: number): IPagination {
+    return {
+      currentPage,
+      itemsPerPage,
+      sizes: [10, 20, 50, 100],
+      total
+    };
   }
 }

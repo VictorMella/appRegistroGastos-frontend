@@ -1,1 +1,7 @@
-<app-crear-registro > </app-crear-registro>
+<app-crear-registro [creandoRegistro]="creandoRegistro"
+                    (handleCrearRegistro)="onHandleCrearRegistro($event)">
+</app-crear-registro>
+<app-visualizar-registro *ngIf="registrosCreadosDebito.length >0"
+                        [registrosCreados]="registrosCreadosDebito"
+                        [pagination]="paginationSearchSupplier" >
+</app-visualizar-registro>

@@ -10,6 +10,7 @@ export class PreventKeyNumberDirective {
       event.preventDefault();
     }
   }
-  constructor() { }
+
+
 
 }
