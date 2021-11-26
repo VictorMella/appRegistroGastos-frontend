@@ -1,4 +1,5 @@
 export interface IRegistrosCreados {
+  _id?: string
   created: Date
   fechaCompra: Date,
   monto: number,
@@ -6,4 +7,6 @@ export interface IRegistrosCreados {
   descripcion: string,
   idUsuarioCreacion: number,
   activo: boolean
+  mes?: number
+  anio?: number
 }

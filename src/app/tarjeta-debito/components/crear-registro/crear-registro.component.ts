@@ -5,6 +5,7 @@ import { add } from 'date-fns'
 import { ITipoTransaccion } from 'src/app/core/interfaces/tipoTransaccion.interface'
 import { UtilsService } from 'src/app/core/services/utils.service'
 import { AlertService } from 'src/app/core/services/alert.service'
+import { IRegistrosCreados } from 'src/app/core/interfaces/IRegistrosCreados.interface'
 @Component({
   selector: 'app-crear-registro',
   templateUrl: './crear-registro.component.html',
@@ -17,6 +18,7 @@ export class CrearRegistroComponent implements OnInit {
   minDate: Date;
 
   @Input() loadingCreandoRegistro: boolean;
+  @Input() registroSeleccionado: IRegistrosCreados;
   @Output() handleCrearRegistro = new EventEmitter()
 
 

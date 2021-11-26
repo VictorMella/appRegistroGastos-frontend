@@ -9,6 +9,8 @@ import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
 import { IRegistrosCreados } from '../core/interfaces/IRegistrosCreados.interface'
 import { IPagination } from '../core/interfaces/iPagination.interface'
 import { UtilsService } from '../core/services/utils.service'
+import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
+import { MainFactoryService } from '../core/services/main-factory.service'
 
 @Component({
   selector: 'app-tarjeta-debito',
@@ -22,12 +24,14 @@ export class TarjetaDebitoComponent implements OnInit {
   registrosCreadosDebito: Array<IRegistrosCreados> = []
   paginationSearch: IPagination
   loading: boolean
+  idRegistroSeleccionado: string
+  registroSeleccionado: IRegistrosCreados = undefined
 
   constructor(public datePipe: DatePipe,
-              private alert: AlertService,
-              public utils: UtilsService,
-              private debitoService: DebitoService)
-  {
+    private alert: AlertService,
+    public utils: UtilsService,
+    public mainFactory: MainFactoryService,
+    private debitoService: DebitoService) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
   }
@@ -79,8 +83,53 @@ export class TarjetaDebitoComponent implements OnInit {
       })
   }
 
-  private getPayloadInsertDebito(formValue: IDebito): DtoInsertDebito {
+  onHandleEditarRegistro($event: IRegistrosCreados): void {
+    this.idRegistroSeleccionado = $event._id
+    this.registroSeleccionado = $event
+    this.mainFactory.activeCargarRegistroEdicion(true)
+    // const payload: DtoEditDebito = this.getPayloadEditDebito($event)
+    // this.debitoService.editDebito(payload)
+    // .subscribe((resp: IRespuesta) => {
+    //   if (resp.ok) {
+    //     this.alert.success(resp.mensaje)
+    //   } else {
+    //     this.alert.error(resp.mensaje)
+    //   }
+    //   this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
+    // }, error => {
+    //   console.log(error)
+    // })
+  }
+
+  onHandleBorrarRegistro(id: string): void {
+    const payload = {
+      _id: id
+    }
+    this.debitoService.deleteDebito(payload)
+      .subscribe((resp: IRespuesta) => {
+        if (resp.ok) {
+          this.alert.success(resp.mensaje)
+        } else {
+          this.alert.error(resp.mensaje)
+        }
+        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
+      }, error => {
+        console.log(error)
+      })
+  }
+
+  private getPayloadInsertDebito(formValue: IDebito ): DtoInsertDebito {
     return {
+      monto: formValue.monto,
+      tipo: formValue.tipoTransaccion?.nombre,
+      descripcion: formValue.descripcion,
+      fechaCompra: this.datePipe.transform(formValue.fachaCompra, 'yyyy-MM-dd', 'es')
+    }
+  }
+
+  private getPayloadEditDebito(formValue: IDebito ): DtoEditDebito {
+    return {
+      _id: null,
       monto: formValue.monto,
       tipo: formValue.tipoTransaccion?.nombre,
       descripcion: formValue.descripcion,
