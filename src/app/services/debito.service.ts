@@ -4,7 +4,7 @@ import { ajax, AjaxError } from 'rxjs/ajax'
 import { Observable, of } from 'rxjs'
 import { environment } from 'src/environments/environment'
 import { DtoInsertDebito } from '../core/interfaces/DtoInsertDebito.interface'
-import { catchError } from 'rxjs/operators'
+import { catchError, delay } from 'rxjs/operators'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
 
 @Injectable({
@@ -16,15 +16,17 @@ export class DebitoService {
 
   constructor(private http: HttpClient) { }
 
-  getRegistros(): Observable<any> {
-    return this.http.get(`${environment.url}/debito?pagina=1`).pipe(
-      catchError(this.getError)
+  getRegistros(pagina: number, registrosPorPagina: number): Observable<any> {
+    return this.http.get(`${environment.url}/debito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}`).pipe(
+      catchError(this.getError),
+      delay(3000)
     )
   }
 
   insertDebito(payload: DtoInsertDebito): Observable<any> {
     return this.http.post(`${environment.url}/debito/crear-registro`, payload).pipe(
-      catchError(this.getError)
+      catchError(this.getError),
+      delay(3000)
     )
   }
 

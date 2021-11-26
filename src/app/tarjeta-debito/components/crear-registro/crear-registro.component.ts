@@ -1,13 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { IPagination } from 'src/app/core/interfaces/pagination.interface'
 import { add } from 'date-fns'
 import { ITipoTransaccion } from 'src/app/core/interfaces/tipoTransaccion.interface'
 import { UtilsService } from 'src/app/core/services/utils.service'
 import { AlertService } from 'src/app/core/services/alert.service'
-import { debounceTime } from 'rxjs/operators';
-
 @Component({
   selector: 'app-crear-registro',
   templateUrl: './crear-registro.component.html',
@@ -19,7 +16,7 @@ export class CrearRegistroComponent implements OnInit {
   listTiposTransacccion: ITipoTransaccion[]
   minDate: Date;
 
-  @Input() creandoRegistro: boolean;
+  @Input() loadingCreandoRegistro: boolean;
   @Output() handleCrearRegistro = new EventEmitter()
 
 

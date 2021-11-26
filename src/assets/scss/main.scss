@@ -192,3 +192,8 @@ input[type="number"] {
     pointer-events: all !important;
   }
 }
+
+.flex-direction-column {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { IPagination } from 'src/app/core/interfaces/pagination.interface'
+import { IPagination } from 'src/app/core/interfaces/iPagination.interface'
 
 @Component({
   selector: 'app-paginador',
@@ -30,7 +30,6 @@ export class PaginadorComponent implements OnInit, OnChanges {
     this.totalPages = Math.floor(this.config.total / this.currentSize) + 1
     this.currentPagination = { page: this.currentPage, itemsPerPage: this.currentSize }
     this._setInfo()
-    console.log(this.config)
   }
 
   sizeChanged(e) {

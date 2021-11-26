@@ -7,7 +7,7 @@ import { DebitoService } from '../services/debito.service'
 import { AlertService } from '../core/services/alert.service'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
 import { IRegistrosCreados } from '../core/interfaces/IRegistrosCreados.interface'
-import { IPagination } from '../core/interfaces/pagination.interface'
+import { IPagination } from '../core/interfaces/iPagination.interface'
 import { UtilsService } from '../core/services/utils.service'
 
 @Component({
@@ -18,61 +18,64 @@ import { UtilsService } from '../core/services/utils.service'
 })
 export class TarjetaDebitoComponent implements OnInit {
 
-  creandoRegistro: boolean
+  loadingCreandoRegistro: boolean
   registrosCreadosDebito: Array<IRegistrosCreados> = []
-  paginationSearchSupplier: IPagination
+  paginationSearch: IPagination
+  loading: boolean
 
   constructor(public datePipe: DatePipe,
               private alert: AlertService,
               public utils: UtilsService,
               private debitoService: DebitoService)
   {
-    this.getRegistros()
+    this.paginationSearch = this.utils.setPagitation(1, 10, 0)
+    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
   }
 
   ngOnInit(): void {
 
   }
 
-  onHandleChangePaginationSearchSupplier({ page, itemsPerPage }): void {
-    this.paginationSearchSupplier.currentPage = page
-    this.paginationSearchSupplier.itemsPerPage = itemsPerPage
-    this.getRegistros()
+  onHandleChangePaginationSearch({ page, itemsPerPage }): void {
+    this.loading = true
+    this.paginationSearch.currentPage = page
+    this.paginationSearch.itemsPerPage = itemsPerPage
+    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
   }
 
-  getRegistros() {
-    this.debitoService.getRegistros()
+  getRegistros(pagina: number, registrosPorPagina: number) {
+    this.loading = true
+    this.debitoService.getRegistros(pagina, registrosPorPagina)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
-          console.log(resp.data)
           this.registrosCreadosDebito = resp.data[0].registrosTDebito
-          this.paginationSearchSupplier = this.utils.setPagitation(1, 10, 0)
-          this.paginationSearchSupplier.total = resp.data[0].totalRegistros
+          this.paginationSearch.total = resp.data[0].totalRegistros
         } else {
           this.registrosCreadosDebito = []
-          console.log(resp.data)
           this.alert.error(resp.mensaje)
         }
+        this.loading = false
       }, error => {
         console.log(error)
-        this.creandoRegistro = false
+        this.loading = false
       })
   }
 
   onHandleCrearRegistro($event): any {
-    this.creandoRegistro = true
+    this.loadingCreandoRegistro = true
     const payload: DtoInsertDebito = this.getPayloadInsertDebito($event)
     this.debitoService.insertDebito(payload)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.alert.success('Registro creado')
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
         } else {
           this.alert.error(resp.mensaje)
         }
-        this.creandoRegistro = false
+        this.loadingCreandoRegistro = false
       }, error => {
         console.log(error)
-        this.creandoRegistro = false
+        this.loadingCreandoRegistro = false
       })
   }
 

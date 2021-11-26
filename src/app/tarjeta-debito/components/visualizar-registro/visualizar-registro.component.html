@@ -1,6 +1,30 @@
 <div class="contans-table">
-  <h4>Registro de gastos</h4>
-  <table class="table">
+  <div class="header">
+    <div class="legend">
+      <h3>Registro de gastos</h3>
+    </div>
+    <div class="select">
+      <div class="mes">
+        <label><strong>Mes
+            <i class="icon far fa-calendar-alt"></i>
+          </strong></label>
+        <ng-select [clearable]="false" [placeholder]="'seleccione...'" [(ngModel)]="selectedMonth"
+          [ngModelOptions]="{standalone: true}" [disabled]="loading">
+          <ng-option *ngFor="let item of meses" [value]="item.id">{{item.nombre}}</ng-option>
+        </ng-select>
+      </div>
+      <div class="year">
+        <label><strong>Año
+          <i class="icon far fa-calendar-alt"></i>
+          </strong></label>
+        <ng-select [clearable]="false" [placeholder]="'seleccione...'" [(ngModel)]="selectedYear"
+          [ngModelOptions]="{standalone: true}" [disabled]="loading">
+          <ng-option *ngFor="let item of years" [value]="item">{{item}}</ng-option>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+  <table class="table" *ngIf="registrosCreados.length > 0 && !loading">
     <thead>
       <tr>
         <th> Monto</th>
@@ -24,19 +48,19 @@
         <td class="tddate">
           <p>{{ item.fechaCompra | date: 'dd-MM-yyyy'}}</p>
         </td>
-        <td class="tdbutton">
-         <button class="btn button-success">Editar registro</button>
-         <button class="btn button-danger">Borrar registro</button>
+        <td class="tdbutton ">
+          <button class="btn button-success">Editar registro</button>
+          <button class="btn button-danger">Borrar registro</button>
         </td>
       </tr>
     </tbody>
   </table>
-
+  <app-loader *ngIf="loading"></app-loader>
   <!-- *ngIf="isSearch && !activeLoading && registrosCreados.length > 0" -->
-  <app-paginador class="width__100" *ngIf="registrosCreados.length > 0" [config]="pagination"
+  <app-paginador class="width__100" *ngIf="registrosCreados.length > 0 && !loading" [config]="pagination"
     (changePagination)="onChangePagination($event)">
   </app-paginador>
- <!-- <div class="alert alert-warning">
-     {{'no-se-registran-adjuntos-en-detalle' | translate}}
-  </div> -->
+  <div class="alert alert-warning" *ngIf="registrosCreados.length === 0 && !loading">
+    No se registran datos
+  </div>
 </div>

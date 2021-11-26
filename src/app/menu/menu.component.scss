@@ -1,5 +1,8 @@
 .list-group{
   flex-direction: row;
 }
-
+.list-group-item.active{
+  background-color: #157347;
+  border-color: #146c43
+}
 

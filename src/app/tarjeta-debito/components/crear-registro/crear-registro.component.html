@@ -43,10 +43,10 @@
       </div>
       <div class="item">
         <button class="btn btn-success" type="submit"
-              [class.cursor__notallowed]="form.invalid || creandoRegistro"
-             [disabled]="form.invalid || creandoRegistro"
+              [class.cursor__notallowed]="form.invalid || loadingCreandoRegistro"
+             [disabled]="form.invalid || loadingCreandoRegistro"
         >
-          <i class="fad fa-spinner fa-pulse" *ngIf="creandoRegistro" ></i>
+          <i class="fad fa-spinner fa-pulse" *ngIf="loadingCreandoRegistro" ></i>
           Guardar registro</button>
        </div>
     </form>

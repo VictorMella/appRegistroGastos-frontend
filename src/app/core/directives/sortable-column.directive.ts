@@ -1,5 +1,5 @@
 import { Directive, HostListener, Input, Output, Renderer2, EventEmitter, ElementRef, AfterViewInit} from '@angular/core';
-import { SortDirection, ISortDirection } from '../interfaces/sort-direction.interface';
+import { SortDirection, ISortDirection } from '../interfaces/iSortDirection.interface';
 
 
 @Directive({
