@@ -7,8 +7,6 @@ import { SortableColumnDirective } from './directives/sortable-column.directive'
 import { FormatCurrencyPipe } from './pipes/format-currency.pipe'
 import { CurrencyDirective } from './directives/currency.directive'
 
-
-
 @NgModule({
   declarations: [
     SortableColumnDirective,

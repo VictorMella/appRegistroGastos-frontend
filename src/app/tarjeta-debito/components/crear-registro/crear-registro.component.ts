@@ -1,11 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { add } from 'date-fns'
 import { ITipoTransaccion } from 'src/app/core/interfaces/tipoTransaccion.interface'
 import { UtilsService } from 'src/app/core/services/utils.service'
 import { AlertService } from 'src/app/core/services/alert.service'
 import { IRegistrosCreados } from 'src/app/core/interfaces/IRegistrosCreados.interface'
+import { MainFactoryService } from 'src/app/core/services/main-factory.service'
+import { IDebito } from 'src/app/core/interfaces/iDebito.interface'
+import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-crear-registro',
   templateUrl: './crear-registro.component.html',
@@ -13,12 +16,11 @@ import { IRegistrosCreados } from 'src/app/core/interfaces/IRegistrosCreados.int
 })
 export class CrearRegistroComponent implements OnInit {
   form: FormGroup
-  validForm: boolean;
+  validForm: boolean
   listTiposTransacccion: ITipoTransaccion[]
-  minDate: Date;
+  minDate: Date
 
-  @Input() loadingCreandoRegistro: boolean;
-  @Input() registroSeleccionado: IRegistrosCreados;
+  @Input() loadingCreandoRegistro: boolean
   @Output() handleCrearRegistro = new EventEmitter()
 
 
@@ -27,8 +29,10 @@ export class CrearRegistroComponent implements OnInit {
     private localService: BsLocaleService,
     private utilsService: UtilsService,
     private alert: AlertService,
+    public mainFactory: MainFactoryService,
+    public datePipe: DatePipe,
   ) {
-    this.validForm = true;
+    this.validForm = true
     this.localService.use('es') // necesario para idioma de datepiker
     this.minDate = add(new Date(), { days: 0 })
     this.listTiposTransacccion = this.utilsService.getTipoTransaccion()
@@ -36,14 +40,20 @@ export class CrearRegistroComponent implements OnInit {
 
   ngOnInit(): void {
     this.resetForm()
+    this.mainFactory.cargarRegistroEdicion$
+      .subscribe((active) => {
+        if (active) {
+          this.cargarItem()
+        }
+      })
   }
 
   onSubmitForm(): void {
     if (this.form.valid) {
-      this.handleCrearRegistro.emit(this.form.value);
+      this.handleCrearRegistro.emit(this.form.value)
       this.resetForm()
     } else {
-      this.validForm = false;
+      this.validForm = false
       this.alert.error('Valide formulario')
     }
   }
@@ -52,15 +62,33 @@ export class CrearRegistroComponent implements OnInit {
     return !this.validForm && this.form.get(field).invalid
   }
 
+  private cargarItem(): void {
+    const registroSeleccionado = this.mainFactory.getData('registroSeleccionadoEdicion')
+    this.form.patchValue({
+      monto: registroSeleccionado?.monto,
+      descripcion: registroSeleccionado?.descripcion,
+      tipoTransaccion: this.listTiposTransacccion.filter(val => val.nombre === registroSeleccionado?.tipo )[0],
+      fechaCompra: this.convertUTCDateToLocalDate(new Date(registroSeleccionado?.fechaCompra))
+    })
+  }
+
   private resetForm() {
     this.form = this.formBuilder.group({
-      monto: ['' , Validators.required],
+      monto: ['', Validators.required],
       descripcion: [null, [Validators.maxLength(1500)]],
       tipoTransaccion: [null, Validators.required],
-      fachaCompra: [this.minDate, Validators.required],
+      fechaCompra: [this.minDate, Validators.required],
     })
-}
+  }
 
+  private convertUTCDateToLocalDate(date) {
+    const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+    const offset = date.getTimezoneOffset() / 60;
+    const hours = date.getHours();
+    newDate.setHours(hours - offset);
+
+    return newDate;
+}
 }
 
 

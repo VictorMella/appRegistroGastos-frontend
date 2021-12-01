@@ -7,6 +7,7 @@ export interface IRegistrosCreados {
   descripcion: string,
   idUsuarioCreacion: number,
   activo: boolean
-  mes?: number
+  mes?: string
   anio?: number
+
 }

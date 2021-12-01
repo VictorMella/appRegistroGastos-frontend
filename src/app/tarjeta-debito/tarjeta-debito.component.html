@@ -1,11 +1,10 @@
 <app-crear-registro [loadingCreandoRegistro]="loadingCreandoRegistro"
-                    [registroSeleccionado]="registroSeleccionado"
                     (handleCrearRegistro)="onHandleCrearRegistro($event)">
 </app-crear-registro>
-<app-visualizar-registro [registrosCreados]="registrosCreadosDebito"
-                        [loading]="loading"
-                        [pagination]="paginationSearch"
-                        (handleChangePagination)="onHandleChangePaginationSearch($event)"
-                        (handleEditarRegistro)="onHandleEditarRegistro($event)"
-                        (handleBorrarRegistro)="onHandleBorrarRegistro($event)">
+<app-visualizar-registro  [registrosCreados]="registrosCreadosDebito"
+                          [loading]="loading"
+                          [pagination]="paginationSearch"
+                          (handleChangePagination)="onHandleChangePaginationSearch($event)"
+                          (handleSeleccionarRegistro)="onHandleSeleccionarRegistro($event)"
+                          (handleBorrarRegistro)="onHandleBorrarRegistro($event)">
 </app-visualizar-registro>

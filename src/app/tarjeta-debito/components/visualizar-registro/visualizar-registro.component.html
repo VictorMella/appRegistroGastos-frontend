@@ -31,6 +31,8 @@
         <th> Descripción</th>
         <th> Tipo de transaccción</th>
         <th> Fecha de la compra</th>
+        <th> Mes</th>
+        <th> Año</th>
         <th> Opciones</th>
       </tr>
     </thead>
@@ -46,7 +48,13 @@
           <p>{{ item.tipo }}</p>
         </td>
         <td class="tddate">
-          <p>{{ item.fechaCompra | date: 'dd-MM-yyyy'}}</p>
+          <p>{{ item.fechaCompra | date: 'dd-MM-yyyy': 'UTC'}}</p>
+        </td>
+        <td class="tdtext">
+          <p>{{ item.nombreMes }}</p>
+        </td>
+        <td class="tdnumber">
+          <p>{{ item.anio }}</p>
         </td>
         <td class="tdbutton ">
           <button class="btn button-success" (click)="onEditarRegistro(item)">Editar registro</button>

@@ -36,8 +36,8 @@
           <i class="icon far fa-calendar"></i>
         </label>
         <div class="input-group">
-          <input type="text" bsDatepicker formControlName="fachaCompra"
-            [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY', showWeekNumbers: false, adaptivePosition: true }"
+          <input type="text" bsDatepicker formControlName="fechaCompra"
+            [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY', showWeekNumbers: false, adaptivePosition: true, useUtc: false }"
             class="form-control" id="datetime">
         </div>
       </div>

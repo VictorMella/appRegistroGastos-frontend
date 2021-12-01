@@ -21,7 +21,7 @@ export class DebitoService {
   getRegistros(pagina: number, registrosPorPagina: number): Observable<any> {
     return this.http.get(`${environment.url}/debito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}`).pipe(
       catchError(this.getError),
-      delay(3000)
+      delay(500)
     )
   }
 

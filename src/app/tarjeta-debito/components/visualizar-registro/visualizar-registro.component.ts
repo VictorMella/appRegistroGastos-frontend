@@ -20,23 +20,18 @@ export class VisualizarRegistroComponent implements OnInit {
   @Input() pagination: IPagination
   @Input() loading: boolean
   @Output() handleChangePagination: EventEmitter<any> = new EventEmitter();
-  @Output() handleEditarRegistro: EventEmitter<any> = new EventEmitter();
+  @Output() handleSeleccionarRegistro: EventEmitter<any> = new EventEmitter();
   @Output() handleBorrarRegistro: EventEmitter<any> = new EventEmitter();
 
   constructor(private utilsService: UtilsService,
-    public mainFactory: MainFactoryService,) {
+    public mainFactory: MainFactoryService) {
     this.meses = utilsService.getLsMeses()
     this.years = utilsService.getLsYears()
     this.selectedYear = utilsService.anioActual
   }
 
   ngOnInit(): void {
-    this.mainFactory.cargarRegistroEdicion$
-    .subscribe((active) => {
-      if (active) {
-       console.log('hola')
-      }
-    })
+
   }
 
   onChangePagination({ page, itemsPerPage }): void {
@@ -44,7 +39,7 @@ export class VisualizarRegistroComponent implements OnInit {
   }
 
   onEditarRegistro(item: IRegistrosCreados): void {
-  this.handleEditarRegistro.emit(item)
+  this.handleSeleccionarRegistro.emit(item)
   }
 
   onBorrarRegistro({ _id }: IRegistrosCreados): void{

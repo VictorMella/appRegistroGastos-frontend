@@ -4,5 +4,5 @@ export interface IDebito {
   monto: number
   descripcion: string
   tipoTransaccion: ITipoTransaccion
-  fachaCompra: string | Date
+  fechaCompra: Date
 }

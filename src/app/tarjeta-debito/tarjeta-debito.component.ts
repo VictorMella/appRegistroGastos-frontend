@@ -25,13 +25,14 @@ export class TarjetaDebitoComponent implements OnInit {
   paginationSearch: IPagination
   loading: boolean
   idRegistroSeleccionado: string
-  registroSeleccionado: IRegistrosCreados = undefined
+  registroSeleccionadoEdicion: IRegistrosCreados
 
   constructor(public datePipe: DatePipe,
-    private alert: AlertService,
-    public utils: UtilsService,
-    public mainFactory: MainFactoryService,
-    private debitoService: DebitoService) {
+              private alert: AlertService,
+              public utils: UtilsService,
+              public mainFactory: MainFactoryService,
+              private debitoService: DebitoService
+  ) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
   }
@@ -52,7 +53,7 @@ export class TarjetaDebitoComponent implements OnInit {
     this.debitoService.getRegistros(pagina, registrosPorPagina)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
-          this.registrosCreadosDebito = resp.data[0].registrosTDebito
+          this.registrosCreadosDebito = this.transformData(resp.data[0].registrosTDebito)
           this.paginationSearch.total = resp.data[0].totalRegistros
         } else {
           this.registrosCreadosDebito = []
@@ -66,39 +67,17 @@ export class TarjetaDebitoComponent implements OnInit {
   }
 
   onHandleCrearRegistro($event): any {
-    this.loadingCreandoRegistro = true
-    const payload: DtoInsertDebito = this.getPayloadInsertDebito($event)
-    this.debitoService.insertDebito(payload)
-      .subscribe((resp: IRespuesta) => {
-        if (resp.ok) {
-          this.alert.success('Registro creado')
-          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
-        } else {
-          this.alert.error(resp.mensaje)
-        }
-        this.loadingCreandoRegistro = false
-      }, error => {
-        console.log(error)
-        this.loadingCreandoRegistro = false
-      })
+    if (this.idRegistroSeleccionado) {
+      this.editarRegistro($event)
+    } else {
+      this.crearRegistro($event)
+    }
   }
 
-  onHandleEditarRegistro($event: IRegistrosCreados): void {
+  onHandleSeleccionarRegistro($event: IRegistrosCreados): any {
     this.idRegistroSeleccionado = $event._id
-    this.registroSeleccionado = $event
+    this.mainFactory.setData('registroSeleccionadoEdicion', $event)
     this.mainFactory.activeCargarRegistroEdicion(true)
-    // const payload: DtoEditDebito = this.getPayloadEditDebito($event)
-    // this.debitoService.editDebito(payload)
-    // .subscribe((resp: IRespuesta) => {
-    //   if (resp.ok) {
-    //     this.alert.success(resp.mensaje)
-    //   } else {
-    //     this.alert.error(resp.mensaje)
-    //   }
-    //   this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
-    // }, error => {
-    //   console.log(error)
-    // })
   }
 
   onHandleBorrarRegistro(id: string): void {
@@ -118,23 +97,65 @@ export class TarjetaDebitoComponent implements OnInit {
       })
   }
 
+  private crearRegistro($event): void {
+    this.loadingCreandoRegistro = true
+    const payload: DtoInsertDebito = this.getPayloadInsertDebito($event)
+    this.debitoService.insertDebito(payload)
+      .subscribe((resp: IRespuesta) => {
+        if (resp.ok) {
+          this.alert.success('Registro creado')
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
+        } else {
+          this.alert.error(resp.mensaje)
+        }
+        this.loadingCreandoRegistro = false
+      }, error => {
+        console.log(error)
+        this.loadingCreandoRegistro = false
+      })
+  }
+
+  private editarRegistro($event): void {
+    const payload: DtoEditDebito = this.getPayloadEditDebito($event)
+    this.debitoService.editDebito(payload)
+    .subscribe((resp: IRespuesta) => {
+      if (resp.ok) {
+        this.alert.success(resp.mensaje)
+        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
+      } else {
+        this.alert.error(resp.mensaje)
+      }
+    }, error => {
+      console.log(error)
+    })
+  }
+
   private getPayloadInsertDebito(formValue: IDebito ): DtoInsertDebito {
     return {
       monto: formValue.monto,
       tipo: formValue.tipoTransaccion?.nombre,
       descripcion: formValue.descripcion,
-      fechaCompra: this.datePipe.transform(formValue.fachaCompra, 'yyyy-MM-dd', 'es')
+      fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es')
     }
   }
 
   private getPayloadEditDebito(formValue: IDebito ): DtoEditDebito {
     return {
-      _id: null,
+      _id: this.idRegistroSeleccionado,
       monto: formValue.monto,
       tipo: formValue.tipoTransaccion?.nombre,
       descripcion: formValue.descripcion,
-      fechaCompra: this.datePipe.transform(formValue.fachaCompra, 'yyyy-MM-dd', 'es')
+      fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es')
     }
+  }
+
+  private transformData(data: any): Array<IRegistrosCreados> {
+    const lsMeses = this.utils.getLsMeses()
+    const lsRegistros = data.map(item => {
+      item.nombreMes = lsMeses.filter(m => m.id === item.mes)[0].nombre
+      return item
+    })
+    return lsRegistros
   }
 
 }
