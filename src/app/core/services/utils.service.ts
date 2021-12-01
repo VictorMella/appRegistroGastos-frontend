@@ -11,6 +11,7 @@ export class UtilsService {
   anios: Array<IAnios> = [];
   anio: any;
   anioActual = new Date().getFullYear()
+  mesActual = new Date().getMonth() + 1
 
   menuItems: IMenuItem[] = [
     {
@@ -29,10 +30,16 @@ export class UtilsService {
 
   tipoTransaccion: ITipoTransaccion[] = [
     {
-      id: 1, nombre: 'Efectivo'
+      id: 1, nombre: 'Compras'
     },
     {
-      id: 2, nombre: 'Transferencia'
+      id: 2, nombre: 'Giros'
+    },
+    {
+      id: 3, nombre: 'Pagos'
+    },
+    {
+      id: 4, nombre: 'Transferencias'
     }
   ];
 

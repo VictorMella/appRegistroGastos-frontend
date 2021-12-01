@@ -19,7 +19,9 @@ export class VisualizarRegistroComponent implements OnInit {
   @Input() registrosCreados: Array<IRegistrosCreados> = []
   @Input() pagination: IPagination
   @Input() loading: boolean
+  @Input() totalGastado: number
   @Output() handleChangePagination: EventEmitter<any> = new EventEmitter();
+  @Output() handleChangeCriterio: EventEmitter<any> = new EventEmitter();
   @Output() handleSeleccionarRegistro: EventEmitter<any> = new EventEmitter();
   @Output() handleBorrarRegistro: EventEmitter<any> = new EventEmitter();
 
@@ -28,6 +30,7 @@ export class VisualizarRegistroComponent implements OnInit {
     this.meses = utilsService.getLsMeses()
     this.years = utilsService.getLsYears()
     this.selectedYear = utilsService.anioActual
+    this.selectedMonth = utilsService.mesActual
   }
 
   ngOnInit(): void {
@@ -35,7 +38,7 @@ export class VisualizarRegistroComponent implements OnInit {
   }
 
   onChangePagination({ page, itemsPerPage }): void {
-    this.handleChangePagination.emit({ page, itemsPerPage })
+    this.handleChangePagination.emit({ page, itemsPerPage, mes: this.selectedMonth, anio: this.selectedYear })
   }
 
   onEditarRegistro(item: IRegistrosCreados): void {
@@ -44,6 +47,10 @@ export class VisualizarRegistroComponent implements OnInit {
 
   onBorrarRegistro({ _id }: IRegistrosCreados): void{
     this.handleBorrarRegistro.emit(_id)
+  }
+
+  onSearchCriterio(): void {
+    this.handleChangeCriterio.emit({ mes: this.selectedMonth, anio: this.selectedYear })
   }
 
 }

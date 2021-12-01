@@ -13,36 +13,37 @@ import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
   providedIn: 'root'
 })
 export class DebitoService {
+  time: number
 
+  constructor(private http: HttpClient) {
+    this.time = 500
+  }
 
-
-  constructor(private http: HttpClient) { }
-
-  getRegistros(pagina: number, registrosPorPagina: number): Observable<any> {
-    return this.http.get(`${environment.url}/debito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}`).pipe(
+  getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number): Observable<any> {
+    return this.http.get(`${environment.url}/debito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}&mes=${mes}&anio=${anio}`).pipe(
       catchError(this.getError),
-      delay(500)
+      delay(this.time)
     )
   }
 
   insertDebito(payload: DtoInsertDebito): Observable<any> {
     return this.http.post(`${environment.url}/debito/crear-registro`, payload).pipe(
       catchError(this.getError),
-      delay(3000)
+      delay(this.time)
     )
   }
 
   deleteDebito(payload: DtoDeleteDebito): Observable<any> {
     return this.http.post(`${environment.url}/debito/delete`, payload).pipe(
       catchError(this.getError),
-      delay(3000)
+      delay(this.time)
     )
   }
 
   editDebito(payload: DtoEditDebito): Observable<any> {
     return this.http.post(`${environment.url}/debito/update`, payload).pipe(
       catchError(this.getError),
-      delay(3000)
+      delay(this.time)
     )
   }
 
@@ -51,7 +52,7 @@ export class DebitoService {
     return of<IRespuesta>({
       ok: false,
       data: [],
-      mensaje: 'Ha ocurrido un problema con l o los registros'
+      mensaje: 'Ha ocurrido un problema, vuelva a intentar mas tarde'
     })
 }
 }

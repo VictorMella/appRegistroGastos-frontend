@@ -26,34 +26,41 @@ export class TarjetaDebitoComponent implements OnInit {
   loading: boolean
   idRegistroSeleccionado: string
   registroSeleccionadoEdicion: IRegistrosCreados
+  totalGastado: number
 
   constructor(public datePipe: DatePipe,
               private alert: AlertService,
               public utils: UtilsService,
               public mainFactory: MainFactoryService,
-              private debitoService: DebitoService
+              private debitoService: DebitoService,
+
   ) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
-    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
+    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual)
   }
 
   ngOnInit(): void {
 
   }
 
-  onHandleChangePaginationSearch({ page, itemsPerPage }): void {
+  onHandleChangePaginationSearch({ page, itemsPerPage, mes, anio }): void {
     this.loading = true
     this.paginationSearch.currentPage = page
     this.paginationSearch.itemsPerPage = itemsPerPage
-    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
+    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, anio)
+  }
+  onHandleChangeCriterio({  mes, anio }): void {
+    this.loading = true
+    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, anio)
   }
 
-  getRegistros(pagina: number, registrosPorPagina: number) {
+  getRegistros(pagina: number, registrosPorPagina: number , mes: number, anio: number) {
     this.loading = true
-    this.debitoService.getRegistros(pagina, registrosPorPagina)
+    this.debitoService.getRegistros(pagina, registrosPorPagina, mes, anio)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.registrosCreadosDebito = this.transformData(resp.data[0].registrosTDebito)
+          this.totalGastado = this.registrosCreadosDebito.reduce((acc, curr) => acc + curr.monto, 0)
           this.paginationSearch.total = resp.data[0].totalRegistros
         } else {
           this.registrosCreadosDebito = []
@@ -74,6 +81,10 @@ export class TarjetaDebitoComponent implements OnInit {
     }
   }
 
+  onHandleLimpiarRegistroSeleccionado(): void {
+    this.idRegistroSeleccionado = null
+  }
+
   onHandleSeleccionarRegistro($event: IRegistrosCreados): any {
     this.idRegistroSeleccionado = $event._id
     this.mainFactory.setData('registroSeleccionadoEdicion', $event)
@@ -91,7 +102,7 @@ export class TarjetaDebitoComponent implements OnInit {
         } else {
           this.alert.error(resp.mensaje)
         }
-        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
+        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, 0, 0)
       }, error => {
         console.log(error)
       })
@@ -104,7 +115,7 @@ export class TarjetaDebitoComponent implements OnInit {
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.alert.success('Registro creado')
-          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, 0, 0)
         } else {
           this.alert.error(resp.mensaje)
         }
@@ -121,7 +132,8 @@ export class TarjetaDebitoComponent implements OnInit {
     .subscribe((resp: IRespuesta) => {
       if (resp.ok) {
         this.alert.success(resp.mensaje)
-        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage)
+        this.idRegistroSeleccionado = null
+        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, 0, 0)
       } else {
         this.alert.error(resp.mensaje)
       }

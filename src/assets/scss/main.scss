@@ -87,6 +87,42 @@ th[sortable-column] {
   }
 }
 
+@media screen and (max-width: 769px){
+  .table{
+    thead{
+      display: none !important;
+    }
+    tbody>tr{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    tbody {
+      tr > td {
+        vertical-align: middle;
+        color: black;
+        border-top: none !important;
+        &.no-padding {
+          padding: 0 !important;
+        }
+        &.tdtext {
+          text-align: center;
+        }
+        &.tdnumber,
+        &.tdmoneda {
+          text-align: center;
+        }
+        &.tddate,
+        &.tdbutton,
+        &.tdicon,
+        &.tdsimbol {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
 input:focus,
 textarea:focus {
   outline: none !important;

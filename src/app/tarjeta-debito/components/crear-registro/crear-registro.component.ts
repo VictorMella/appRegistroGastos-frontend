@@ -19,9 +19,11 @@ export class CrearRegistroComponent implements OnInit {
   validForm: boolean
   listTiposTransacccion: ITipoTransaccion[]
   minDate: Date
+  title: string
 
   @Input() loadingCreandoRegistro: boolean
   @Output() handleCrearRegistro = new EventEmitter()
+  @Output() handleLimpiarRegistroSeleccionado = new EventEmitter()
 
 
   constructor(
@@ -36,6 +38,7 @@ export class CrearRegistroComponent implements OnInit {
     this.localService.use('es') // necesario para idioma de datepiker
     this.minDate = add(new Date(), { days: 0 })
     this.listTiposTransacccion = this.utilsService.getTipoTransaccion()
+    this.title = 'Guardar'
   }
 
   ngOnInit(): void {
@@ -44,6 +47,7 @@ export class CrearRegistroComponent implements OnInit {
       .subscribe((active) => {
         if (active) {
           this.cargarItem()
+          this.title = 'Editar'
         }
       })
   }
@@ -72,13 +76,15 @@ export class CrearRegistroComponent implements OnInit {
     })
   }
 
-  private resetForm() {
+  public resetForm() {
     this.form = this.formBuilder.group({
       monto: ['', Validators.required],
       descripcion: [null, [Validators.maxLength(1500)]],
       tipoTransaccion: [null, Validators.required],
       fechaCompra: [this.minDate, Validators.required],
     })
+    this.title = 'Guardar'
+    this.handleLimpiarRegistroSeleccionado.emit()
   }
 
   private convertUTCDateToLocalDate(date) {
@@ -86,7 +92,6 @@ export class CrearRegistroComponent implements OnInit {
     const offset = date.getTimezoneOffset() / 60;
     const hours = date.getHours();
     newDate.setHours(hours - offset);
-
     return newDate;
 }
 }
