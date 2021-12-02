@@ -1,1 +1,14 @@
-<p>tarjeta-credito-nac works!</p>
+<app-crear-registro [loadingCreandoRegistro]="loadingCreandoRegistro"
+                    (handleLimpiarRegistroSeleccionado)="onHandleLimpiarRegistroSeleccionado()"
+                    (handleCrearRegistro)="onHandleCrearRegistro($event)">
+</app-crear-registro>
+<app-visualizar-registro  [registrosCreados]="registrosCreadosDebito"
+                          [loading]="loading"
+                          [pagination]="paginationSearch"
+                          [totalGastado]="totalGastado"
+                          (handleChangePagination)="onHandleChangePaginationSearch($event)"
+                          (handleChangeCriterio)="onHandleChangeCriterio($event)"
+                          (handleSeleccionarRegistro)="onHandleSeleccionarRegistro($event)"
+                          (handleBorrarRegistro)="onHandleBorrarRegistro($event)">
+</app-visualizar-registro>
+

@@ -1,0 +1,52 @@
+h3, h4 {
+  color: white;
+  text-align: center;
+}
+
+.contans-table{
+  width: 90%;
+  margin: 30px auto !important;
+
+  background-color: #444;
+  // color: white;
+  border-radius: 10px;
+  padding: 20px 20px 60px !important;
+
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    margin-top: 60px;
+  }
+
+}
+
+.header{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+  .legend, .select {
+    width: 50%;
+  }
+  .select{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    .mes, .year{
+      width: 45%;
+    }
+  }
+}
+th, p{
+  color: white;
+  font-size: 14px;
+}
+.btn {
+  margin: 2px
+}
+
+.table thead tr th:nth-child(5){
+  width: 200px
+}
+label{
+  color: white
+}
+

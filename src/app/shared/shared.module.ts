@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -9,27 +9,31 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { LoaderComponent } from './components/loader/loader.component';
 import { PaginadorComponent } from './components/paginador/paginador.component';
+import { CrearRegistroComponent } from './components/crear-registro/crear-registro.component'
 
 
 defineLocale('es', esLocale);
 
 @NgModule({
   declarations: [
-  LoaderComponent,
-  PaginadorComponent],
+    LoaderComponent,
+    CrearRegistroComponent,
+    PaginadorComponent],
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     LoaderComponent,
     NgSelectModule,
     BsDatepickerModule,
     PaginadorComponent,
+    CrearRegistroComponent,
     BsDropdownModule
   ],
   providers: [

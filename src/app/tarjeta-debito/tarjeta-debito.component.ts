@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { DtoInsertDebito } from '../core/interfaces/DtoInsertDebito.interface'
 import { IDebito } from '../core/interfaces/iDebito.interface'
-import { add, format } from 'date-fns'
 import { DatePipe } from '@angular/common'
 import { DebitoService } from '../services/debito.service'
 import { AlertService } from '../core/services/alert.service'
@@ -102,7 +101,9 @@ export class TarjetaDebitoComponent implements OnInit {
         } else {
           this.alert.error(resp.mensaje)
         }
-        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, 0, 0)
+        const year = this.mainFactory.getData('selectedYear')
+        const mes = this.mainFactory.getData('selectedMonth')
+        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
       }, error => {
         console.log(error)
       })
@@ -115,7 +116,9 @@ export class TarjetaDebitoComponent implements OnInit {
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.alert.success('Registro creado')
-          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, 0, 0)
+          const year = this.mainFactory.getData('selectedYear')
+          const mes = this.mainFactory.getData('selectedMonth')
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
         } else {
           this.alert.error(resp.mensaje)
         }
@@ -133,7 +136,9 @@ export class TarjetaDebitoComponent implements OnInit {
       if (resp.ok) {
         this.alert.success(resp.mensaje)
         this.idRegistroSeleccionado = null
-        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, 0, 0)
+        const year = this.mainFactory.getData('selectedYear')
+        const mes = this.mainFactory.getData('selectedMonth')
+        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
       } else {
         this.alert.error(resp.mensaje)
       }

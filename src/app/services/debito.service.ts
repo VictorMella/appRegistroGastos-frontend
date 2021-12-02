@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { ajax, AjaxError } from 'rxjs/ajax'
 import { Observable, of } from 'rxjs'
@@ -47,12 +47,12 @@ export class DebitoService {
     )
   }
 
-  private getError (err: AjaxError) {
+  private getError(err: AjaxError) {
     console.warn('error en:', err.message)
     return of<IRespuesta>({
       ok: false,
       data: [],
       mensaje: 'Ha ocurrido un problema, vuelva a intentar mas tarde'
     })
-}
+  }
 }
