@@ -18,13 +18,30 @@
           * mensaje validación
         </span>
       </div>
+      <!-- CREDITO -->
+      <div class="item switchCuotas" *ngIf="contexto !== 'debito'">
+        <div class="switch">
+          <label for="descripcion" class="form-label"><strong>Facturación inmediata
+            <i class="fab fa-cc-visa"></i>
+          </strong></label>
+          <app-switch active="facturacionInmediata" ></app-switch>
+        </div>
+        <div class="cuotas">
+          <label for="descripcion" class="form-label"><strong>Cuotas
+            <i class="far fa-comment-dollar"></i>
+          </strong></label>
+          <input currency auto-focus [class.msgErrorFields]="onValidateErrorFields('cuotas')" type="number"
+          formControlName="cuotas" class="form-control" prevent-key-number>
+        <span class="validation-message" *ngIf="onValidateErrorFields('cuotas')"> * mensaje validación </span>
+        </div>
+      </div>
       <div class="item">
         <label for="tipoTransaccion" class="form-label"><strong>Tipo de transacción<span
               class="color-red"><strong>*</strong></span>
             <i class="icon far fa-comments-alt-dollar"></i>
           </strong></label>
         <ng-select *ngIf="!false" [clearable]="false" formControlName="tipoTransaccion"
-          [class.msgErrorFields]="onValidateErrorFields('tipoTransaccion')" [placeholder]="'seleccione...'">
+          [class.msgErrorFields]="onValidateErrorFields('tipoTransaccion')" [placeholder]="'Seleccione...'">
           <ng-option *ngFor="let item of listTiposTransacccion" [value]="item">{{item.nombre}}</ng-option>
         </ng-select>
         <span *ngIf="onValidateErrorFields('tipoTransaccion')" class="validation-message"> * mensaje validación </span>

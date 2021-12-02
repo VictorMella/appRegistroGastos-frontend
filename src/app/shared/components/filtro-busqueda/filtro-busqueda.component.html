@@ -1,0 +1,20 @@
+<div class="select">
+  <div class="mes">
+    <label><strong>Mes
+        <i class="icon far fa-calendar-alt"></i>
+      </strong></label>
+    <ng-select [clearable]="false" [placeholder]="'seleccione...'" [(ngModel)]="selectedMonth" (change)="onSearchCriterio()"
+      [ngModelOptions]="{standalone: true}" [disabled]="loading">
+      <ng-option *ngFor="let item of meses" [value]="item.id">{{item.nombre}}</ng-option>
+    </ng-select>
+  </div>
+  <div class="year">
+    <label><strong>Año
+      <i class="icon far fa-calendar-alt"></i>
+      </strong></label>
+    <ng-select [clearable]="false" [placeholder]="'seleccione...'" [(ngModel)]="selectedYear"  (change)="onSearchCriterio()"
+      [ngModelOptions]="{standalone: true}" [disabled]="loading">
+      <ng-option *ngFor="let item of years" [value]="item">{{item}}</ng-option>
+    </ng-select>
+  </div>
+</div>

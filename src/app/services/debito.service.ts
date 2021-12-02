@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment'
 import { catchError, delay } from 'rxjs/operators'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
 import { DtoInsertDebito } from '../core/interfaces/DtoInsertDebito.interface'
-import { DtoDeleteDebito } from '../core/interfaces/DtoDeleteDebito.interface'
+import { DtoDelete } from '../core/interfaces/DtoDelete.interface'
 import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
 
 @Injectable({
@@ -33,7 +33,7 @@ export class DebitoService {
     )
   }
 
-  deleteDebito(payload: DtoDeleteDebito): Observable<any> {
+  deleteDebito(payload: DtoDelete): Observable<any> {
     return this.http.post(`${environment.url}/debito/delete`, payload).pipe(
       catchError(this.getError),
       delay(this.time)

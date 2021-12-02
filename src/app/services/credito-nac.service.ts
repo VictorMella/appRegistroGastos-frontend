@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment'
 import { catchError, delay } from 'rxjs/operators'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
 import { DtoInsertDebito } from '../core/interfaces/DtoInsertDebito.interface'
-import { DtoDeleteDebito } from '../core/interfaces/DtoDeleteDebito.interface'
+import { DtoDelete } from '../core/interfaces/DtoDelete.interface'
 import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
 
 @Injectable({
@@ -21,28 +21,28 @@ export class CreditoNacService {
   }
 
   getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number): Observable<any> {
-    return this.http.get(`${environment.url}/debito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}&mes=${mes}&anio=${anio}`).pipe(
+    return this.http.get(`${environment.url}/credito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}&mes=${mes}&anio=${anio}`).pipe(
       catchError(this.getError),
       delay(this.time)
     )
   }
 
   insertDebito(payload: DtoInsertDebito): Observable<any> {
-    return this.http.post(`${environment.url}/debito/crear-registro`, payload).pipe(
+    return this.http.post(`${environment.url}/credito/crear-registro`, payload).pipe(
       catchError(this.getError),
       delay(this.time)
     )
   }
 
-  deleteDebito(payload: DtoDeleteDebito): Observable<any> {
-    return this.http.post(`${environment.url}/debito/delete`, payload).pipe(
+  deleteDebito(payload: DtoDelete): Observable<any> {
+    return this.http.post(`${environment.url}/credito/delete`, payload).pipe(
       catchError(this.getError),
       delay(this.time)
     )
   }
 
   editDebito(payload: DtoEditDebito): Observable<any> {
-    return this.http.post(`${environment.url}/debito/update`, payload).pipe(
+    return this.http.post(`${environment.url}/credito/update`, payload).pipe(
       catchError(this.getError),
       delay(this.time)
     )

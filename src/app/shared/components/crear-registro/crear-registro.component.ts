@@ -5,9 +5,7 @@ import { add } from 'date-fns'
 import { ITipoTransaccion } from 'src/app/core/interfaces/tipoTransaccion.interface'
 import { UtilsService } from 'src/app/core/services/utils.service'
 import { AlertService } from 'src/app/core/services/alert.service'
-import { IRegistrosCreados } from 'src/app/core/interfaces/IRegistrosCreados.interface'
 import { MainFactoryService } from 'src/app/core/services/main-factory.service'
-import { IDebito } from 'src/app/core/interfaces/iDebito.interface'
 import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-crear-registro',
@@ -20,8 +18,8 @@ export class CrearRegistroComponent implements OnInit {
   listTiposTransacccion: ITipoTransaccion[]
   minDate: Date
   title: string
-
   @Input() loadingCreandoRegistro: boolean
+  @Input() contexto: string
   @Output() handleCrearRegistro = new EventEmitter()
   @Output() handleLimpiarRegistroSeleccionado = new EventEmitter()
 
@@ -42,6 +40,7 @@ export class CrearRegistroComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.resetForm()
     this.mainFactory.cargarRegistroEdicion$
       .subscribe((active) => {
@@ -50,11 +49,13 @@ export class CrearRegistroComponent implements OnInit {
           this.title = 'Editar'
         }
       })
+    console.log(this.contexto)
   }
 
   onSubmitForm(): void {
     if (this.form.valid) {
-      this.handleCrearRegistro.emit(this.form.value)
+      console.log(this.form.value)
+      // this.handleCrearRegistro.emit(this.form.value)
       this.resetForm()
     } else {
       this.validForm = false
@@ -68,32 +69,52 @@ export class CrearRegistroComponent implements OnInit {
 
   private cargarItem(): void {
     const registroSeleccionado = this.mainFactory.getData('registroSeleccionadoEdicion')
-    this.form.patchValue({
-      monto: registroSeleccionado?.monto,
-      descripcion: registroSeleccionado?.descripcion,
-      tipoTransaccion: this.listTiposTransacccion.filter(val => val.nombre === registroSeleccionado?.tipo )[0],
-      fechaCompra: this.convertUTCDateToLocalDate(new Date(registroSeleccionado?.fechaCompra))
-    })
-  }
-
-  public resetForm() {
-    this.form = this.formBuilder.group({
-      monto: ['', Validators.required],
-      descripcion: [null, [Validators.maxLength(1500)]],
-      tipoTransaccion: [null, Validators.required],
-      fechaCompra: [this.minDate, Validators.required],
-    })
-    this.title = 'Guardar'
-    this.handleLimpiarRegistroSeleccionado.emit()
+    if (this.contexto === 'debito') {
+      this.form.patchValue({
+        monto: registroSeleccionado?.monto,
+        descripcion: registroSeleccionado?.descripcion,
+        tipoTransaccion: this.listTiposTransacccion.filter(val => val.nombre === registroSeleccionado?.tipo)[0],
+        fechaCompra: this.convertUTCDateToLocalDate(new Date(registroSeleccionado?.fechaCompra))
+      })
+    } else {
+      this.form.patchValue({
+        monto: registroSeleccionado?.monto,
+        descripcion: registroSeleccionado?.descripcion,
+        tipoTransaccion: this.listTiposTransacccion.filter(val => val.nombre === registroSeleccionado?.tipo)[0],
+        fechaCompra: this.convertUTCDateToLocalDate(new Date(registroSeleccionado?.fechaCompra))
+      })
+    }
   }
 
   private convertUTCDateToLocalDate(date) {
-    const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
-    const offset = date.getTimezoneOffset() / 60;
-    const hours = date.getHours();
-    newDate.setHours(hours - offset);
-    return newDate;
-}
+    const newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000)
+    const offset = date.getTimezoneOffset() / 60
+    const hours = date.getHours()
+    newDate.setHours(hours - offset)
+    return newDate
+  }
+
+  public resetForm() {
+    if (this.contexto === 'debito') {
+      this.form = this.formBuilder.group({
+        monto: ['', Validators.required],
+        descripcion: [null, [Validators.maxLength(1500)]],
+        tipoTransaccion: [null, Validators.required],
+        fechaCompra: [this.minDate, Validators.required],
+      })
+    } else {
+      this.form = this.formBuilder.group({
+        monto: ['', Validators.required],
+        descripcion: [null, [Validators.maxLength(1500)]],
+        tipoTransaccion: [null, Validators.required],
+        fechaCompra: [this.minDate, Validators.required],
+        facturacionInmediata: [false, []],
+        cuotas: [1, [Validators.min(1), Validators.required] ],
+      })
+    }
+    this.title = 'Guardar'
+    this.handleLimpiarRegistroSeleccionado.emit()
+  }
 }
 
 

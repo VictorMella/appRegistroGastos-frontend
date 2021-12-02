@@ -10,8 +10,6 @@ import { MainFactoryService } from 'src/app/core/services/main-factory.service'
   styleUrls: ['./visualizar-registro.component.scss']
 })
 export class VisualizarRegistroComponent implements OnInit {
-
-
   @Input() registrosCreados: Array<IRegistrosCreados> = []
   @Input() pagination: IPagination
   @Input() loading: boolean
@@ -44,7 +42,5 @@ export class VisualizarRegistroComponent implements OnInit {
   onSearchCriterio({mes , anio}): void {
     this.handleChangeCriterio.emit({ mes, anio })
   }
-
-
 
 }

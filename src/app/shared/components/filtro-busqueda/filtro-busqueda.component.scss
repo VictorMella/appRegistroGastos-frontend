@@ -1,0 +1,12 @@
+.select{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  .mes, .year{
+    width: 45%;
+  }
+}
+
+label{
+  color: white
+}
