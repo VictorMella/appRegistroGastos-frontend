@@ -1,8 +1,14 @@
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { Observable, of } from 'rxjs'
+import { AjaxError } from 'rxjs/ajax'
+import { catchError} from 'rxjs/operators'
+import { environment } from 'src/environments/environment'
 import { IMenuItem } from '../interfaces/iMenuItem.interface'
 import { IAnios, IMeses } from '../interfaces/iMesesAnios.interface'
 import { IPagination } from '../interfaces/iPagination.interface'
 import { ITipoTransaccion } from '../interfaces/tipoTransaccion.interface'
+import { IRespuesta } from '../interfaces/iRespuesta.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -82,8 +88,9 @@ export class UtilsService {
     },
   ];
 
-  constructor() {
-    this.getYears()
+
+  constructor(private http: HttpClient) {
+    // this.getYears()
   }
 
   getMenu(): IMenuItem[] {
@@ -92,6 +99,19 @@ export class UtilsService {
 
   getTipoTransaccion(): ITipoTransaccion[] {
     return this.tipoTransaccion
+  }
+
+  getYears(): Observable<any> {
+    return this.http.get(`${environment.url}/debito/anio`)
+  }
+
+  private getError(err: AjaxError) {
+    console.warn('error en:', err.message)
+    return of<IRespuesta>({
+      ok: false,
+      data: [this.anioActual],
+      mensaje: 'Ha ocurrido un problema, vuelva a intentar mas tarde'
+    })
   }
 
   public setPagitation(currentPage: number, itemsPerPage: number, total: number): IPagination {
@@ -103,15 +123,15 @@ export class UtilsService {
     };
   }
 
-  private getYears(): void {
-    const limiteAnios = 5
-    let inicio = 0
-    while (inicio <= limiteAnios) {
-      this.anio = this.anioActual - inicio
-      inicio += 1
-      this.anios.push(this.anio)
-    }
-  }
+  // private getYears(): void {
+  //   const limiteAnios = 5
+  //   let inicio = 0
+  //   while (inicio <= limiteAnios) {
+  //     this.anio = this.anioActual - inicio
+  //     inicio += 1
+  //     this.anios.push(this.anio)
+  //   }
+  // }
 
   getLsYears(): Array<IAnios> {
     return this.anios
@@ -120,4 +140,6 @@ export class UtilsService {
   getLsMeses(): Array<IMeses> {
     return this.meses
   }
+
+
 }

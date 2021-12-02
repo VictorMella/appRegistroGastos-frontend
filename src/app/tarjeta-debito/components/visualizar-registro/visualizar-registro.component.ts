@@ -10,10 +10,7 @@ import { MainFactoryService } from 'src/app/core/services/main-factory.service'
   styleUrls: ['./visualizar-registro.component.scss']
 })
 export class VisualizarRegistroComponent implements OnInit {
-  meses: Array<IMeses> = []
-  years: Array<IAnios> = []
-  selectedMonth: number
-  selectedYear: number
+
 
   @Input() registrosCreados: Array<IRegistrosCreados> = []
   @Input() pagination: IPagination
@@ -25,12 +22,7 @@ export class VisualizarRegistroComponent implements OnInit {
   @Output() handleBorrarRegistro: EventEmitter<any> = new EventEmitter();
 
   constructor(private utilsService: UtilsService, private mainFactory: MainFactoryService) {
-    this.meses = utilsService.getLsMeses()
-    this.years = utilsService.getLsYears()
-    this.selectedYear = utilsService.anioActual
-    this.selectedMonth = utilsService.mesActual
-    this.mainFactory.setData('selectedMonth', this.selectedMonth)
-    this.mainFactory.setData('selectedYear', this.selectedYear)
+
   }
 
   ngOnInit(): void {
@@ -38,7 +30,7 @@ export class VisualizarRegistroComponent implements OnInit {
   }
 
   onChangePagination({ page, itemsPerPage }): void {
-    this.handleChangePagination.emit({ page, itemsPerPage, mes: this.selectedMonth, anio: this.selectedYear })
+    this.handleChangePagination.emit({ page, itemsPerPage})
   }
 
   onEditarRegistro(item: IRegistrosCreados): void {
@@ -49,10 +41,10 @@ export class VisualizarRegistroComponent implements OnInit {
     this.handleBorrarRegistro.emit(_id)
   }
 
-  onSearchCriterio(): void {
-    this.mainFactory.setData('selectedMonth', this.selectedMonth)
-    this.mainFactory.setData('selectedYear', this.selectedYear)
-    this.handleChangeCriterio.emit({ mes: this.selectedMonth, anio: this.selectedYear })
+  onSearchCriterio({mes , anio}): void {
+    this.handleChangeCriterio.emit({ mes, anio })
   }
+
+
 
 }

@@ -9,7 +9,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { LoaderComponent } from './components/loader/loader.component';
 import { PaginadorComponent } from './components/paginador/paginador.component';
-import { CrearRegistroComponent } from './components/crear-registro/crear-registro.component'
+import { CrearRegistroComponent } from './components/crear-registro/crear-registro.component';
+import { FiltroBusquedaComponent } from './components/filtro-busqueda/filtro-busqueda.component'
 
 
 defineLocale('es', esLocale);
@@ -18,7 +19,8 @@ defineLocale('es', esLocale);
   declarations: [
     LoaderComponent,
     CrearRegistroComponent,
-    PaginadorComponent],
+    PaginadorComponent,
+    FiltroBusquedaComponent],
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
@@ -34,6 +36,7 @@ defineLocale('es', esLocale);
     BsDatepickerModule,
     PaginadorComponent,
     CrearRegistroComponent,
+    FiltroBusquedaComponent,
     BsDropdownModule
   ],
   providers: [

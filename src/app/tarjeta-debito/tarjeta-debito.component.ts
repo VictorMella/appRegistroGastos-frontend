@@ -42,13 +42,16 @@ export class TarjetaDebitoComponent implements OnInit {
 
   }
 
-  onHandleChangePaginationSearch({ page, itemsPerPage, mes, anio }): void {
+  onHandleChangePaginationSearch({ page, itemsPerPage }): void {
     this.loading = true
     this.paginationSearch.currentPage = page
     this.paginationSearch.itemsPerPage = itemsPerPage
-    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, anio)
+    const year = this.mainFactory.getData('selectedYear')
+    const mes = this.mainFactory.getData('selectedMonth')
+    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
   }
-  onHandleChangeCriterio({  mes, anio }): void {
+
+  onHandleChangeCriterio({ mes, anio }): void {
     this.loading = true
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, anio)
   }
@@ -98,12 +101,13 @@ export class TarjetaDebitoComponent implements OnInit {
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.alert.success(resp.mensaje)
+          this.mainFactory.activeAñosRegistros(true)
+          const year = this.mainFactory.getData('selectedYear')
+          const mes = this.mainFactory.getData('selectedMonth')
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
         } else {
           this.alert.error(resp.mensaje)
         }
-        const year = this.mainFactory.getData('selectedYear')
-        const mes = this.mainFactory.getData('selectedMonth')
-        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
       }, error => {
         console.log(error)
       })
@@ -116,6 +120,7 @@ export class TarjetaDebitoComponent implements OnInit {
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.alert.success('Registro creado')
+          this.mainFactory.activeAñosRegistros(true)
           const year = this.mainFactory.getData('selectedYear')
           const mes = this.mainFactory.getData('selectedMonth')
           this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
@@ -136,6 +141,7 @@ export class TarjetaDebitoComponent implements OnInit {
       if (resp.ok) {
         this.alert.success(resp.mensaje)
         this.idRegistroSeleccionado = null
+        this.mainFactory.activeAñosRegistros(true)
         const year = this.mainFactory.getData('selectedYear')
         const mes = this.mainFactory.getData('selectedMonth')
         this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
