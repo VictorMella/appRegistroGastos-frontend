@@ -4,6 +4,7 @@
                     (handleCrearRegistro)="onHandleCrearRegistro($event)">
 </app-crear-registro>
 <app-visualizar-registro  [registrosCreados]="registrosCreadosDebito"
+                          contexto="debito"
                           [loading]="loading"
                           [pagination]="paginationSearch"
                           [totalGastado]="totalGastado"

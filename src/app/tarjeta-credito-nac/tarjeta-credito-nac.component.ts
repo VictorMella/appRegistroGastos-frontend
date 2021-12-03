@@ -1,7 +1,9 @@
 import { DatePipe } from '@angular/common'
 import { Component, OnInit } from '@angular/core';
+import { DtoEditCredito } from '../core/interfaces/DtoEditCredito.interface'
 import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
-import { DtoInsertDebito } from '../core/interfaces/DtoInsertDebito.interface'
+import { DtoInsertCredito } from '../core/interfaces/DtoInsertCredito.interface'
+import { ICredito } from '../core/interfaces/iCredito.interface'
 import { IDebito } from '../core/interfaces/iDebito.interface'
 import { IPagination } from '../core/interfaces/iPagination.interface'
 import { IRegistrosCreados } from '../core/interfaces/IRegistrosCreados.interface'
@@ -19,7 +21,7 @@ import { CreditoNacService } from '../services/credito-nac.service'
 })
 export class TarjetaCreditoNacComponent implements OnInit {
   loadingCreandoRegistro: boolean
-  registrosCreadosDebito: Array<IRegistrosCreados> = []
+  registrosCreadosCredito: Array<IRegistrosCreados> = []
   paginationSearch: IPagination
   loading: boolean
   idRegistroSeleccionado: string
@@ -58,11 +60,11 @@ export class TarjetaCreditoNacComponent implements OnInit {
     this.creditNacService.getRegistros(pagina, registrosPorPagina, mes, anio)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
-          this.registrosCreadosDebito = this.transformData(resp.data[0].registrosTDebito)
-          this.totalGastado = this.registrosCreadosDebito.reduce((acc, curr) => acc + curr.monto, 0)
+          this.registrosCreadosCredito = this.transformData(resp.data[0].registrosTCredito)
+          this.totalGastado = this.registrosCreadosCredito.reduce((acc, curr) => acc + curr.monto, 0)
           this.paginationSearch.total = resp.data[0].totalRegistros
         } else {
-          this.registrosCreadosDebito = []
+          this.registrosCreadosCredito = []
           this.alert.error(resp.mensaje)
         }
         this.loading = false
@@ -109,7 +111,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
 
   private crearRegistro($event): void {
     this.loadingCreandoRegistro = true
-    const payload: DtoInsertDebito = this.getPayloadInsertDebito($event)
+    const payload: DtoInsertCredito = this.getPayloadInsertCredito($event)
     this.creditNacService.insertDebito(payload)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
@@ -126,7 +128,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
   }
 
   private editarRegistro($event): void {
-    const payload: DtoEditDebito = this.getPayloadEditDebito($event)
+    const payload: DtoEditCredito = this.getPayloadEditDebito($event)
     this.creditNacService.editDebito(payload)
     .subscribe((resp: IRespuesta) => {
       if (resp.ok) {
@@ -141,22 +143,26 @@ export class TarjetaCreditoNacComponent implements OnInit {
     })
   }
 
-  private getPayloadInsertDebito(formValue: IDebito ): DtoInsertDebito {
+  private getPayloadInsertCredito(formValue: ICredito ): DtoInsertCredito {
     return {
       monto: formValue.monto,
-      tipo: formValue.tipoTransaccion?.nombre,
+      tipo: 'Compras',
       descripcion: formValue.descripcion,
-      fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es')
+      fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es'),
+      facturacionInmediata: formValue.facturacionInmediata,
+      cuotas: formValue.cuotas
     }
   }
 
-  private getPayloadEditDebito(formValue: IDebito ): DtoEditDebito {
+  private getPayloadEditDebito(formValue: ICredito ): DtoEditCredito {
     return {
       _id: this.idRegistroSeleccionado,
       monto: formValue.monto,
-      tipo: formValue.tipoTransaccion?.nombre,
+      tipo: 'Compras',
       descripcion: formValue.descripcion,
-      fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es')
+      fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es'),
+      facturacionInmediata: null,
+      cuotas: 1
     }
   }
 

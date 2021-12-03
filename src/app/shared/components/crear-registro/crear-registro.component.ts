@@ -67,6 +67,12 @@ export class CrearRegistroComponent implements OnInit {
     return !this.validForm && this.form.get(field).invalid
   }
 
+  onHandleToggleSwitch({ active }) {
+    this.form.patchValue({
+      facturacionInmediata: active
+    })
+  }
+
   private cargarItem(): void {
     const registroSeleccionado = this.mainFactory.getData('registroSeleccionadoEdicion')
     if (this.contexto === 'debito') {
@@ -106,9 +112,8 @@ export class CrearRegistroComponent implements OnInit {
       this.form = this.formBuilder.group({
         monto: ['', Validators.required],
         descripcion: [null, [Validators.maxLength(1500)]],
-        tipoTransaccion: [null, Validators.required],
         fechaCompra: [this.minDate, Validators.required],
-        facturacionInmediata: [false, []],
+        facturacionInmediata: [false],
         cuotas: [1, [Validators.min(1), Validators.required] ],
       })
     }

@@ -5,9 +5,9 @@ import { Observable, of } from 'rxjs'
 import { environment } from 'src/environments/environment'
 import { catchError, delay } from 'rxjs/operators'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
-import { DtoInsertDebito } from '../core/interfaces/DtoInsertDebito.interface'
 import { DtoDelete } from '../core/interfaces/DtoDelete.interface'
-import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
+import { DtoInsertCredito } from '../core/interfaces/DtoInsertCredito.interface'
+import { DtoEditCredito } from '../core/interfaces/DtoEditCredito.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class CreditoNacService {
     )
   }
 
-  insertDebito(payload: DtoInsertDebito): Observable<any> {
+  insertDebito(payload: DtoInsertCredito): Observable<any> {
     return this.http.post(`${environment.url}/credito/crear-registro`, payload).pipe(
       catchError(this.getError),
       delay(this.time)
@@ -41,7 +41,7 @@ export class CreditoNacService {
     )
   }
 
-  editDebito(payload: DtoEditDebito): Observable<any> {
+  editDebito(payload: DtoEditCredito): Observable<any> {
     return this.http.post(`${environment.url}/credito/update`, payload).pipe(
       catchError(this.getError),
       delay(this.time)

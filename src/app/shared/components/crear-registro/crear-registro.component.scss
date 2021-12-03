@@ -42,8 +42,9 @@
       .switchCuotas {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         .switch, .cuotas{
-          width: 50%;
+          width: 49%;
         }
       }
       .btn{

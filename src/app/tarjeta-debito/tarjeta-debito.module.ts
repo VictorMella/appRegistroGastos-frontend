@@ -4,14 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { TarjetaDebitoRoutingModule } from './tarjeta-debito-routing.module'
 
 import { TarjetaDebitoComponent } from './tarjeta-debito.component'
-import { VisualizarRegistroComponent } from './components/visualizar-registro/visualizar-registro.component'
 import { SharedModule } from '../shared/shared.module'
 import { CoreModule } from '../core/core.module'
 
 
 
 @NgModule({
-  declarations: [TarjetaDebitoComponent, VisualizarRegistroComponent],
+  declarations: [TarjetaDebitoComponent],
   imports: [
     CommonModule,
     TarjetaDebitoRoutingModule,

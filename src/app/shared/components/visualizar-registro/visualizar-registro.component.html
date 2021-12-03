@@ -12,6 +12,8 @@
       <tr>
         <th> Monto</th>
         <th> Descripción</th>
+        <th *ngIf="contexto !== 'debito'"> Cuotas</th>
+        <th *ngIf="contexto !== 'debito'"> Facturación inmediata</th>
         <th> Tipo de transaccción</th>
         <th> Fecha de la compra</th>
         <th> Mes</th>
@@ -27,6 +29,13 @@
         <td class="tdtext">
           <p>{{ item.descripcion }}</p>
         </td>
+        <td class="tdnumber" *ngIf="contexto !== 'debito'">
+          <p>{{ item.cuotas }}</p>
+        </td>
+        <td class="tdbutton" *ngIf="contexto !== 'debito'">
+          <p>hola</p>
+        </td>
+
         <td class="tdtext">
           <p>{{ item.tipo }}</p>
         </td>

@@ -12,6 +12,8 @@ import { PaginadorComponent } from './components/paginador/paginador.component';
 import { CrearRegistroComponent } from './components/crear-registro/crear-registro.component';
 import { FiltroBusquedaComponent } from './components/filtro-busqueda/filtro-busqueda.component';
 import { SwitchComponent } from './components/switch/switch.component'
+import { VisualizarRegistroComponent } from './components/visualizar-registro/visualizar-registro.component'
+import { CoreModule } from '../core/core.module'
 
 
 defineLocale('es', esLocale);
@@ -22,6 +24,7 @@ defineLocale('es', esLocale);
     CrearRegistroComponent,
     PaginadorComponent,
     FiltroBusquedaComponent,
+    VisualizarRegistroComponent,
     SwitchComponent],
   imports: [
     CommonModule,
@@ -31,6 +34,7 @@ defineLocale('es', esLocale);
     BsDropdownModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+    CoreModule
   ],
   exports: [
     LoaderComponent,
@@ -40,7 +44,8 @@ defineLocale('es', esLocale);
     CrearRegistroComponent,
     FiltroBusquedaComponent,
     SwitchComponent,
-    BsDropdownModule
+    VisualizarRegistroComponent,
+    BsDropdownModule,
   ],
   providers: [
     DatePipe,

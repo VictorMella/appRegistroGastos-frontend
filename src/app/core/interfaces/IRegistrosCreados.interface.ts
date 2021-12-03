@@ -9,5 +9,7 @@ export interface IRegistrosCreados {
   activo: boolean
   mes?: string
   anio?: number
+  facturacionInmediata?: boolean
+  cuotas?: number
 
 }

@@ -3,8 +3,9 @@
                     (handleLimpiarRegistroSeleccionado)="onHandleLimpiarRegistroSeleccionado()"
                     (handleCrearRegistro)="onHandleCrearRegistro($event)">
 </app-crear-registro>
-<app-visualizar-registro  [registrosCreados]="registrosCreadosDebito"
+<app-visualizar-registro  [registrosCreados]="registrosCreadosCredito"
                           [loading]="loading"
+                          contexto="nacional"
                           [pagination]="paginationSearch"
                           [totalGastado]="totalGastado"
                           (handleChangePagination)="onHandleChangePaginationSearch($event)"
