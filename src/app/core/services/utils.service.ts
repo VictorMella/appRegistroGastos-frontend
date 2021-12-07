@@ -101,8 +101,12 @@ export class UtilsService {
     return this.tipoTransaccion
   }
 
-  getYears(): Observable<any> {
+  getYearsDebito(): Observable<any> {
     return this.http.get(`${environment.url}/debito/anio`)
+  }
+
+  getYearsCredito(): Observable<any> {
+    return this.http.get(`${environment.url}/credito/anio`)
   }
 
   private getError(err: AjaxError) {

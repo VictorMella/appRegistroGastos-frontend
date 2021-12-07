@@ -20,19 +20,19 @@
       </div>
       <!-- CREDITO -->
       <div class="item switchCuotas" *ngIf="contexto !== 'debito'">
-        <div class="cuotas">
+        <div class="cuotas" *ngIf="contexto !== 'debito'">
           <label for="descripcion" class="form-label"><strong>Cuotas
               <i class="far fa-comment-dollar"></i>
             </strong></label>
-          <input currency auto-focus [class.msgErrorFields]="onValidateErrorFields('cuotas')" type="number"
+          <input [class.msgErrorFields]="onValidateErrorFields('cuotas')" type="number"
             formControlName="cuotas" class="form-control" prevent-key-number>
           <span class="validation-message" *ngIf="onValidateErrorFields('cuotas')"> * mensaje validación </span>
         </div>
-        <div class="switch">
+        <div class="switch" *ngIf="contexto !== 'debito'">
           <label for="descripcion" class="form-label"><strong>Facturación inmediata
               <i class="fab fa-cc-visa"></i>
             </strong></label>
-          <app-switch (handleToggleSwitch)="onHandleToggleSwitch($event)" ></app-switch>
+          <app-switch  (handleToggleSwitch)="onHandleToggleSwitch($event)" ></app-switch>
         </div>
       </div>
       <div class="item" *ngIf="contexto === 'debito'">

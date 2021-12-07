@@ -18,6 +18,7 @@ export class CrearRegistroComponent implements OnInit {
   listTiposTransacccion: ITipoTransaccion[]
   minDate: Date
   title: string
+  active: boolean
   @Input() loadingCreandoRegistro: boolean
   @Input() contexto: string
   @Output() handleCrearRegistro = new EventEmitter()
@@ -37,15 +38,17 @@ export class CrearRegistroComponent implements OnInit {
     this.minDate = add(new Date(), { days: 0 })
     this.listTiposTransacccion = this.utilsService.getTipoTransaccion()
     this.title = 'Guardar'
+
   }
 
   ngOnInit(): void {
-
+    this.active = true
     this.resetForm()
     this.mainFactory.cargarRegistroEdicion$
       .subscribe((active) => {
         if (active) {
           this.cargarItem()
+          this.active = false
           this.title = 'Editar'
         }
       })
@@ -55,7 +58,7 @@ export class CrearRegistroComponent implements OnInit {
   onSubmitForm(): void {
     if (this.form.valid) {
       console.log(this.form.value)
-      // this.handleCrearRegistro.emit(this.form.value)
+      this.handleCrearRegistro.emit(this.form.value)
       this.resetForm()
     } else {
       this.validForm = false

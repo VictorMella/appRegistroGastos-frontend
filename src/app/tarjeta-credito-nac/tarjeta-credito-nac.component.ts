@@ -43,11 +43,13 @@ export class TarjetaCreditoNacComponent implements OnInit {
 
   }
 
-  onHandleChangePaginationSearch({ page, itemsPerPage, mes, anio }): void {
+  onHandleChangePaginationSearch({ page, itemsPerPage }): void {
     this.loading = true
     this.paginationSearch.currentPage = page
     this.paginationSearch.itemsPerPage = itemsPerPage
-    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, anio)
+    const year = this.mainFactory.getData('selectedYear')
+    const mes = this.mainFactory.getData('selectedMonth')
+    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
   }
 
   onHandleChangeCriterio({ mes, anio }): void {
@@ -100,10 +102,12 @@ export class TarjetaCreditoNacComponent implements OnInit {
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.alert.success(resp.mensaje)
+          const year = this.mainFactory.getData('selectedYear')
+          const mes = this.mainFactory.getData('selectedMonth')
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
         } else {
           this.alert.error(resp.mensaje)
         }
-        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, 0, 0)
       }, error => {
         console.log(error)
       })
@@ -116,7 +120,10 @@ export class TarjetaCreditoNacComponent implements OnInit {
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.alert.success('Registro creado')
-          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, 0, 0)
+          this.mainFactory.activeAñosRegistros(true)
+          const year = this.mainFactory.getData('selectedYear')
+          const mes = this.mainFactory.getData('selectedMonth')
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
         } else {
           this.alert.error(resp.mensaje)
         }
@@ -134,7 +141,9 @@ export class TarjetaCreditoNacComponent implements OnInit {
       if (resp.ok) {
         this.alert.success(resp.mensaje)
         this.idRegistroSeleccionado = null
-        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, 0, 0)
+        const year = this.mainFactory.getData('selectedYear')
+        const mes = this.mainFactory.getData('selectedMonth')
+        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
       } else {
         this.alert.error(resp.mensaje)
       }
