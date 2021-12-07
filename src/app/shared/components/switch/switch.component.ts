@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MainFactoryService } from 'src/app/core/services/main-factory.service'
 
 @Component({
   selector: 'app-switch',
@@ -11,10 +12,18 @@ export class SwitchComponent implements OnInit {
   @Input() disable: boolean;
   @Input() activeLoading: boolean;
   @Output() handleToggleSwitch: EventEmitter<object> = new EventEmitter();
-  constructor() {
+  constructor(public mainFactory: MainFactoryService) {
 
   }
-  ngOnInit(): void { console.log(this.active)}
+  ngOnInit(): void {
+    this.mainFactory.cargarRegistroEdicion$
+    .subscribe((active) => {
+      if (active) {
+        this.active = false
+      }
+    })
+
+  }
   onToggleSwitch(): void {
     if (!this.disable) {
       this.active = !this.active;

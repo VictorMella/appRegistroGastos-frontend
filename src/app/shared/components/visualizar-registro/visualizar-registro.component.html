@@ -14,6 +14,7 @@
         <th> Monto</th>
         <th> Descripción</th>
         <th *ngIf="contexto !== 'debito'"> Cuotas</th>
+        <th *ngIf="contexto !== 'debito'"> N° cuota</th>
         <th *ngIf="contexto !== 'debito'"> Facturación inmediata</th>
         <th> Tipo de transaccción</th>
         <th> Fecha de la compra</th>
@@ -32,6 +33,9 @@
         </td>
         <td class="tdnumber" *ngIf="contexto !== 'debito'">
           <p>{{ item.cuotas }}</p>
+        </td>
+        <td class="tdnumber" *ngIf="contexto !== 'debito'">
+          <p>{{ item.nCuota }}</p>
         </td>
         <td class="tdbutton" *ngIf="contexto !== 'debito'">
           <i class="far fa-check" *ngIf="item.facturacionInmediata"></i>

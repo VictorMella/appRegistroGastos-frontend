@@ -52,7 +52,6 @@ export class CrearRegistroComponent implements OnInit {
           this.title = 'Editar'
         }
       })
-    console.log(this.contexto)
   }
 
   onSubmitForm(): void {

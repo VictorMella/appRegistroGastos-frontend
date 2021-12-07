@@ -27,21 +27,21 @@ export class CreditoNacService {
     )
   }
 
-  insertDebito(payload: DtoInsertCredito): Observable<any> {
+  insertCredito(payload: DtoInsertCredito): Observable<any> {
     return this.http.post(`${environment.url}/credito/crear-registro`, payload).pipe(
       catchError(this.getError),
       delay(this.time)
     )
   }
 
-  deleteDebito(payload: DtoDelete): Observable<any> {
+  deleteCredito(payload: DtoDelete): Observable<any> {
     return this.http.post(`${environment.url}/credito/delete`, payload).pipe(
       catchError(this.getError),
       delay(this.time)
     )
   }
 
-  editDebito(payload: DtoEditCredito): Observable<any> {
+  editCredito(payload: DtoEditCredito): Observable<any> {
     return this.http.post(`${environment.url}/credito/update`, payload).pipe(
       catchError(this.getError),
       delay(this.time)

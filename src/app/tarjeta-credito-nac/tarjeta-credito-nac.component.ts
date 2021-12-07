@@ -98,7 +98,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
     const payload = {
       _id: id
     }
-    this.creditNacService.deleteDebito(payload)
+    this.creditNacService.deleteCredito(payload)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.alert.success(resp.mensaje)
@@ -116,7 +116,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
   private crearRegistro($event): void {
     this.loadingCreandoRegistro = true
     const payload: DtoInsertCredito = this.getPayloadInsertCredito($event)
-    this.creditNacService.insertDebito(payload)
+    this.creditNacService.insertCredito(payload)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.alert.success('Registro creado')
@@ -136,7 +136,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
 
   private editarRegistro($event): void {
     const payload: DtoEditCredito = this.getPayloadEditDebito($event)
-    this.creditNacService.editDebito(payload)
+    this.creditNacService.editCredito(payload)
     .subscribe((resp: IRespuesta) => {
       if (resp.ok) {
         this.alert.success(resp.mensaje)
