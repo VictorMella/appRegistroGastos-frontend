@@ -31,8 +31,8 @@ export class VisualizarRegistroComponent implements OnInit {
     this.handleSeleccionarRegistro.emit(item)
   }
 
-  onBorrarRegistro({ _id }: IRegistrosCreados): void {
-    this.handleBorrarRegistro.emit(_id)
+  onBorrarRegistro({ _id, identificador }: IRegistrosCreados): void {
+    this.handleBorrarRegistro.emit({_id, identificador})
   }
 
   onSearchCriterio({ mes, anio }): void {

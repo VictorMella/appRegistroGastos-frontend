@@ -11,5 +11,6 @@ export interface IRegistrosCreados {
   anio?: number
   facturacionInmediata?: boolean
   cuotas?: number
+  identificador?: string
 
 }

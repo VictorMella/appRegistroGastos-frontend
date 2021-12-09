@@ -64,7 +64,6 @@ export class FiltroBusquedaComponent implements OnInit {
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.years = resp.data
-          console.log(this.service)
           if (this.years.length === 1) {
             this.selectedYear = this.years[0]
           } else {

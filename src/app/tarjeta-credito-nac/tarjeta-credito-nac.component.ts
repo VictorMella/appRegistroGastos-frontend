@@ -40,7 +40,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    window.scrollTo(0, 0)
   }
 
   onHandleChangePaginationSearch({ page, itemsPerPage }): void {
@@ -94,9 +94,10 @@ export class TarjetaCreditoNacComponent implements OnInit {
     this.mainFactory.activeCargarRegistroEdicion(true)
   }
 
-  onHandleBorrarRegistro(id: string): void {
+  onHandleBorrarRegistro({ _id, identificador }: IRegistrosCreados): void {
     const payload = {
-      _id: id
+      _id,
+      identificador
     }
     this.creditNacService.deleteCredito(payload)
       .subscribe((resp: IRespuesta) => {

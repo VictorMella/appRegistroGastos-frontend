@@ -39,7 +39,7 @@ export class TarjetaDebitoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    window.scrollTo(0, 0)
   }
 
   onHandleChangePaginationSearch({ page, itemsPerPage }): void {
@@ -93,9 +93,9 @@ export class TarjetaDebitoComponent implements OnInit {
     this.mainFactory.activeCargarRegistroEdicion(true)
   }
 
-  onHandleBorrarRegistro(id: string): void {
+  onHandleBorrarRegistro({ _id }: IRegistrosCreados): void {
     const payload = {
-      _id: id
+      _id
     }
     this.debitoService.deleteDebito(payload)
       .subscribe((resp: IRespuesta) => {
