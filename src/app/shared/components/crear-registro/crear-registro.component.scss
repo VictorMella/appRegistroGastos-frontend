@@ -8,7 +8,7 @@
 
   @media screen and (max-width: 768px) {
     flex-direction: column;
-    margin-top: 50px;
+    margin: 90px auto 20px !important;
   }
   .formulario{
     width: 35%;
@@ -19,7 +19,6 @@
 
     @media screen and (max-width: 768px) {
       width: 100%;
-      margin-top: 60px;
     }
     .form-container {
       display: flex;

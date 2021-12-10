@@ -22,8 +22,14 @@ h3, h4, i {
   display: flex;
   flex-direction: row;
   margin-bottom: 30px;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
   .legend, app-filtro-busqueda {
     width: 50%;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
   app-filtro-busqueda{
     .select{
@@ -31,7 +37,7 @@ h3, h4, i {
       flex-direction: row;
       justify-content: space-evenly;
       .mes, .year{
-        width: 45%;
+        width: 45%!important;
       }
     }
   }

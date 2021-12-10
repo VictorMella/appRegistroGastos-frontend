@@ -1,5 +1,8 @@
 .list-group{
   flex-direction: row;
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+  }
 }
 .list-group-item.active{
   background-color: #157347;

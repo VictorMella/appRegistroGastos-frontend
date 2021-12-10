@@ -2,8 +2,14 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
   .mes, .year{
     width: 45%;
+    @media screen and (max-width: 768px) {
+      width: 100% !important;
+    }
   }
 }
 
