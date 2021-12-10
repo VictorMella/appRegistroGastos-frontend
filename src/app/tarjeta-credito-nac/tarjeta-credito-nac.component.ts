@@ -40,7 +40,6 @@ export class TarjetaCreditoNacComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.scrollTo(0, 0)
   }
 
   onHandleChangePaginationSearch({ page, itemsPerPage }): void {

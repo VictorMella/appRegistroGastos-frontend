@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 import { IMenuItem } from 'src/app/core/interfaces/iMenuItem.interface'
 import { UtilsService } from '../core/services/utils.service'
 
@@ -10,11 +11,16 @@ import { UtilsService } from '../core/services/utils.service'
 export class MenuComponent implements OnInit {
   menuItems: IMenuItem[]
 
-  constructor(private utilsService: UtilsService) {
+  constructor(private utilsService: UtilsService,
+    private router: Router,) {
     this.menuItems = this.utilsService.getMenu()
    }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0)
+  }
+
+  onGoTo() {
 
   }
 

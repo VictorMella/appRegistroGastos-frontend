@@ -38,9 +38,7 @@ export class TarjetaDebitoComponent implements OnInit {
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual)
   }
 
-  ngOnInit(): void {
-    window.scrollTo(0, 0)
-  }
+  ngOnInit(): void {  }
 
   onHandleChangePaginationSearch({ page, itemsPerPage }): void {
     this.loading = true

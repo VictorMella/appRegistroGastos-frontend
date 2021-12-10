@@ -13,4 +13,13 @@ export class AppComponent {
     this.separators.thoudsandsSeparator = '.'
     sessionStorage.setItem('separators', JSON.stringify(this.separators));
   }
+
+  onGoTo() {
+    //this.scroller.scrollToAnchor("targetGreen");
+    document.getElementById("userMenu").scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest"
+    });
+  }
 }
