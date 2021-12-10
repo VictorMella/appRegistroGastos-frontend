@@ -159,7 +159,7 @@ export class TarjetaCreditoInterComponent implements OnInit {
       tipo: 'Compras',
       descripcion: formValue.descripcion,
       fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es'),
-      facturacionInmediata: formValue.facturacionInmediata,
+      facturacionInmediata: true,
       cuotas: formValue.cuotas,
       nacional: false
     }

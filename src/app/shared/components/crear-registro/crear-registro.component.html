@@ -25,14 +25,14 @@
               <i class="far fa-comment-dollar"></i>
             </strong></label>
           <input [class.msgErrorFields]="onValidateErrorFields('cuotas')" type="number"
-            formControlName="cuotas" class="form-control" prevent-key-number>
+            formControlName="cuotas" class="form-control" prevent-key-number [disabled]="contexto === 'internacional'" [class.cursor__notallowed] = "contexto === 'internacional'">
           <span class="validation-message" *ngIf="onValidateErrorFields('cuotas')"> * mensaje validación </span>
         </div>
         <div class="switch" *ngIf="contexto !== 'debito'">
           <label for="descripcion" class="form-label"><strong>Facturación inmediata
               <i class="fab fa-cc-visa"></i>
             </strong></label>
-          <app-switch  (handleToggleSwitch)="onHandleToggleSwitch($event)" ></app-switch>
+          <app-switch [active]="contexto === 'internacional'" [disabled]="contexto === 'internacional'" [class.cursor__notallowed] = "contexto === 'internacional'" (handleToggleSwitch)="onHandleToggleSwitch($event)" ></app-switch>
         </div>
       </div>
       <div class="item" *ngIf="contexto === 'debito'">

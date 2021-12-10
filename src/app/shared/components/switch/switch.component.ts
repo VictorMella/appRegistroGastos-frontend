@@ -9,7 +9,7 @@ import { MainFactoryService } from 'src/app/core/services/main-factory.service'
 export class SwitchComponent implements OnInit {
 
   @Input() active: boolean;
-  @Input() disable: boolean;
+  @Input() disabled: boolean;
   @Input() activeLoading: boolean;
   @Output() handleToggleSwitch: EventEmitter<object> = new EventEmitter();
   constructor(public mainFactory: MainFactoryService) {
@@ -25,7 +25,7 @@ export class SwitchComponent implements OnInit {
 
   }
   onToggleSwitch(): void {
-    if (!this.disable) {
+    if (!this.disabled) {
       this.active = !this.active;
       this.handleToggleSwitch.emit({ active: this.active });
     }
