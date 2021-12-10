@@ -5,4 +5,5 @@ export interface DtoInsertCredito {
   fechaCompra: string | Date;
   facturacionInmediata: boolean
   cuotas: number
+  nacional: boolean
 }

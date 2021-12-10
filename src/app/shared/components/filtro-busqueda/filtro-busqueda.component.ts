@@ -60,7 +60,8 @@ export class FiltroBusquedaComponent implements OnInit {
       })
   }
   getYearsCredito() {
-    this.utilsService.getYearsCredito()
+    const registrosNacionales = this.service === 'nacional'
+    this.utilsService.getYearsCredito(registrosNacionales)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.years = resp.data

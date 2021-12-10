@@ -12,5 +12,6 @@ export interface IRegistrosCreados {
   facturacionInmediata?: boolean
   cuotas?: number
   identificador?: string
+  nacional?: boolean
 
 }

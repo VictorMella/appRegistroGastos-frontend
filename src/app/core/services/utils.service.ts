@@ -105,9 +105,11 @@ export class UtilsService {
     return this.http.get(`${environment.url}/debito/anio`)
   }
 
-  getYearsCredito(): Observable<any> {
-    return this.http.get(`${environment.url}/credito/anio`)
+  getYearsCredito(registrosNacionales: boolean): Observable<any> {
+    return this.http.get(`${environment.url}/credito/anio?registrosNacionales=${registrosNacionales}`)
   }
+
+
 
   private getError(err: AjaxError) {
     console.warn('error en:', err.message)

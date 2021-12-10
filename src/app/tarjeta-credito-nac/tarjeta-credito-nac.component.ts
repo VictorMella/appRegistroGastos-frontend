@@ -27,6 +27,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
   idRegistroSeleccionado: string
   registroSeleccionadoEdicion: IRegistrosCreados
   totalGastado: number
+  registrosNacionales: boolean
 
   constructor(public datePipe: DatePipe,
               private alert: AlertService,
@@ -36,7 +37,8 @@ export class TarjetaCreditoNacComponent implements OnInit {
 
   ) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
-    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual)
+    this.registrosNacionales= true
+    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual, this.registrosNacionales)
   }
 
   ngOnInit(): void {
@@ -48,17 +50,17 @@ export class TarjetaCreditoNacComponent implements OnInit {
     this.paginationSearch.itemsPerPage = itemsPerPage
     const year = this.mainFactory.getData('selectedYear')
     const mes = this.mainFactory.getData('selectedMonth')
-    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
+    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year, this.registrosNacionales)
   }
 
   onHandleChangeCriterio({ mes, anio }): void {
     this.loading = true
-    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, anio)
+    this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, anio, this.registrosNacionales)
   }
 
-  getRegistros(pagina: number, registrosPorPagina: number , mes: number, anio: number) {
+  getRegistros(pagina: number, registrosPorPagina: number , mes: number, anio: number, registrosNacionales: boolean) {
     this.loading = true
-    this.creditNacService.getRegistros(pagina, registrosPorPagina, mes, anio)
+    this.creditNacService.getRegistros(pagina, registrosPorPagina, mes, anio, registrosNacionales)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.registrosCreadosCredito = this.transformData(resp.data[0].registrosTCredito)
@@ -104,7 +106,8 @@ export class TarjetaCreditoNacComponent implements OnInit {
           this.alert.success(resp.mensaje)
           const year = this.mainFactory.getData('selectedYear')
           const mes = this.mainFactory.getData('selectedMonth')
-          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
+          this.mainFactory.activeAñosRegistros(true)
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year, this.registrosNacionales)
         } else {
           this.alert.error(resp.mensaje)
         }
@@ -123,7 +126,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
           this.mainFactory.activeAñosRegistros(true)
           const year = this.mainFactory.getData('selectedYear')
           const mes = this.mainFactory.getData('selectedMonth')
-          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year, this.registrosNacionales)
         } else {
           this.alert.error(resp.mensaje)
         }
@@ -143,7 +146,8 @@ export class TarjetaCreditoNacComponent implements OnInit {
         this.idRegistroSeleccionado = null
         const year = this.mainFactory.getData('selectedYear')
         const mes = this.mainFactory.getData('selectedMonth')
-        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year)
+        this.mainFactory.activeAñosRegistros(true)
+        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year, this.registrosNacionales)
       } else {
         this.alert.error(resp.mensaje)
       }
@@ -159,7 +163,8 @@ export class TarjetaCreditoNacComponent implements OnInit {
       descripcion: formValue.descripcion,
       fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es'),
       facturacionInmediata: formValue.facturacionInmediata,
-      cuotas: formValue.cuotas
+      cuotas: formValue.cuotas,
+      nacional: true
     }
   }
 

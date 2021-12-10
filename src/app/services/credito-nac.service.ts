@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { ajax, AjaxError } from 'rxjs/ajax'
 import { Observable, of } from 'rxjs'
 import { environment } from 'src/environments/environment'
-import { catchError, delay } from 'rxjs/operators'
+import { catchError, delay, map } from 'rxjs/operators'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
 import { DtoDelete } from '../core/interfaces/DtoDelete.interface'
 import { DtoInsertCredito } from '../core/interfaces/DtoInsertCredito.interface'
@@ -17,11 +17,11 @@ export class CreditoNacService {
   time: number
 
   constructor(private http: HttpClient) {
-    this.time = 500
+    this.time = 1500
   }
 
-  getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number): Observable<any> {
-    return this.http.get(`${environment.url}/credito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}&mes=${mes}&anio=${anio}`).pipe(
+  getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number, registrosNacionales: boolean): Observable<any> {
+    return this.http.get(`${environment.url}/credito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}&mes=${mes}&anio=${anio}&registrosNacionales=${registrosNacionales}`).pipe(
       catchError(this.getError),
       delay(this.time)
     )
