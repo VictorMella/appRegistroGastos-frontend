@@ -60,7 +60,7 @@ export class TarjetaDebitoComponent implements OnInit {
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.registrosCreadosDebito = this.transformData(resp.data[0].registrosTDebito)
-          this.totalGastado = this.registrosCreadosDebito.reduce((acc, curr) => acc + curr.monto, 0)
+          this.totalGastado = resp.data[0].totalMontoMes
           this.paginationSearch.total = resp.data[0].totalRegistros
         } else {
           this.registrosCreadosDebito = []

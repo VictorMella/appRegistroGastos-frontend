@@ -63,7 +63,7 @@ export class TarjetaCreditoInterComponent implements OnInit {
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.registrosCreadosCredito = this.transformData(resp.data[0].registrosTCredito)
-          this.totalGastado = this.registrosCreadosCredito.reduce((acc, curr) => acc + curr.monto, 0)
+          this.totalGastado = resp.data[0].totalMontoMes
           this.paginationSearch.total = resp.data[0].totalRegistros
         } else {
           this.registrosCreadosCredito = []
