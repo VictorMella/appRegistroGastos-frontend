@@ -16,7 +16,7 @@ export class DebitoService {
   time: number
 
   constructor(private http: HttpClient) {
-    this.time = 500
+    this.time = 5
   }
 
   getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number): Observable<any> {

@@ -17,7 +17,7 @@ export class CreditoNacService {
   time: number
 
   constructor(private http: HttpClient) {
-    this.time = 1500
+    this.time = 5
   }
 
   getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number, registrosNacionales: boolean): Observable<any> {
