@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable, of } from 'rxjs'
-import { catchError, delay, map, tap } from 'rxjs/operators'
-import { AuthResponse } from '../core/interfaces/iAuthResponse.interface'
+import { catchError, delay, tap } from 'rxjs/operators'
 import { Usuario } from '../core/interfaces/iUsuario.interface'
 import { environment } from 'src/environments/environment'
 import { DtoLogin } from '../core/interfaces/Dtologin.interface'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
-import { AjaxError } from 'rxjs/ajax'
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   time: number
   private _usuario!: Usuario
@@ -24,7 +22,7 @@ export class AuthService {
     this.time = 1000
   }
 
-  login(payload : DtoLogin){
+  login(payload: DtoLogin): Observable<any> {
     return this.http.post<IRespuesta>(`${environment.url}/auth/login`, payload)
       .pipe(
         tap(resp => {
@@ -32,7 +30,7 @@ export class AuthService {
             this._usuario = {
               name: resp.data.usuario.nombre,
               email: resp.data.usuario.correo,
-              uid : resp.data.usuario.uid
+              uid: resp.data.usuario.uid
             }
             localStorage.setItem('appToken', resp.data.token)
             console.log(this._usuario)
@@ -43,13 +41,36 @@ export class AuthService {
       )
   }
 
+  validarToken(): Observable<any> {
+    const url = `${environment.url}/auth/renew`
+    const headers = new HttpHeaders()
+      .set('appToken', localStorage.getItem('appToken') || '')
 
-  private getError(err: AjaxError) {
-    console.warn('error en:', err.message)
+    return this.http.get<IRespuesta>(url, { headers })
+      .pipe(
+        tap(resp => {
+          if (resp.ok) {
+            this._usuario = {
+              name: resp.data.usuario.nombre,
+              email: resp.data.usuario.correo,
+              uid: resp.data.usuario.uid
+            }
+            localStorage.setItem('appToken', resp.data.token)
+            console.log(this._usuario)
+          }
+        }),
+        catchError(this.getError)
+      )
+
+  }
+
+
+  private getError(err: any) {
+    console.warn('error en:', err.error.mensaje)
     return of<IRespuesta>({
       ok: false,
       data: [],
-      mensaje: 'Usuario / password no son correcto'
+      mensaje: err.error.mensaje
     })
   }
 }

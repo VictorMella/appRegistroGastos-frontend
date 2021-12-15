@@ -16,7 +16,7 @@ import { AuthService } from 'src/app/services/auth.service'
 export class LoginComponent implements OnInit {
   form: FormGroup
   validForm: boolean
-  title : string
+  title: string
   @Input() loadingLogin: boolean
   @Input() contexto: string
   @Output() handleCrearRegistro = new EventEmitter()
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
           // this.loaderService.setLoading({ show: true, text: 'Validando información...' });
           this.router.navigateByUrl('/cuenta/debito')
           setTimeout(() => this.mainFactory.activeMenus(true), 50)
-
+          // this.validaToken()
         } else {
           this.alert.error(resp.mensaje)
         }
@@ -77,6 +77,14 @@ export class LoginComponent implements OnInit {
         this.loadingLogin = false
       })
   }
+
+  validaToken() {
+    this.authService.validarToken()
+      .subscribe(resp => {
+        console.log(resp.data)
+      })
+  }
+
   onValidateErrorFields(field: string): boolean {
     return !this.validForm && this.form.get(field).invalid
   }

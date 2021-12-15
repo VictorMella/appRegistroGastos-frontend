@@ -36,8 +36,5 @@ export class MenuComponent implements OnInit {
     const arrayUrl = ['/auth/login', '/auth/registro']
     let urlActual = window.location.pathname
     this.menuActivo = arrayUrl.includes(urlActual)
-    console.log(this.menuActivo)
   }
-
-
 }

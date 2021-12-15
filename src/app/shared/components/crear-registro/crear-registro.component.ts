@@ -56,7 +56,6 @@ export class CrearRegistroComponent implements OnInit {
 
   onSubmitForm(): void {
     if (this.form.valid) {
-      console.log(this.form.value)
       this.handleCrearRegistro.emit(this.form.value)
       this.resetForm()
     } else {
