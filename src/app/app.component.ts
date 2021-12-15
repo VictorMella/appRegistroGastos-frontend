@@ -13,7 +13,6 @@ export class AppComponent {
     this.separators.thoudsandsSeparator = '.'
     sessionStorage.setItem('separators', JSON.stringify(this.separators));
   }
-
   onGoTo() {
     //this.scroller.scrollToAnchor("targetGreen");
     document.getElementById("userMenu").scrollIntoView({
@@ -22,4 +21,5 @@ export class AppComponent {
       inline: "nearest"
     });
   }
+
 }

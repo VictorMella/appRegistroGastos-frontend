@@ -14,6 +14,8 @@ import { FiltroBusquedaComponent } from './components/filtro-busqueda/filtro-bus
 import { SwitchComponent } from './components/switch/switch.component'
 import { VisualizarRegistroComponent } from './components/visualizar-registro/visualizar-registro.component'
 import { CoreModule } from '../core/core.module'
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+
 
 
 defineLocale('es', esLocale);
@@ -25,7 +27,9 @@ defineLocale('es', esLocale);
     PaginadorComponent,
     FiltroBusquedaComponent,
     VisualizarRegistroComponent,
-    SwitchComponent],
+    PageNotFoundComponent,
+    SwitchComponent,
+    ],
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
@@ -45,6 +49,7 @@ defineLocale('es', esLocale);
     FiltroBusquedaComponent,
     SwitchComponent,
     VisualizarRegistroComponent,
+    PageNotFoundComponent,
     BsDropdownModule,
   ],
   providers: [

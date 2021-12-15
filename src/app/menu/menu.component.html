@@ -1,5 +1,6 @@
-<ul class="list-group">
+<ul class="list-group" *ngIf="!menuActivo">
   <li class="list-group-item" *ngFor="let item of menuItems" [routerLink]="[ item.ruta ]"
   routerLinkActive="active"> {{item.nombre}} </li>
 </ul>
+
 
