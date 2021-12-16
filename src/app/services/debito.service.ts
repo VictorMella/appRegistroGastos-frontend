@@ -8,19 +8,26 @@ import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
 import { DtoInsertDebito } from '../core/interfaces/DtoInsertDebito.interface'
 import { DtoDelete } from '../core/interfaces/DtoDelete.interface'
 import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
+import { AuthService } from './auth.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class DebitoService {
   time: number
-
-  constructor(private http: HttpClient) {
-    this.time = 5
+  idUsuarioCreacion: number
+  get usuario() {
+    return this.authService.usuario;
   }
 
-  getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number): Observable<any> {
-    return this.http.get(`${environment.url}/debito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}&mes=${mes}&anio=${anio}`).pipe(
+  constructor(private http: HttpClient,
+              private authService: AuthService)  {
+    this.time = 5
+    this.idUsuarioCreacion = this.usuario.identificador
+  }
+
+  getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number, idUsuarioCreacion: number): Observable<any> {
+    return this.http.get(`${environment.url}/debito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}&mes=${mes}&anio=${anio}&idUsuarioCreacion=${idUsuarioCreacion}`).pipe(
       catchError(this.getError),
       delay(this.time)
     )

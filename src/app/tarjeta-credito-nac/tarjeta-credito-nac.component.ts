@@ -11,6 +11,7 @@ import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
 import { AlertService } from '../core/services/alert.service'
 import { MainFactoryService } from '../core/services/main-factory.service'
 import { UtilsService } from '../core/services/utils.service'
+import { AuthService } from '../services/auth.service'
 import { CreditoNacService } from '../services/credito-nac.service'
 
 
@@ -20,6 +21,10 @@ import { CreditoNacService } from '../services/credito-nac.service'
   styleUrls: ['./tarjeta-credito-nac.component.scss']
 })
 export class TarjetaCreditoNacComponent implements OnInit {
+  get usuario() {
+    return this.authService.usuario;
+  }
+
   loadingCreandoRegistro: boolean
   registrosCreadosCredito: Array<IRegistrosCreados> = []
   paginationSearch: IPagination
@@ -34,6 +39,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
               public utils: UtilsService,
               public mainFactory: MainFactoryService,
               private creditNacService: CreditoNacService,
+              private authService: AuthService,
 
   ) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
@@ -60,7 +66,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
 
   getRegistros(pagina: number, registrosPorPagina: number , mes: number, anio: number, registrosNacionales: boolean) {
     this.loading = true
-    this.creditNacService.getRegistros(pagina, registrosPorPagina, mes, anio, registrosNacionales)
+    this.creditNacService.getRegistros(pagina, registrosPorPagina, mes, anio, registrosNacionales, this.usuario.identificador)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.registrosCreadosCredito = this.transformData(resp.data[0].registrosTCredito)
@@ -164,7 +170,8 @@ export class TarjetaCreditoNacComponent implements OnInit {
       fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es'),
       facturacionInmediata: formValue.facturacionInmediata,
       cuotas: formValue.cuotas,
-      nacional: true
+      nacional: true,
+      idUsuarioCreacion: this.usuario.identificador
     }
   }
 

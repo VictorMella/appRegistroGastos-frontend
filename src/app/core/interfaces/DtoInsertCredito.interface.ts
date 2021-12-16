@@ -6,4 +6,5 @@ export interface DtoInsertCredito {
   facturacionInmediata: boolean
   cuotas: number
   nacional: boolean
+  idUsuarioCreacion: number
 }

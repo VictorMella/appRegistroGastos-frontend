@@ -10,6 +10,7 @@ import { IPagination } from '../core/interfaces/iPagination.interface'
 import { UtilsService } from '../core/services/utils.service'
 import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
 import { MainFactoryService } from '../core/services/main-factory.service'
+import { AuthService } from '../services/auth.service'
 
 @Component({
   selector: 'app-tarjeta-debito',
@@ -18,6 +19,9 @@ import { MainFactoryService } from '../core/services/main-factory.service'
   providers: [DatePipe]
 })
 export class TarjetaDebitoComponent implements OnInit {
+  get usuario() {
+    return this.authService.usuario;
+  }
 
   loadingCreandoRegistro: boolean
   registrosCreadosDebito: Array<IRegistrosCreados> = []
@@ -32,13 +36,15 @@ export class TarjetaDebitoComponent implements OnInit {
               public utils: UtilsService,
               public mainFactory: MainFactoryService,
               private debitoService: DebitoService,
+              private authService: AuthService
 
   ) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual)
   }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void {
+   }
 
   onHandleChangePaginationSearch({ page, itemsPerPage }): void {
     this.loading = true
@@ -56,7 +62,7 @@ export class TarjetaDebitoComponent implements OnInit {
 
   getRegistros(pagina: number, registrosPorPagina: number , mes: number, anio: number) {
     this.loading = true
-    this.debitoService.getRegistros(pagina, registrosPorPagina, mes, anio)
+    this.debitoService.getRegistros(pagina, registrosPorPagina, mes, anio, this.usuario.identificador)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.registrosCreadosDebito = this.transformData(resp.data[0].registrosTDebito)
@@ -156,7 +162,8 @@ export class TarjetaDebitoComponent implements OnInit {
       monto: formValue.monto,
       tipo: formValue.tipoTransaccion?.nombre,
       descripcion: formValue.descripcion,
-      fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es')
+      fechaCompra: this.datePipe.transform(formValue.fechaCompra, 'yyyy-MM-dd', 'es'),
+      idUsuarioCreacion: this.usuario.identificador
     }
   }
 

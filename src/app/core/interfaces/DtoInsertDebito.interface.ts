@@ -3,4 +3,5 @@ export interface DtoInsertDebito {
   tipo: string;
   descripcion: string;
   fechaCompra: string | Date;
+  idUsuarioCreacion: number
 }

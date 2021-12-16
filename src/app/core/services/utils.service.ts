@@ -100,15 +100,13 @@ export class UtilsService {
     return this.tipoTransaccion
   }
 
-  getYearsDebito(): Observable<any> {
-    return this.http.get(`${environment.url}/debito/anio`)
+  getYearsDebito(idUsuarioCreacion: number): Observable<any> {
+    return this.http.get(`${environment.url}/debito/anio?idUsuarioCreacion=${idUsuarioCreacion}`)
   }
 
-  getYearsCredito(registrosNacionales: boolean): Observable<any> {
-    return this.http.get(`${environment.url}/credito/anio?registrosNacionales=${registrosNacionales}`)
+  getYearsCredito(registrosNacionales: boolean, idUsuarioCreacion: number): Observable<any> {
+    return this.http.get(`${environment.url}/credito/anio?registrosNacionales=${registrosNacionales}&idUsuarioCreacion=${idUsuarioCreacion}`)
   }
-
-
 
   private getError(err: AjaxError) {
     console.warn('error en:', err.message)
@@ -128,16 +126,6 @@ export class UtilsService {
     };
   }
 
-  // private getYears(): void {
-  //   const limiteAnios = 5
-  //   let inicio = 0
-  //   while (inicio <= limiteAnios) {
-  //     this.anio = this.anioActual - inicio
-  //     inicio += 1
-  //     this.anios.push(this.anio)
-  //   }
-  // }
-
   getLsYears(): Array<IAnios> {
     return this.anios
   }
@@ -145,6 +133,4 @@ export class UtilsService {
   getLsMeses(): Array<IMeses> {
     return this.meses
   }
-
-
 }

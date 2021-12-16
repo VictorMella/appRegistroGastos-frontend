@@ -13,15 +13,15 @@ import { DtoEditCredito } from '../core/interfaces/DtoEditCredito.interface'
   providedIn: 'root'
 })
 export class CreditoNacService {
-
+  idUsuarioCreacion: number
   time: number
 
   constructor(private http: HttpClient) {
     this.time = 5
   }
 
-  getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number, registrosNacionales: boolean): Observable<any> {
-    return this.http.get(`${environment.url}/credito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}&mes=${mes}&anio=${anio}&registrosNacionales=${registrosNacionales}`).pipe(
+  getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number, registrosNacionales: boolean, idUsuarioCreacion: number): Observable<any> {
+    return this.http.get(`${environment.url}/credito?pagina=${pagina}&registrosPorPagina=${registrosPorPagina}&mes=${mes}&anio=${anio}&registrosNacionales=${registrosNacionales}&idUsuarioCreacion=${idUsuarioCreacion}`).pipe(
       catchError(this.getError),
       delay(this.time)
     )
