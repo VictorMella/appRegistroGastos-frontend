@@ -70,7 +70,7 @@ export class RegistroComponent implements OnInit {
 
   public resetForm() {
     this.form = this.formBuilder.group({
-      nombre: ['', [Validators.required,Validators.minLength(6), Validators.maxLength(150)]],
+      nombre: ['', [Validators.required,Validators.minLength(3), Validators.maxLength(150)]],
       correo: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     })
