@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable, of } from 'rxjs'
-import { catchError, delay, tap } from 'rxjs/operators'
+import { catchError, delay, map, tap } from 'rxjs/operators'
 import { Usuario } from '../core/interfaces/iUsuario.interface'
 import { environment } from 'src/environments/environment'
 import { DtoLogin } from '../core/interfaces/Dtologin.interface'
@@ -30,10 +30,10 @@ export class AuthService {
             this._usuario = {
               name: resp.data.usuario.nombre,
               email: resp.data.usuario.correo,
-              uid: resp.data.usuario.uid
+              uid: resp.data.usuario.uid,
+              identificador: resp.data.usuario.identificador,
             }
             localStorage.setItem('appToken', resp.data.token)
-            console.log(this._usuario)
           }
         }),
         catchError(this.getError),
@@ -41,32 +41,30 @@ export class AuthService {
       )
   }
 
-  validarToken(): Observable<any> {
+  validarToken(): Observable<boolean> {
     const url = `${environment.url}/auth/renew`
     const headers = new HttpHeaders()
       .set('appToken', localStorage.getItem('appToken') || '')
 
-    return this.http.get<IRespuesta>(url, { headers })
+    return this.http.get<any>(url, { headers })
       .pipe(
-        tap(resp => {
-          if (resp.ok) {
-            this._usuario = {
-              name: resp.data.usuario.nombre,
-              email: resp.data.usuario.correo,
-              uid: resp.data.usuario.uid
-            }
-            localStorage.setItem('appToken', resp.data.token)
-            console.log(this._usuario)
+        map( resp => {
+          localStorage.setItem('appToken', resp.data.token)
+          this._usuario = {
+            name: resp.data.usuario.nombre,
+            email: resp.data.usuario.correo,
+            uid: resp.data.usuario.uid,
+            identificador: resp.data.usuario.identificador,
           }
+          return resp.ok;
         }),
         catchError(this.getError)
       )
-
   }
 
 
   private getError(err: any) {
-    console.warn('error en:', err.error.mensaje)
+    console.warn('error en:', err)
     return of<IRespuesta>({
       ok: false,
       data: [],

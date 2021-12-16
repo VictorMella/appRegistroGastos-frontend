@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
     let urlActual = window.location.pathname
     const menuActivo = arrayUrl.includes(urlActual)
     this.mainFactory.activeMenus(menuActivo)
+    console.log(menuActivo)
   }
 
   onSubmitForm(): void {
@@ -65,8 +66,7 @@ export class LoginComponent implements OnInit {
         if (resp.ok) {
           // this.loaderService.setLoading({ show: true, text: 'Validando información...' });
           this.router.navigateByUrl('/cuenta/debito')
-          setTimeout(() => this.mainFactory.activeMenus(true), 50)
-          // this.validaToken()
+          setTimeout(() => this.mainFactory.activeMenus(true), 100)
         } else {
           this.alert.error(resp.mensaje)
         }
@@ -75,13 +75,6 @@ export class LoginComponent implements OnInit {
       }, error => {
         console.log(error)
         this.loadingLogin = false
-      })
-  }
-
-  validaToken() {
-    this.authService.validarToken()
-      .subscribe(resp => {
-        console.log(resp.data)
       })
   }
 

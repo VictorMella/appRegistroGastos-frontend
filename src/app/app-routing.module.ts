@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router'
+import { ValidarTokenGuard } from './core/guards/validar-token.guard'
 
 const routes: Routes = [
   {
@@ -8,20 +9,11 @@ const routes: Routes = [
   },
   {
     path: 'cuenta',
-    loadChildren: () => import('./cuentas/cuentas.module').then(mod => mod.CuentasModule)
+    loadChildren: () => import('./cuentas/cuentas.module').then(mod => mod.CuentasModule),
+    canActivate: [ValidarTokenGuard],
+    canLoad: [ValidarTokenGuard]
   },
-  // {
-  //   path: 'debito',
-  //   loadChildren: () => import('./tarjeta-debito/tarjeta-debito.module').then(mod => mod.TarjetaDebitoModule)
-  // },
-  // {
-  //   path: 'credito',
-  //   loadChildren: () => import('./tarjeta-credito-nac/tarjeta-credito-nac.module').then(mod => mod.TarjetaCreditoNacModule)
-  // },
-  // {
-  //   path: 'internacional',
-  //   loadChildren: () => import('./tarjeta-credito-inter/tarjeta-credito-inter.module').then(mod => mod.TarjetaCreditoInterModule)
-  // },
+
   {
     path: '**',
     redirectTo: 'auth'
