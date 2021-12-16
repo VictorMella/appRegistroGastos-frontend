@@ -3,6 +3,7 @@ import { IAnios, IMeses } from 'src/app/core/interfaces/iMesesAnios.interface'
 import { IRespuesta } from 'src/app/core/interfaces/iRespuesta.interface'
 import { MainFactoryService } from 'src/app/core/services/main-factory.service'
 import { UtilsService } from 'src/app/core/services/utils.service'
+import { AuthService } from 'src/app/services/auth.service'
 
 @Component({
   selector: 'app-filtro-busqueda',
@@ -16,12 +17,17 @@ export class FiltroBusquedaComponent implements OnInit {
   selectedYear: number
   cargaAños: boolean
 
+  get usuario() {
+    return this.authService.usuario;
+  }
+
   @Input() loading: boolean
   @Input() service: string
   @Output() handleChangeCriterio: EventEmitter<any> = new EventEmitter()
 
   constructor(private utilsService: UtilsService,
-    private mainFactory: MainFactoryService) {
+    private mainFactory: MainFactoryService,
+    private authService: AuthService) {
     this.meses = utilsService.getLsMeses()
     this.getYearsDebito()
     this.cargaAños = false
@@ -36,11 +42,11 @@ export class FiltroBusquedaComponent implements OnInit {
            this.getYears()
         }
       })
-      this.getYears()
+    this.getYears()
   }
 
   getYearsDebito() {
-    this.utilsService.getYearsDebito()
+    this.utilsService.getYearsDebito(this.usuario.identificador)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.years = resp.data
@@ -60,7 +66,7 @@ export class FiltroBusquedaComponent implements OnInit {
   }
   getYearsCredito() {
     const registrosNacionales = this.service === 'nacional'
-    this.utilsService.getYearsCredito(registrosNacionales)
+    this.utilsService.getYearsCredito(registrosNacionales, this.usuario.identificador)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           this.years = resp.data
