@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
     let urlActual = window.location.pathname
     const menuActivo = arrayUrl.includes(urlActual)
     this.mainFactory.activeMenus(menuActivo)
+    this.mainFactory.setData('time', 500)
     console.log(menuActivo)
   }
 
@@ -67,6 +68,7 @@ export class LoginComponent implements OnInit {
           // this.loaderService.setLoading({ show: true, text: 'Validando información...' });
           this.router.navigateByUrl('/cuenta/debito')
           this.mainFactory.activeMenus(true)
+          this.mainFactory.setData('time', 1500)
         } else {
           this.alert.error(resp.mensaje)
         }

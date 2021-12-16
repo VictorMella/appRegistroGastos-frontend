@@ -24,10 +24,11 @@ export class MenuComponent implements OnInit {
     window.scrollTo(0, 0)
     this.mainFactory.cargarMenus$
       .subscribe((active) => {
+        const time = this.mainFactory.getData('time')
         if (active) {
-          setTimeout(() => this.verMenu(), 500);
+          setTimeout(() => this.verMenu(), time);
         } else {
-          setTimeout(() => this.verMenu(), 1500);
+          setTimeout(() => this.verMenu(), time);
         }
       })
   }
