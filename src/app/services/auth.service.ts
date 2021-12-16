@@ -6,7 +6,8 @@ import { Usuario } from '../core/interfaces/iUsuario.interface'
 import { environment } from 'src/environments/environment'
 import { DtoLogin } from '../core/interfaces/Dtologin.interface'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
-import { DtoCrearUsuario } from '../core/interfaces/DtoCrearusuario.interface'
+import { DtoCrearUsuario } from '../core/interfaces/DtoCrearUsuario.interface'
+
 @Injectable({
   providedIn: 'root'
 })

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
-import { DtoCrearUsuario } from 'src/app/core/interfaces/DtoCrearusuario.interface'
+import { DtoCrearUsuario } from 'src/app/core/interfaces/DtoCrearUsuario.interface'
 import { IRespuesta } from 'src/app/core/interfaces/iRespuesta.interface'
 import { AlertService } from 'src/app/core/services/alert.service'
 import { LoaderService } from 'src/app/core/services/loader.service'
