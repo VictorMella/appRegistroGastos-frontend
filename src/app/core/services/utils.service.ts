@@ -21,15 +21,15 @@ export class UtilsService {
 
   menuItems: IMenuItem[] = [
     {
-      ruta: '/debito',
+      ruta: '/cuenta/debito',
       nombre: 'Debito'
     },
     {
-      ruta: '/credito',
+      ruta: '/cuenta/credito',
       nombre: 'Credito'
     },
     {
-      ruta: '/internacional',
+      ruta: '/cuenta/internacional',
       nombre: 'Internacional'
     }
   ]

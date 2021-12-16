@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,14 +8,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module'
 import { CoreModule } from './core/core.module'
-import { MenuComponent } from './menu/menu.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { AuthModule } from './auth/auth.module'
+import { CuentasModule } from './cuentas/cuentas.module'
+import { MenuComponent } from './menu/menu.component'
+import { GlobalLoaderComponent } from './global-loader/global-loader.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    MenuComponent,
+    GlobalLoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -22,9 +26,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SharedModule,
     RouterModule,
     CoreModule,
+    AuthModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    CuentasModule
   ],
   providers: [],
   bootstrap: [AppComponent]

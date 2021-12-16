@@ -14,10 +14,12 @@ import { CurrencyDirective } from './directives/currency.directive'
     AutoFocusDirective,
     PreventKeyNumberDirective,
     FormatCurrencyPipe,
-    CurrencyDirective
+    CurrencyDirective,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+
+
   ],
   exports: [
     SortableColumnDirective,
@@ -25,7 +27,8 @@ import { CurrencyDirective } from './directives/currency.directive'
     AutoFocusDirective,
     PreventKeyNumberDirective,
     CurrencyDirective,
-    FormatCurrencyPipe
+    FormatCurrencyPipe,
+
   ]
 })
 export class CoreModule { }

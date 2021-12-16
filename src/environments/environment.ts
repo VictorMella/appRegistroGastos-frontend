@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  // url: 'http://127.0.0.1:3000'
+  // url: 'http://localhost:3000'
   url: 'https://registro-cuentas-diarias.herokuapp.com'
 };
 
