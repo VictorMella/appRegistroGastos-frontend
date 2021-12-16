@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
     this.mainFactory.cargarMenus$
       .subscribe((active) => {
         if (active) {
-          setTimeout(() => this.verMenu(), 1500);
+          setTimeout(() => this.verMenu(), 500);
         } else {
           setTimeout(() => this.verMenu(), 1500);
         }
