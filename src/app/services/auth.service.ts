@@ -6,6 +6,7 @@ import { Usuario } from '../core/interfaces/iUsuario.interface'
 import { environment } from 'src/environments/environment'
 import { DtoLogin } from '../core/interfaces/Dtologin.interface'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
+import { DtoCrearUsuario } from '../core/interfaces/DtoCrearusuario.interface'
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +21,19 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this.time = 1000
+  }
+
+  registro(payload: DtoCrearUsuario): Observable<any> {
+    return this.http.post<IRespuesta>(`${environment.url}/usuario/create`, payload)
+      .pipe(
+        tap(resp => {
+          if (resp.ok) {
+            localStorage.setItem('appToken', resp.data.token)
+          }
+        }),
+        catchError(this.getError),
+        delay(this.time)
+      )
   }
 
   login(payload: DtoLogin): Observable<any> {
@@ -64,7 +78,7 @@ export class AuthService {
 
 
   private getError(err: any) {
-    console.warn('error en:', err)
+    console.warn('error en:', err.error.mensaje)
     return of<IRespuesta>({
       ok: false,
       data: [],

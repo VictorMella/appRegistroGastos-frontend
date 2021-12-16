@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { DtoLogin } from 'src/app/core/interfaces/Dtologin.interface'
@@ -17,11 +17,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup
   validForm: boolean
   title: string
-  @Input() loadingLogin: boolean
-  @Input() contexto: string
-  @Output() handleCrearRegistro = new EventEmitter()
-  @Output() handleLimpiarRegistroSeleccionado = new EventEmitter()
-
+  loadingLogin: boolean
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,7 +40,7 @@ export class LoginComponent implements OnInit {
       const payload = this.form.value
       this.loadingLogin = true
       this.loginApp(payload)
-      this.title = 'Accediento'
+      this.title = 'Accediendo'
     } else {
       this.validForm = false
       this.alert.error('Valide formulario')
