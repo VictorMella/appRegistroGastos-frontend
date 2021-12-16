@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
         if (resp.ok) {
           // this.loaderService.setLoading({ show: true, text: 'Validando información...' });
           this.router.navigateByUrl('/cuenta/debito')
-          setTimeout(() => this.mainFactory.activeMenus(true), 100)
+          this.mainFactory.activeMenus(true)
         } else {
           this.alert.error(resp.mensaje)
         }
