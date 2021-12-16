@@ -14,9 +14,5 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.loaderService.setLoading({ show: false, text: '' });
-
   }
-
-
-
 }
