@@ -56,12 +56,6 @@ export class RegistroComponent implements OnInit {
         } else {
           this.alert.error(resp.mensaje)
         }
-        // if (resp.ok) {
-        //   // this.loaderService.setLoading({ show: true, text: 'Validando información...' });
-        //   this.router.navigateByUrl('/cuenta/debito')
-        // } else {
-        //   this.alert.error(resp.mensaje)
-        // }
         this.resetForm()
         this.loadingCreate = false
       }, error => {
