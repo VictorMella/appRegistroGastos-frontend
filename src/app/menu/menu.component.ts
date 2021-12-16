@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
+import { NavigationEnd, Router } from '@angular/router'
+import { Subscription } from 'rxjs/internal/Subscription'
+import { filter, tap } from 'rxjs/operators'
 import { IMenuItem } from 'src/app/core/interfaces/iMenuItem.interface'
 import { UtilsService } from 'src/app/core/services/utils.service'
-import { MainFactoryService } from '../core/services/main-factory.service'
-
 
 @Component({
   selector: 'app-menu',
@@ -13,24 +13,23 @@ import { MainFactoryService } from '../core/services/main-factory.service'
 export class MenuComponent implements OnInit {
   menuItems: IMenuItem[]
   menuActivo: boolean
+
+  public subscriber: Subscription
+
   constructor(private utilsService: UtilsService,
-    private router: Router,
-    private mainFactory: MainFactoryService) {
+    private router: Router) {
     this.menuItems = this.utilsService.getMenu()
     this.menuActivo = true
   }
 
   ngOnInit(): void {
     window.scrollTo(0, 0)
-    this.mainFactory.cargarMenus$
-      .subscribe((active) => {
-        const time = this.mainFactory.getData('time')
-        if (active) {
-          setTimeout(() => this.verMenu(), time);
-        } else {
-          setTimeout(() => this.verMenu(), time);
-        }
-      })
+    this.subscriber = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event) => {
+      console.log('The URL changed to: ' + event['url'])
+      this.verMenu()
+    })
   }
 
   verMenu() {

@@ -37,16 +37,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.resetForm()
-    this.verMenu()
-  }
-
-  verMenu() {
-    const arrayUrl = ['/auth/login', '/auth/registro']
-    let urlActual = window.location.pathname
-    const menuActivo = arrayUrl.includes(urlActual)
-    this.mainFactory.activeMenus(menuActivo)
-    this.mainFactory.setData('time', 500)
-    console.log(menuActivo)
   }
 
   onSubmitForm(): void {
@@ -67,8 +57,6 @@ export class LoginComponent implements OnInit {
         if (resp.ok) {
           // this.loaderService.setLoading({ show: true, text: 'Validando información...' });
           this.router.navigateByUrl('/cuenta/debito')
-          this.mainFactory.activeMenus(true)
-          this.mainFactory.setData('time', 1500)
         } else {
           this.alert.error(resp.mensaje)
         }
