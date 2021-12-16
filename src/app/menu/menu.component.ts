@@ -25,9 +25,9 @@ export class MenuComponent implements OnInit {
     this.mainFactory.cargarMenus$
       .subscribe((active) => {
         if (active) {
-          this.verMenu()
+          setTimeout(() => this.verMenu(), 1500);
         } else {
-          this.verMenu()
+          setTimeout(() => this.verMenu(), 1500);
         }
       })
   }
@@ -36,9 +36,7 @@ export class MenuComponent implements OnInit {
     const arrayUrl = ['/auth/login', '/auth/registro']
     let urlActual = window.location.pathname
     console.log(urlActual)
-    setTimeout(() => {
-      this.menuActivo = arrayUrl.includes(urlActual)
-      console.log(this.menuActivo)
-    }, 1000);
+    this.menuActivo = arrayUrl.includes(urlActual)
+    console.log(this.menuActivo)
   }
 }
