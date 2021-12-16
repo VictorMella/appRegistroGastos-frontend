@@ -4,28 +4,38 @@
       <div class="item">
         <label for="type" class="form-label"><strong>Email<span class="color-red"><strong>*
               </strong></span> <i class="icon far fa-envelope"></i> </strong></label>
-        <input auto-focus [class.msgErrorFields]="onValidateErrorFields('correo')" type="email"
-          formControlName="correo" class="form-control" >
+        <input auto-focus [class.msgErrorFields]="onValidateErrorFields('correo')" type="email" formControlName="correo"
+          class="form-control">
         <span class="validation-message" *ngIf="onValidateErrorFields('correo')"> * mensaje validación </span>
       </div>
       <div class="item">
-        <label for="descripcion" class="form-label"><strong>Password
-          <i class="icon far fa-unlock-alt"></i>
+        <label for="descripcion" class="form-label"><strong>Password<span class="color-red"><strong>*
+              </strong></span>
+            <i class="icon far fa-unlock-alt"></i>
           </strong></label>
         <input class="form-control" [class.msgErrorFields]="onValidateErrorFields('password')"
-          formControlName="password" maxlength="1500"  type="password" >
+          formControlName="password" maxlength="1500" type="password">
         <span class="validation-message" *ngIf="onValidateErrorFields('password')">
           * mensaje validación
         </span>
       </div>
       <div class="item">
-        <button class="btn btn-success" type="submit"
-          [class.cursor__notallowed]="form.invalid || loadingLogin"
+        <button class="btn btn-success" type="submit" [class.cursor__notallowed]="form.invalid || loadingLogin"
           [disabled]="form.invalid || loadingLogin">
           <i class="fad fa-spinner fa-pulse" *ngIf="loadingLogin"></i>
           {{ title }} a mis cuentas</button>
       </div>
     </form>
+
+    <div style="text-align: center;">
+      <p>
+        ¿No tienes cuenta?
+      </p>
+
+      <a routerLink="/auth/registro" class="txt2">
+        Crear una aquí
+      </a>
+    </div>
 
   </div>
 </div>

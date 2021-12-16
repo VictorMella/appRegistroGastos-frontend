@@ -1,4 +1,10 @@
 @import "../../assets/scss/colors.scss";
+
+@font-face {
+  font-family: Poppins-Regular;
+  src: url('../../../assets/fonts/poppins/Poppins-Regular.ttf');
+}
+
 .formulario-contains{
   display: flex;
   flex-direction: row;
@@ -47,3 +53,11 @@
 }
 
 
+.txt2 {
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  line-height: 1.5;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+}
