@@ -57,6 +57,13 @@ export class CrearRegistroComponent implements OnInit {
           this.title = 'Editar'
         }
       })
+
+    this.mainFactory.limpiarFormularios$
+      .subscribe((active) => {
+        if (active) {
+          this.resetForm()
+        }
+      })
   }
 
   onSubmitForm(): void {

@@ -7,8 +7,13 @@ import { BehaviorSubject } from 'rxjs'
 export class MainFactoryService {
   private cargarRegistroEdicion = new BehaviorSubject<boolean>(false);
   public cargarRegistroEdicion$ = this.cargarRegistroEdicion.asObservable()
+
   private cargarAñosRegistros = new BehaviorSubject<boolean>(false);
   public cargarAñosRegistros$ = this.cargarAñosRegistros.asObservable()
+
+  private limpiarFormulario = new BehaviorSubject<boolean>(false);
+  public limpiarFormularios$ = this.limpiarFormulario.asObservable()
+
   private data: object = {};
 
   public activeCargarRegistroEdicion(active: boolean): void {
@@ -17,6 +22,10 @@ export class MainFactoryService {
 
   public activeAñosRegistros(active: boolean): void {
     this.cargarAñosRegistros.next(active);
+  }
+
+  public onLimpiarFormulario(active: boolean): void {
+    this.limpiarFormulario.next(active);
   }
 
   public setData(type: string, data: any): void {

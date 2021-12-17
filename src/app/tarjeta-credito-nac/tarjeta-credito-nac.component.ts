@@ -43,6 +43,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
     this.registrosNacionales= true
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual, this.registrosNacionales)
+    this.mainFactory.onLimpiarFormulario(true)
   }
 
   ngOnInit(): void { }

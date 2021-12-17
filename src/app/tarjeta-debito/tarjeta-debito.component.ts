@@ -42,6 +42,7 @@ export class TarjetaDebitoComponent implements OnInit {
   ) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual)
+    this.mainFactory.onLimpiarFormulario(true)
   }
 
   ngOnInit(): void { }
