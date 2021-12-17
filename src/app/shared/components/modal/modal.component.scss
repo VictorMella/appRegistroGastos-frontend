@@ -1,0 +1,13 @@
+@import "../../../../assets/scss/colors.scss";
+
+.modal-header {
+  color: #717171;
+  &.warning {
+    background-color: $color-yellow;
+    color: $color-white;
+  }
+}
+
+.modal-footer {
+  background-color: #efefef;
+}

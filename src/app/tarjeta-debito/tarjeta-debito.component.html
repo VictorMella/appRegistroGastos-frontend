@@ -1,6 +1,5 @@
 
 <app-crear-registro [loadingCreandoRegistro]="loadingCreandoRegistro"
-                    class="scroll"
                     contexto="debito"
                     (handleLimpiarRegistroSeleccionado)="onHandleLimpiarRegistroSeleccionado()"
                     (handleCrearRegistro)="onHandleCrearRegistro($event)">
@@ -15,3 +14,18 @@
                           (handleSeleccionarRegistro)="onHandleSeleccionarRegistro($event)"
                           (handleBorrarRegistro)="onHandleBorrarRegistro($event)">
 </app-visualizar-registro>
+
+<ng-template #modalConfirmation>
+  <app-modal
+    icon="fas fa-exclamation-circle"
+    customClass="warning"
+    [title]="'Quitar producto/servicio de cotización'"
+    [actionDefault]="'Cancelar'"
+    [actionSuccess]="'Confirmar'"
+    [activeLoading]="false"
+    (handleConfirmActionSuccess)="onHandleConfirm()">
+    <app-confirmacion
+      icon="fas fa-exclamation-circle"
+      [question]="'¿Está seguro de quitar producto/servicio de cotización?'">
+    </app-confirmacion>
+  </app-modal>

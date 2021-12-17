@@ -14,12 +14,11 @@ import { FiltroBusquedaComponent } from './components/filtro-busqueda/filtro-bus
 import { SwitchComponent } from './components/switch/switch.component'
 import { VisualizarRegistroComponent } from './components/visualizar-registro/visualizar-registro.component'
 import { CoreModule } from '../core/core.module'
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-
-
+import { ModalComponent } from './components/modal/modal.component';
+import { ConfirmacionComponent } from './components/confirmacion/confirmacion.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 
 defineLocale('es', esLocale);
-
 @NgModule({
   declarations: [
     LoaderComponent,
@@ -29,6 +28,8 @@ defineLocale('es', esLocale);
     VisualizarRegistroComponent,
     PageNotFoundComponent,
     SwitchComponent,
+    ModalComponent,
+    ConfirmacionComponent,
     ],
   imports: [
     CommonModule,
@@ -54,7 +55,6 @@ defineLocale('es', esLocale);
   ],
   providers: [
     DatePipe,
-
   ]
 })
 export class SharedModule { }

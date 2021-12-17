@@ -1,0 +1,16 @@
+@import "../../../../assets/scss/colors.scss";
+
+.confirmation-question {
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .icon {
+    font-size: 3.5rem;
+    color: $color-yellow;
+  }
+  p {
+    margin-left: 1.5rem;
+    margin-bottom: 0;
+  }
+}

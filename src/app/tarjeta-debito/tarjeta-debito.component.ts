@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit , TemplateRef} from '@angular/core'
 import { DtoInsertDebito } from '../core/interfaces/DtoInsertDebito.interface'
 import { IDebito } from '../core/interfaces/iDebito.interface'
 import { DatePipe } from '@angular/common'
@@ -11,12 +11,14 @@ import { UtilsService } from '../core/services/utils.service'
 import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
 import { MainFactoryService } from '../core/services/main-factory.service'
 import { AuthService } from '../services/auth.service'
+import { BsModalService } from 'ngx-bootstrap/modal'
 
 @Component({
   selector: 'app-tarjeta-debito',
   templateUrl: './tarjeta-debito.component.html',
   styleUrls: ['./tarjeta-debito.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TarjetaDebitoComponent implements OnInit {
   get usuario() {
@@ -36,24 +38,15 @@ export class TarjetaDebitoComponent implements OnInit {
               public utils: UtilsService,
               public mainFactory: MainFactoryService,
               private debitoService: DebitoService,
-              private authService: AuthService
+              private authService: AuthService,
+              private bsModalService: BsModalService,
 
   ) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual)
   }
 
-  ngOnInit(): void {
-    this.onGoTo()
-  }
-
-   onGoTo() {
-    document.getElementById("userMenu").scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "start"
-    });
-  }
+  ngOnInit(): void { }
 
   onHandleChangePaginationSearch({ page, itemsPerPage }): void {
     this.loading = true
@@ -66,6 +59,8 @@ export class TarjetaDebitoComponent implements OnInit {
 
   onHandleChangeCriterio({ mes, anio }): void {
     this.loading = true
+    this.paginationSearch.currentPage = 1
+    this.paginationSearch.itemsPerPage = 10
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, anio)
   }
 
@@ -124,6 +119,14 @@ export class TarjetaDebitoComponent implements OnInit {
       }, error => {
         console.log(error)
       })
+  }
+
+  onOpenModalConfirmationQuestion(modalTemplate: TemplateRef<any>): void {
+    this.bsModalService.show(modalTemplate, {
+      id: 1, // para poder levantar modal sobre modal se debe ir sumando un nivel.
+      backdrop: true,
+      class: 'modal-md',
+    })
   }
 
   private crearRegistro($event): void {

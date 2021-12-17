@@ -1,0 +1,23 @@
+<div class="modal-header" [class]="customClass">
+  <h4 class="modal-title font-weight-bold">
+    <i [class]="icon"></i> {{title}}
+  </h4>
+  <div class="close cursor__pointer push-right font-weight-bold" aria-label="Close" (click)="onCloseModal()">
+    <i class="fas fa-times"></i>
+  </div>
+</div>
+<div class="modal-body no-padding">
+  <ng-content></ng-content>
+</div>
+<div class="modal-footer">
+  <button *ngIf="actionDefault" type="button" class="btn btn-outline-secondary" data-dismiss="modal"
+    (click)="onCloseModal()">
+    {{actionDefault}}
+  </button>
+  <button *ngIf="actionSuccess" type="button" class="btn button-success" data-dismiss="modal"
+    [disabled]="activeLoading"
+    (click)="onConfirmActionSuccess()">
+    <i class="fad fa-spinner fa-pulse icon-loading" *ngIf="activeLoading"></i>
+    {{actionSuccess}}
+  </button>
+</div>

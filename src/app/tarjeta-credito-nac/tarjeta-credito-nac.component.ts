@@ -60,6 +60,8 @@ export class TarjetaCreditoNacComponent implements OnInit {
 
   onHandleChangeCriterio({ mes, anio }): void {
     this.loading = true
+    this.paginationSearch.currentPage = 1
+    this.paginationSearch.itemsPerPage = 10
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, anio, this.registrosNacionales)
   }
 
