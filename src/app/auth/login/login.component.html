@@ -4,7 +4,7 @@
       <div class="item">
         <label for="type" class="form-label"><strong>Email<span class="color-red"><strong>*
               </strong></span> <i class="icon far fa-envelope"></i> </strong></label>
-        <input auto-focus [class.msgErrorFields]="onValidateErrorFields('correo')" type="email" formControlName="correo"
+        <input [class.msgErrorFields]="onValidateErrorFields('correo')" type="email" formControlName="correo"
           class="form-control" placeholder="ejemplo@mail.cl">
         <span class="validation-message" *ngIf="onValidateErrorFields('correo')"> * mensaje validación </span>
       </div>

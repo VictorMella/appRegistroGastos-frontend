@@ -4,7 +4,7 @@
       <div class="item">
         <label for="type" class="form-label"><strong>Nombre<span class="color-red"><strong>*
               </strong></span> <i class="icon far fa-signature"></i> </strong></label>
-        <input auto-focus [class.msgErrorFields]="onValidateErrorFields('nombre')" type="text" formControlName="nombre"
+        <input [class.msgErrorFields]="onValidateErrorFields('nombre')" type="text" formControlName="nombre"
           class="form-control" placeholder="Ingrese su nombre" maxlength="50">
         <span class="validation-message" *ngIf="onValidateErrorFields('nombre')"> * mensaje validación </span>
       </div>

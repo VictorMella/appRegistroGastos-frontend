@@ -47,17 +47,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual, this.registrosNacionales)
   }
 
-  ngOnInit(): void {
-    this.onGoTo()
-  }
-
-   onGoTo() {
-    document.getElementById("userMenu").scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest"
-    });
-  }
+  ngOnInit(): void { }
 
   onHandleChangePaginationSearch({ page, itemsPerPage }): void {
     this.loading = true

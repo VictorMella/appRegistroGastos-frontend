@@ -4,7 +4,7 @@
       <div class="item">
         <label for="type" class="form-label"><strong>Monto<span class="color-red"><strong>*
               </strong></span> <i class="icon far fa-money-bill-wave"></i> </strong></label>
-        <input currency auto-focus [class.msgErrorFields]="onValidateErrorFields('monto')" type="number"
+        <input currency [class.msgErrorFields]="onValidateErrorFields('monto')" type="number"
           formControlName="monto" class="form-control" prevent-key-number>
         <span class="validation-message" *ngIf="onValidateErrorFields('monto')"> * Debe ingresar un monto </span>
       </div>
