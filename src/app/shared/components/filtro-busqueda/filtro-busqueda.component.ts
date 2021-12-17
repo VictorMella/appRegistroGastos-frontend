@@ -39,7 +39,8 @@ export class FiltroBusquedaComponent implements OnInit {
     this.mainFactory.cargarAñosRegistros$
       .subscribe((active) => {
         if (active) {
-           this.getYears()
+          this.getYears()
+          this.selectedMonth = this.utilsService.mesActual
         }
       })
     this.getYears()

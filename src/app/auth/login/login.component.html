@@ -14,7 +14,7 @@
             <i class="icon far fa-unlock-alt"></i>
           </strong></label>
         <input class="form-control" [class.msgErrorFields]="onValidateErrorFields('password')"
-          formControlName="password" maxlength="1500" type="password" placeholder="******">
+          formControlName="password" maxlength="12" type="password" placeholder="******">
         <span class="validation-message" *ngIf="onValidateErrorFields('password')">
           * mensaje validación
         </span>

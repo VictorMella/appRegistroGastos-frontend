@@ -6,16 +6,16 @@
               </strong></span> <i class="icon far fa-money-bill-wave"></i> </strong></label>
         <input currency auto-focus [class.msgErrorFields]="onValidateErrorFields('monto')" type="number"
           formControlName="monto" class="form-control" prevent-key-number>
-        <span class="validation-message" *ngIf="onValidateErrorFields('monto')"> * mensaje validación </span>
+        <span class="validation-message" *ngIf="onValidateErrorFields('monto')"> * Debe ingresar un monto </span>
       </div>
       <div class="item">
         <label for="descripcion" class="form-label"><strong>Descripción
             <i class="icon far fa-comment-alt-lines"></i>
           </strong></label>
         <textarea class="form-control" [class.msgErrorFields]="onValidateErrorFields('descripcion')"
-          formControlName="descripcion" maxlength="1500"></textarea>
+          formControlName="descripcion" maxlength="250" ></textarea>
         <span class="validation-message" *ngIf="onValidateErrorFields('descripcion')">
-          * mensaje validación
+          * Hay una o más palabras con un texto poco legible
         </span>
       </div>
       <!-- CREDITO -->
@@ -24,9 +24,14 @@
           <label for="descripcion" class="form-label"><strong>Cuotas
               <i class="far fa-comment-dollar"></i>
             </strong></label>
-          <input [class.msgErrorFields]="onValidateErrorFields('cuotas')" type="number"
-            formControlName="cuotas" class="form-control" prevent-key-number [disabled]="contexto === 'internacional'" [class.cursor__notallowed] = "contexto === 'internacional'">
-          <span class="validation-message" *ngIf="onValidateErrorFields('cuotas')"> * mensaje validación </span>
+            <ng-select [clearable]="false" formControlName="cuotas" *ngIf="contexto !== 'internacional'"
+            [class.msgErrorFields]="onValidateErrorFields('cuotas')" [placeholder]="'Seleccione...'">
+            <ng-option *ngFor="let item of lsCuotas" [value]="item">{{item}}</ng-option>
+          </ng-select>
+
+          <input [class.msgErrorFields]="onValidateErrorFields('cuotas')" type="number" *ngIf="contexto === 'internacional'"
+            formControlName="cuotas" class="form-control" prevent-key-number disabled ="contexto === 'internacional'" [class.cursor__notallowed] = "contexto === 'internacional'" placeholder="Cuotas entre 1 y 12">
+          <span class="validation-message" *ngIf="onValidateErrorFields('cuotas')"> * Seleccione una opción</span>
         </div>
         <div class="switch" *ngIf="contexto !== 'debito'">
           <label for="descripcion" class="form-label"><strong>Facturación inmediata
@@ -44,7 +49,7 @@
           [class.msgErrorFields]="onValidateErrorFields('tipoTransaccion')" [placeholder]="'Seleccione...'">
           <ng-option *ngFor="let item of listTiposTransacccion" [value]="item">{{item.nombre}}</ng-option>
         </ng-select>
-        <span *ngIf="onValidateErrorFields('tipoTransaccion')" class="validation-message"> * mensaje validación </span>
+        <span *ngIf="onValidateErrorFields('tipoTransaccion')" class="validation-message"> * Debe seleccionar un tipo de compra</span>
       </div>
 
       <div class="item">

@@ -88,6 +88,10 @@ export class UtilsService {
     },
   ];
 
+  cuotas: Array<Number> = [
+    1,3,6,12
+  ]
+
 
   constructor(private http: HttpClient) {
   }
@@ -132,5 +136,9 @@ export class UtilsService {
 
   getLsMeses(): Array<IMeses> {
     return this.meses
+  }
+
+  getLsCuotas(): Array<Number> {
+    return this.cuotas
   }
 }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms'
 import { BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { add } from 'date-fns'
 import { ITipoTransaccion } from 'src/app/core/interfaces/tipoTransaccion.interface'
@@ -7,6 +7,9 @@ import { UtilsService } from 'src/app/core/services/utils.service'
 import { AlertService } from 'src/app/core/services/alert.service'
 import { MainFactoryService } from 'src/app/core/services/main-factory.service'
 import { DatePipe } from '@angular/common'
+import { ConditionalExpr } from '@angular/compiler'
+import { fromEvent } from 'rxjs'
+
 @Component({
   selector: 'app-crear-registro',
   templateUrl: './crear-registro.component.html',
@@ -16,6 +19,7 @@ export class CrearRegistroComponent implements OnInit {
   form: FormGroup
   validForm: boolean
   listTiposTransacccion: ITipoTransaccion[]
+  lsCuotas: Number[]
   minDate: Date
   title: string
   active: boolean
@@ -37,6 +41,7 @@ export class CrearRegistroComponent implements OnInit {
     this.localService.use('es') // necesario para idioma de datepiker
     this.minDate = add(new Date(), { days: 0 })
     this.listTiposTransacccion = this.utilsService.getTipoTransaccion()
+    this.lsCuotas = this.utilsService.getLsCuotas()
     this.title = 'Guardar'
 
   }
@@ -59,7 +64,6 @@ export class CrearRegistroComponent implements OnInit {
       this.handleCrearRegistro.emit(this.form.value)
       this.resetForm()
     } else {
-      this.validForm = false
       this.alert.error('Valide formulario')
     }
   }
@@ -105,21 +109,45 @@ export class CrearRegistroComponent implements OnInit {
     if (this.contexto === 'debito') {
       this.form = this.formBuilder.group({
         monto: ['', Validators.required],
-        descripcion: [null, [Validators.maxLength(1500)]],
+        descripcion: [null, [Validators.maxLength(250)]],
         tipoTransaccion: [null, Validators.required],
         fechaCompra: [this.minDate, Validators.required],
       })
     } else {
       this.form = this.formBuilder.group({
         monto: ['', Validators.required],
-        descripcion: [null, [Validators.maxLength(1500)]],
+        descripcion: [null, [Validators.maxLength(250)]],
         fechaCompra: [this.minDate, Validators.required],
         facturacionInmediata: [false],
-        cuotas: [1, [Validators.min(1), Validators.required] ],
+        cuotas: this.contexto === 'internacional' ? [1, [Validators.min(1), Validators.required]] : [null, [Validators.required]],
       })
     }
     this.title = 'Guardar'
     this.handleLimpiarRegistroSeleccionado.emit()
+    this.form.controls['descripcion'].valueChanges
+      .subscribe(value => {
+        this.changeItem(value)
+      })
+  }
+
+  changeItem(value: any) {
+    const newDato = parseInt(value)
+    if (!isNaN(newDato)) {
+        return
+    }
+    const arrayDescripcion = value.split(' ')
+    arrayDescripcion.forEach(item => {
+      if (this.cantRepetidos(item) > 2 && isNaN(item)) {
+        this.form.get('descripcion').setErrors({ incorrect: true })
+        this.validForm = false
+      } else {
+        this.validForm = true
+      }
+    })
+  }
+
+  private cantRepetidos(letras) {
+    return letras.split('').filter((c, i, a)=>a.indexOf(c) !== i).length + 1
   }
 }
 
