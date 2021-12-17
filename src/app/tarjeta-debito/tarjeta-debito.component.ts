@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit , TemplateRef} from '@angular/core'
+import { Component, OnInit , TemplateRef, ViewChild} from '@angular/core'
 import { DtoInsertDebito } from '../core/interfaces/DtoInsertDebito.interface'
 import { IDebito } from '../core/interfaces/iDebito.interface'
 import { DatePipe } from '@angular/common'
@@ -11,14 +11,12 @@ import { UtilsService } from '../core/services/utils.service'
 import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
 import { MainFactoryService } from '../core/services/main-factory.service'
 import { AuthService } from '../services/auth.service'
-import { BsModalService } from 'ngx-bootstrap/modal'
 
 @Component({
   selector: 'app-tarjeta-debito',
   templateUrl: './tarjeta-debito.component.html',
   styleUrls: ['./tarjeta-debito.component.scss'],
-  providers: [DatePipe],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [DatePipe]
 })
 export class TarjetaDebitoComponent implements OnInit {
   get usuario() {
@@ -33,14 +31,14 @@ export class TarjetaDebitoComponent implements OnInit {
   registroSeleccionadoEdicion: IRegistrosCreados
   totalGastado: number
 
+  @ViewChild('modalConfirmacion') modalConfirmacion: TemplateRef<any>
+
   constructor(public datePipe: DatePipe,
               private alert: AlertService,
               public utils: UtilsService,
               public mainFactory: MainFactoryService,
               private debitoService: DebitoService,
               private authService: AuthService,
-              private bsModalService: BsModalService,
-
   ) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual)
@@ -105,6 +103,12 @@ export class TarjetaDebitoComponent implements OnInit {
     const payload = {
       _id
     }
+    this.mainFactory.setData('payloadDeleteDebito', payload)
+    this.utils.showModal(this.modalConfirmacion, { id: 1, class: 'modal-md' });
+  }
+
+  onHandleConfirmBorrarRegistro() {
+    const payload = this.mainFactory.getData('payloadDeleteDebito')
     this.debitoService.deleteDebito(payload)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
@@ -116,17 +120,10 @@ export class TarjetaDebitoComponent implements OnInit {
         } else {
           this.alert.error(resp.mensaje)
         }
+        this.utils.closeModal();
       }, error => {
         console.log(error)
       })
-  }
-
-  onOpenModalConfirmationQuestion(modalTemplate: TemplateRef<any>): void {
-    this.bsModalService.show(modalTemplate, {
-      id: 1, // para poder levantar modal sobre modal se debe ir sumando un nivel.
-      backdrop: true,
-      class: 'modal-md',
-    })
   }
 
   private crearRegistro($event): void {

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Injectable, TemplateRef } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { AjaxError } from 'rxjs/ajax'
 import { catchError} from 'rxjs/operators'
@@ -9,6 +9,7 @@ import { IAnios, IMeses } from '../interfaces/iMesesAnios.interface'
 import { IPagination } from '../interfaces/iPagination.interface'
 import { ITipoTransaccion } from '../interfaces/tipoTransaccion.interface'
 import { IRespuesta } from '../interfaces/iRespuesta.interface'
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal'
 
 @Injectable({
   providedIn: 'root'
@@ -104,7 +105,8 @@ export class UtilsService {
   ]
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private bsModalService: BsModalService,) {
   }
 
   getMenu(): IMenuItem[] {
@@ -155,5 +157,14 @@ export class UtilsService {
 
   getLsCuotas(): Array<Number> {
     return this.cuotas
+  }
+
+  public showModal(modalTemplate: TemplateRef<any>, config: ModalOptions): void {
+    this.bsModalService.show(modalTemplate, { backdrop: false, ...config })
+  }
+
+  public closeModal(nivel?: number): void {
+    this.bsModalService.hide(nivel);
+    this.bsModalService.removeBackdrop()
   }
 }

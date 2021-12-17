@@ -32,4 +32,11 @@ html, body{
   background-color: black;
 }
 
+modal-container{
+  top: 50px !important;
+  @media screen and (max-width: 649px) {
+    top: 130px !important;
+  }
+}
+
 

@@ -1,10 +1,8 @@
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common'
-import { Component, OnInit } from '@angular/core';
 import { DtoEditCredito } from '../core/interfaces/DtoEditCredito.interface'
-import { DtoEditDebito } from '../core/interfaces/DtoEditDebito.interface'
 import { DtoInsertCredito } from '../core/interfaces/DtoInsertCredito.interface'
 import { ICredito } from '../core/interfaces/iCredito.interface'
-import { IDebito } from '../core/interfaces/iDebito.interface'
 import { IPagination } from '../core/interfaces/iPagination.interface'
 import { IRegistrosCreados } from '../core/interfaces/IRegistrosCreados.interface'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
@@ -13,7 +11,6 @@ import { MainFactoryService } from '../core/services/main-factory.service'
 import { UtilsService } from '../core/services/utils.service'
 import { AuthService } from '../services/auth.service'
 import { CreditoNacService } from '../services/credito-nac.service'
-
 @Component({
   selector: 'app-tarjeta-credito-inter',
   templateUrl: './tarjeta-credito-inter.component.html',
@@ -32,13 +29,14 @@ export class TarjetaCreditoInterComponent implements OnInit {
   totalGastado: number
   registrosNacionales: boolean
 
+  @ViewChild('modalConfirmacion') modalConfirmacion: TemplateRef<any>
+
   constructor(public datePipe: DatePipe,
               private alert: AlertService,
               public utils: UtilsService,
               public mainFactory: MainFactoryService,
               private creditNacService: CreditoNacService,
               private authService: AuthService,
-
   ) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
     this.registrosNacionales= false
@@ -105,6 +103,13 @@ export class TarjetaCreditoInterComponent implements OnInit {
       _id,
       identificador
     }
+    this.mainFactory.setData('payloadCreditoInternacional', payload)
+    this.utils.showModal(this.modalConfirmacion, { id: 1, class: 'modal-md' });
+  }
+
+
+  onHandleConfirmBorrarRegistro() {
+    const payload = this.mainFactory.getData('payloadCreditoInternacional')
     this.creditNacService.deleteCredito(payload)
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
@@ -115,6 +120,7 @@ export class TarjetaCreditoInterComponent implements OnInit {
         } else {
           this.alert.error(resp.mensaje)
         }
+        this.utils.closeModal();
       }, error => {
         console.log(error)
       })

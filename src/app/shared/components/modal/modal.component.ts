@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { UtilsService } from 'src/app/core/services/utils.service'
 
 @Component({
   selector: 'app-modal',
@@ -17,7 +17,7 @@ export class ModalComponent implements OnInit {
   @Input() customClass: string;
   @Output() handleConfirmActionSuccess: EventEmitter<any> = new EventEmitter();
   constructor(
-    private bsModalService: BsModalService
+    private utils: UtilsService
   ) { }
 
   ngOnInit(): void {
@@ -25,7 +25,7 @@ export class ModalComponent implements OnInit {
   }
 
   onCloseModal(): void {
-    this.bsModalService.hide(this.nivel);
+    this.utils.closeModal(this.nivel)
   }
 
   onConfirmActionSuccess(): void {

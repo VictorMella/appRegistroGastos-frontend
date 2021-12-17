@@ -15,17 +15,18 @@
                           (handleBorrarRegistro)="onHandleBorrarRegistro($event)">
 </app-visualizar-registro>
 
-<ng-template #modalConfirmation>
+<ng-template #modalConfirmacion>
   <app-modal
     icon="fas fa-exclamation-circle"
     customClass="warning"
-    [title]="'Quitar producto/servicio de cotización'"
+    [title]="'Borrar registro'"
     [actionDefault]="'Cancelar'"
     [actionSuccess]="'Confirmar'"
     [activeLoading]="false"
-    (handleConfirmActionSuccess)="onHandleConfirm()">
+    (handleConfirmActionSuccess)="onHandleConfirmBorrarRegistro()">
     <app-confirmacion
       icon="fas fa-exclamation-circle"
-      [question]="'¿Está seguro de quitar producto/servicio de cotización?'">
+      [question]="'¿Está seguro de borrar este registro de su tarjeta de debito?'">
     </app-confirmacion>
   </app-modal>
+</ng-template>

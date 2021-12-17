@@ -7,6 +7,7 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { LoaderComponent } from './components/loader/loader.component';
 import { PaginadorComponent } from './components/paginador/paginador.component';
 import { CrearRegistroComponent } from './components/crear-registro/crear-registro.component';
@@ -34,6 +35,7 @@ defineLocale('es', esLocale);
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
+    ModalModule.forRoot(),
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -52,9 +54,13 @@ defineLocale('es', esLocale);
     VisualizarRegistroComponent,
     PageNotFoundComponent,
     BsDropdownModule,
+    ModalComponent,
+    ConfirmacionComponent,
   ],
   providers: [
     DatePipe,
+    BsModalRef,
+    BsModalService,
   ]
 })
 export class SharedModule { }

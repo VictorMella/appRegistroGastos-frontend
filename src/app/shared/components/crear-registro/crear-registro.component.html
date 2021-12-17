@@ -5,7 +5,7 @@
         <label for="type" class="form-label"><strong>Monto<span class="color-red"><strong>*
               </strong></span> <i class="icon far fa-money-bill-wave"></i> </strong></label>
         <input currency [class.msgErrorFields]="onValidateErrorFields('monto')" type="number"
-          formControlName="monto" class="form-control" prevent-key-number>
+          formControlName="monto" class="form-control" prevent-key-number placeholder="Ingrese el monto de la compra">
         <span class="validation-message" *ngIf="onValidateErrorFields('monto')"> * Debe ingresar un monto </span>
       </div>
       <div class="item">
@@ -13,7 +13,7 @@
             <i class="icon far fa-comment-alt-lines"></i>
           </strong></label>
         <textarea class="form-control" [class.msgErrorFields]="onValidateErrorFields('descripcion')"
-          formControlName="descripcion" maxlength="250" ></textarea>
+          formControlName="descripcion" maxlength="250" placeholder="Ingrese una descripción de la compra" ></textarea>
         <span class="validation-message" *ngIf="onValidateErrorFields('descripcion')">
           * Hay una o más palabras con un texto poco legible
         </span>
@@ -30,7 +30,7 @@
           </ng-select>
 
           <input [class.msgErrorFields]="onValidateErrorFields('cuotas')" type="number" *ngIf="contexto === 'internacional'"
-            formControlName="cuotas" class="form-control" prevent-key-number disabled ="contexto === 'internacional'" [class.cursor__notallowed] = "contexto === 'internacional'" placeholder="Cuotas entre 1 y 12">
+            formControlName="cuotas" class="form-control" prevent-key-number disabled ="contexto === 'internacional'" [class.cursor__notallowed] = "contexto === 'internacional'" placeholder="Seleccione 1 y 12 cuotas">
           <span class="validation-message" *ngIf="onValidateErrorFields('cuotas')"> * Seleccione una opción</span>
         </div>
         <div class="switch" *ngIf="contexto !== 'debito'">
