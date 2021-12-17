@@ -48,6 +48,15 @@ export class TarjetaCreditoNacComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onGoTo()
+  }
+
+   onGoTo() {
+    document.getElementById("userMenu").scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest"
+    });
   }
 
   onHandleChangePaginationSearch({ page, itemsPerPage }): void {

@@ -44,7 +44,16 @@ export class TarjetaDebitoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   }
+    this.onGoTo()
+  }
+
+   onGoTo() {
+    document.getElementById("userMenu").scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "start"
+    });
+  }
 
   onHandleChangePaginationSearch({ page, itemsPerPage }): void {
     this.loading = true

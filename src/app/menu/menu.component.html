@@ -1,7 +1,15 @@
-<ul class="list-group" *ngIf="!menuActivo">
-  <li class="list-group-item" *ngFor="let item of menuItems" [routerLink]="[ item.ruta ]"
-  routerLinkActive="active"> {{item.nombre}} </li>
-</ul>
+
+<div class="flex">
+  <ul class="list-group" *ngIf="!menuActivo">
+    <li class="list-group-item" *ngFor="let item of menuItems" [routerLink]="[ item.ruta ]"
+    routerLinkActive="active"> {{item.nombre}} </li>
+  </ul>
+
+  <ul class="list-group space" *ngIf="!menuActivo">
+    <li class="list-group-item" *ngFor="let item of menuUsuario" [routerLink]="[ item.ruta ]"
+    routerLinkActive="active" (click)="accion(item.nombre)"> {{item.nombre}} </li>
+  </ul>
+</div>
 
 <h2 *ngIf="menuActivo">
   Registro de cuentas

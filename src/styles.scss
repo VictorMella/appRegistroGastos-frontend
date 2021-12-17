@@ -17,6 +17,9 @@ app-menu{
   background-color: #444;
   height: 70px;
   padding: 20px 30px;
+  @media screen and (max-width: 649px) {
+    height: auto
+  }
 
   li{
     cursor: pointer;

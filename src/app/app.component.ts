@@ -18,7 +18,7 @@ export class AppComponent {
     document.getElementById("userMenu").scrollIntoView({
       behavior: "smooth",
       block: "start",
-      inline: "nearest"
+      inline: "start"
     });
   }
 

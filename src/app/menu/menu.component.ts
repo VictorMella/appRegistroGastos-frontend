@@ -12,6 +12,7 @@ import { UtilsService } from 'src/app/core/services/utils.service'
 })
 export class MenuComponent implements OnInit {
   menuItems: IMenuItem[]
+  menuUsuario: IMenuItem[]
   menuActivo: boolean
 
   public subscriber: Subscription
@@ -19,6 +20,7 @@ export class MenuComponent implements OnInit {
   constructor(private utilsService: UtilsService,
     private router: Router) {
     this.menuItems = this.utilsService.getMenu()
+    this.menuUsuario = this.utilsService.getOpciones()
     this.menuActivo = true
   }
 
@@ -38,5 +40,9 @@ export class MenuComponent implements OnInit {
     console.log(urlActual)
     this.menuActivo = arrayUrl.includes(urlActual)
     console.log(this.menuActivo)
+  }
+
+  accion(ruta: string) {
+    localStorage.clear()
   }
 }

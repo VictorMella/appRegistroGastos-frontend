@@ -34,6 +34,17 @@ export class UtilsService {
     }
   ]
 
+  menuUsuario: IMenuItem[] = [
+    {
+      ruta: '/auth/Login',
+      nombre: 'Salir'
+    },
+    // {
+    //   ruta: '/auth/registro',
+    //   nombre: 'Editar datos'
+    // },
+  ]
+
   tipoTransaccion: ITipoTransaccion[] = [
     {
       id: 1, nombre: 'Compras'
@@ -98,6 +109,10 @@ export class UtilsService {
 
   getMenu(): IMenuItem[] {
     return this.menuItems
+  }
+
+  getOpciones(): IMenuItem[] {
+    return this.menuUsuario
   }
 
   getTipoTransaccion(): ITipoTransaccion[] {
