@@ -1,0 +1,32 @@
+
+
+<app-crear-registro [loadingCreandoRegistro]="loadingCreandoRegistro"
+                    contexto="otros"
+                    (handleLimpiarRegistroSeleccionado)="onHandleLimpiarRegistroSeleccionado()"
+                    (handleCrearRegistro)="onHandleCrearRegistro($event)">
+</app-crear-registro>
+<!-- Se mantiene el contexto ya que la data que se quiere mostrar ocupa la misma estructura -->
+<app-visualizar-registro  [registrosCreados]="registrosCreados"
+                          contexto="otros"
+                          [loading]="loading"
+                          [pagination]="paginationSearch"
+                          [totalGastado]="totalGastado"
+                          (handleChangePagination)="onHandleChangePaginationSearch($event)"
+                          (handleChangeCriterio)="onHandleChangeCriterio($event)"
+                          (handleSeleccionarRegistro)="onHandleSeleccionarRegistro($event)"
+                          (handleBorrarRegistro)="onHandleBorrarRegistro($event)">
+</app-visualizar-registro>
+
+<ng-template #modalConfirmacion>
+  <app-modal icon="fas fa-exclamation-circle"
+            customClass="warning"
+              [title]="'Borrar registro'"
+              [actionDefault]="'Cancelar'"
+              [actionSuccess]="'Confirmar'"
+              [activeLoading]="false"
+              (handleConfirmActionSuccess)="onHandleConfirmBorrarRegistro()">
+    <app-confirmacion icon="fas fa-exclamation-circle"
+                      [question]="'¿Está seguro de borrar este registro?'">
+    </app-confirmacion>
+  </app-modal>
+</ng-template>

@@ -19,12 +19,12 @@
         </span>
       </div>
       <!-- CREDITO -->
-      <div class="item switchCuotas" *ngIf="contexto !== 'debito'">
+      <div class="item switchCuotas" *ngIf="contexto !== 'debito' && contexto !== 'otros'">
         <div class="cuotas" *ngIf="contexto !== 'debito'">
           <label for="descripcion" class="form-label"><strong>Cuotas
               <i class="far fa-comment-dollar"></i>
             </strong></label>
-            <ng-select [clearable]="false" formControlName="cuotas" *ngIf="contexto !== 'internacional'"
+            <ng-select [clearable]="false" formControlName="cuotas" *ngIf="contexto === 'nacional'"
             [class.msgErrorFields]="onValidateErrorFields('cuotas')" [placeholder]="'Seleccione...'">
             <ng-option *ngFor="let item of lsCuotas" [value]="item">{{item}}</ng-option>
           </ng-select>
@@ -40,7 +40,7 @@
           <app-switch [active]="contexto === 'internacional'" [disabled]="contexto === 'internacional'" [class.cursor__notallowed] = "contexto === 'internacional'" (handleToggleSwitch)="onHandleToggleSwitch($event)" ></app-switch>
         </div>
       </div>
-      <div class="item" *ngIf="contexto === 'debito'">
+      <div class="item" *ngIf="contexto === 'debito' || contexto === 'otros'">
         <label for="tipoTransaccion" class="form-label"><strong>Tipo de transacción<span
               class="color-red"><strong>*</strong></span>
             <i class="icon far fa-comments-alt-dollar"></i>

@@ -24,6 +24,18 @@ const routes: Routes = [
         canActivate: [ValidarTokenGuard],
         canLoad: [ValidarTokenGuard]
       },
+      {
+        path: 'otras',
+        loadChildren: () => import('../otros-gastos/otros-gastos.module').then(mod => mod.OtrosGastosModule),
+        canActivate: [ValidarTokenGuard],
+        canLoad: [ValidarTokenGuard]
+      },
+      {
+        path: 'resumen',
+        loadChildren: () => import('../resumen/resumen.module').then(mod => mod.ResumenModule),
+        canActivate: [ValidarTokenGuard],
+        canLoad: [ValidarTokenGuard]
+      },
 
     ]
   },

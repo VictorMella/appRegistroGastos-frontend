@@ -32,6 +32,14 @@ export class UtilsService {
     {
       ruta: '/cuenta/internacional',
       nombre: 'Internacional'
+    },
+    {
+      ruta: '/cuenta/otras',
+      nombre: 'Otras'
+    },
+    {
+      ruta: '/cuenta/resumen',
+      nombre: 'Resumen'
     }
   ]
 
@@ -48,16 +56,22 @@ export class UtilsService {
 
   tipoTransaccion: ITipoTransaccion[] = [
     {
-      id: 1, nombre: 'Compras'
+      id: 1, nombre: 'Compras', cuenta: 'debito'
     },
     {
-      id: 2, nombre: 'Giros'
+      id: 2, nombre: 'Giros', cuenta: 'debito'
     },
     {
-      id: 3, nombre: 'Pagos'
+      id: 3, nombre: 'Pagos', cuenta: 'debito'
     },
     {
-      id: 4, nombre: 'Transferencias'
+      id: 4, nombre: 'Transferencias', cuenta: 'debito'
+    },
+    {
+      id: 5, nombre: 'Ingreso', cuenta: 'otros'
+    },
+    {
+      id: 6, nombre: 'Egreso', cuenta: 'otros'
     }
   ];
 
@@ -127,6 +141,10 @@ export class UtilsService {
 
   getYearsCredito(registrosNacionales: boolean, idUsuarioCreacion: number): Observable<any> {
     return this.http.get(`${environment.url}/credito/anio?registrosNacionales=${registrosNacionales}&idUsuarioCreacion=${idUsuarioCreacion}`)
+  }
+
+  getYearsOtros(idUsuarioCreacion: number): Observable<any> {
+    return this.http.get(`${environment.url}/otros-gastos/anio?idUsuarioCreacion=${idUsuarioCreacion}`)
   }
 
   private getError(err: AjaxError) {

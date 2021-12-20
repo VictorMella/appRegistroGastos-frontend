@@ -29,7 +29,7 @@ export class FiltroBusquedaComponent implements OnInit {
     private mainFactory: MainFactoryService,
     private authService: AuthService) {
     this.meses = utilsService.getLsMeses()
-    this.getYearsDebito()
+    // this.getYearsDebito()
     this.cargaAños = false
     this.selectedMonth = utilsService.mesActual
     this.mainFactory.setData('selectedMonth', this.selectedMonth)
@@ -65,6 +65,27 @@ export class FiltroBusquedaComponent implements OnInit {
         console.log(error)
       })
   }
+
+  getYearsOtros() {
+    this.utilsService.getYearsOtros(this.usuario.identificador)
+      .subscribe((resp: IRespuesta) => {
+        if (resp.ok) {
+          this.years = resp.data
+          if (this.years.length === 1) {
+            this.selectedYear = this.years[0]
+          } else {
+            this.selectedYear = this.utilsService.anioActual
+          }
+          this.mainFactory.setData('selectedYear', this.selectedYear)
+          if (this.cargaAños) {
+            this.onSearchCriterio()
+          }
+        }
+      }, error => {
+        console.log(error)
+      })
+  }
+
   getYearsCredito() {
     const registrosNacionales = this.service === 'nacional'
     this.utilsService.getYearsCredito(registrosNacionales, this.usuario.identificador)
@@ -96,7 +117,9 @@ export class FiltroBusquedaComponent implements OnInit {
   private getYears(): void {
     if (this.service === 'debito') {
       this.getYearsDebito()
-    } else {
+    } else if (this.service === 'otros') {
+      this.getYearsOtros()
+    }else{
       this.getYearsCredito()
     }
     this.cargaAños = true

@@ -73,7 +73,6 @@ export class TarjetaDebitoComponent implements OnInit {
           this.paginationSearch.total = resp.data[0].totalRegistros
         } else {
           this.registrosCreadosDebito = []
-          this.alert.error(resp.mensaje)
         }
         this.loading = false
       }, error => {

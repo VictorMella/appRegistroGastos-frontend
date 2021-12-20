@@ -40,13 +40,14 @@ export class CrearRegistroComponent implements OnInit {
     this.validForm = true
     this.localService.use('es') // necesario para idioma de datepiker
     this.minDate = add(new Date(), { days: 0 })
-    this.listTiposTransacccion = this.utilsService.getTipoTransaccion()
+
     this.lsCuotas = this.utilsService.getLsCuotas()
     this.title = 'Guardar'
 
   }
 
   ngOnInit(): void {
+    this.listTiposTransacccion = this.utilsService.getTipoTransaccion().filter(item => item.cuenta === this.contexto)
     this.active = true
     this.resetForm()
     this.mainFactory.cargarRegistroEdicion$
@@ -87,7 +88,7 @@ export class CrearRegistroComponent implements OnInit {
 
   private cargarItem(): void {
     const registroSeleccionado = this.mainFactory.getData('registroSeleccionadoEdicion')
-    if (this.contexto === 'debito') {
+    if (this.contexto === 'debito' || this.contexto === 'otros') {
       this.form.patchValue({
         monto: registroSeleccionado?.monto,
         descripcion: registroSeleccionado?.descripcion,
@@ -113,16 +114,16 @@ export class CrearRegistroComponent implements OnInit {
   }
 
   public resetForm() {
-    if (this.contexto === 'debito') {
+    if (this.contexto === 'debito' || this.contexto === 'otros' ) {
       this.form = this.formBuilder.group({
-        monto: [0, [Validators.required, Validators.max(1000000)]],
+        monto: [null, [Validators.required, Validators.max(1000000)]],
         descripcion: [null, [Validators.maxLength(250)]],
         tipoTransaccion: [null, Validators.required],
         fechaCompra: [this.minDate, Validators.required],
       })
     } else {
       this.form = this.formBuilder.group({
-        monto: [0, [Validators.required, Validators.max(1000000)]],
+        monto: [null, [Validators.required, Validators.max(1000000)]],
         descripcion: [null, [Validators.maxLength(250)]],
         fechaCompra: [this.minDate, Validators.required],
         facturacionInmediata: [false],

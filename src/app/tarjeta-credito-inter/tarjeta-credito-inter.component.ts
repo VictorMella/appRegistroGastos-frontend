@@ -72,7 +72,6 @@ export class TarjetaCreditoInterComponent implements OnInit {
           this.paginationSearch.total = resp.data[0].totalRegistros
         } else {
           this.registrosCreadosCredito = []
-          this.alert.error(resp.mensaje)
         }
         this.loading = false
       }, error => {

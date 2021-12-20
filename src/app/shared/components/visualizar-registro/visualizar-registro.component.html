@@ -1,7 +1,8 @@
 <div class="contans-table">
   <div class="header">
     <div class="legend">
-      <h3>Registro de gastos</h3>
+      <h3 *ngIf="contexto === 'otros'">Diferencia entre ingresos y egresos</h3>
+      <h3 *ngIf="contexto !== 'otros'">Registro de gastos</h3>
       <h4 *ngIf="registrosCreados.length > 0 && !loading">Total gastado {{ totalGastado | pCurrency }}</h4>
     </div>
    <app-filtro-busqueda  [loading]="loading"
@@ -13,9 +14,9 @@
       <tr>
         <th> Monto</th>
         <th> Descripción</th>
-        <th *ngIf="contexto !== 'debito'"> Cuotas</th>
-        <th *ngIf="contexto !== 'debito'"> N° cuota</th>
-        <th *ngIf="contexto !== 'debito'"> Facturación inmediata</th>
+        <th *ngIf="contexto !== 'debito' && contexto !== 'otros'"> Cuotas</th>
+        <th *ngIf="contexto !== 'debito' && contexto !== 'otros'"> N° cuota</th>
+        <th *ngIf="contexto !== 'debito' && contexto !== 'otros'"> Facturación inmediata</th>
         <th> Tipo de transaccción</th>
         <th> Fecha de la compra</th>
         <th> Mes</th>
@@ -31,13 +32,13 @@
         <td class="tdtext">
           <p>{{ item.descripcion }}</p>
         </td>
-        <td class="tdnumber" *ngIf="contexto !== 'debito'">
+        <td class="tdnumber" *ngIf="contexto !== 'debito' && contexto !== 'otros'">
           <p>{{ item.cuotas }}</p>
         </td>
-        <td class="tdnumber" *ngIf="contexto !== 'debito'">
+        <td class="tdnumber" *ngIf="contexto !== 'debito' && contexto !== 'otros'">
           <p>{{ item.nCuota }}</p>
         </td>
-        <td class="tdbutton" *ngIf="contexto !== 'debito'">
+        <td class="tdbutton" *ngIf="contexto !== 'debito' && contexto !== 'otros'">
           <i class="far fa-check" style="font-size: 20px;" *ngIf="item.facturacionInmediata"></i>
           <i class="far fa-times" style="font-size: 20px" *ngIf="!item.facturacionInmediata"></i>
         </td>
@@ -55,7 +56,7 @@
           <p>{{ item.anio }}</p>
         </td>
         <td class="tdbutton ">
-          <button class="btn button-success" (click)="onEditarRegistro(item)" *ngIf="contexto === 'debito'">Editar registro</button>
+          <button class="btn button-success" (click)="onEditarRegistro(item)" *ngIf="contexto === 'debito' || contexto === 'otros'">Editar registro</button>
           <button class="btn button-danger" (click)="onBorrarRegistro(item)">Borrar registro</button>
         </td>
       </tr>

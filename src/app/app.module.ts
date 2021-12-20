@@ -10,15 +10,15 @@ import { SharedModule } from './shared/shared.module'
 import { CoreModule } from './core/core.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module'
-import { CuentasModule } from './cuentas/cuentas.module'
 import { MenuComponent } from './menu/menu.component'
+import { CuentasModule } from './cuentas/cuentas.module'
 import { GlobalLoaderComponent } from './global-loader/global-loader.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    GlobalLoaderComponent
+    GlobalLoaderComponent,
   ],
   imports: [
     BrowserModule,
