@@ -33,14 +33,14 @@ export class UtilsService {
       ruta: '/cuenta/internacional',
       nombre: 'Internacional'
     },
-    {
-      ruta: '/cuenta/otras',
-      nombre: 'Otras'
-    },
-    {
-      ruta: '/cuenta/resumen',
-      nombre: 'Resumen'
-    }
+    // {
+    //   ruta: '/cuenta/otras',
+    //   nombre: 'Otras'
+    // },
+    // {
+    //   ruta: '/cuenta/resumen',
+    //   nombre: 'Resumen'
+    // }
   ]
 
   menuUsuario: IMenuItem[] = [
