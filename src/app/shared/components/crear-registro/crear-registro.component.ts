@@ -132,10 +132,10 @@ export class CrearRegistroComponent implements OnInit {
     }
     this.title = 'Guardar'
     this.handleLimpiarRegistroSeleccionado.emit()
-    this.form.controls['descripcion'].valueChanges
-      .subscribe(value => {
-        this.changeItem(value)
-      })
+    // this.form.controls['descripcion'].valueChanges
+    //   .subscribe(value => {
+    //     this.changeItem(value)
+    //   })
   }
 
   changeItem(value: any) {
