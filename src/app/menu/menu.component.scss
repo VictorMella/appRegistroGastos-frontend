@@ -4,6 +4,13 @@
     justify-content: center;
   }
 }
+
+.list-group:nth-child(1){
+  @media screen and (max-width: 650px) {
+    display: none;
+  }
+}
+
 .list-group-item.active{
   background-color: #157347;
   border-color: #146c43
@@ -24,5 +31,23 @@ h2 {
 .space {
   @media screen and (max-width: 650px) {
     margin-top: 10px;
+    li {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+.btn-group{
+  display: flex;
+  @media screen and (min-width: 649px) {
+    display: none;
+  }
+  button{
+    background-color: #157347;
+    border-color: #146c43
+  }
+  .dropdown-menu{
+    width: 100%;
   }
 }

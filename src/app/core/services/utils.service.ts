@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable, TemplateRef } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { AjaxError } from 'rxjs/ajax'
-import { catchError} from 'rxjs/operators'
+import { catchError } from 'rxjs/operators'
 import { environment } from 'src/environments/environment'
 import { IMenuItem } from '../interfaces/iMenuItem.interface'
 import { IAnios, IMeses } from '../interfaces/iMesesAnios.interface'
@@ -16,31 +16,32 @@ import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal'
 })
 export class UtilsService {
   anios: Array<IAnios> = [];
-  anio: any;
+  anio: any
   anioActual = new Date().getFullYear()
   mesActual = new Date().getMonth() + 1
 
   menuItems: IMenuItem[] = [
     {
+      ruta: '/cuenta/resumen',
+      nombre: 'Resumen'
+    },
+    {
       ruta: '/cuenta/debito',
-      nombre: 'Debito'
+      nombre: 'Débito'
     },
     {
       ruta: '/cuenta/credito',
-      nombre: 'Credito'
+      nombre: 'Crédito'
     },
     {
       ruta: '/cuenta/internacional',
       nombre: 'Internacional'
     },
-    // {
-    //   ruta: '/cuenta/otras',
-    //   nombre: 'Otras'
-    // },
-    // {
-    //   ruta: '/cuenta/resumen',
-    //   nombre: 'Resumen'
-    // }
+    {
+      ruta: '/cuenta/otras',
+      nombre: 'Otras'
+    },
+
   ]
 
   menuUsuario: IMenuItem[] = [
@@ -115,7 +116,7 @@ export class UtilsService {
   ];
 
   cuotas: Array<Number> = [
-    1,3,6,12
+    1, 3, 6, 12
   ]
 
 
@@ -162,7 +163,7 @@ export class UtilsService {
       itemsPerPage,
       sizes: [10, 20, 50, 100],
       total
-    };
+    }
   }
 
   getLsYears(): Array<IAnios> {
@@ -182,7 +183,7 @@ export class UtilsService {
   }
 
   public closeModal(nivel?: number): void {
-    this.bsModalService.hide(nivel);
+    this.bsModalService.hide(nivel)
     this.bsModalService.removeBackdrop()
   }
 }

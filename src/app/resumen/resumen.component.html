@@ -1,1 +1,32 @@
-<p>resumen works!</p>
+<div class="resumen-contains">
+  <div class="resumen">
+    <h1>Resumen del mes de {{ mesActual }}</h1>
+    <span  *ngIf="!loading">
+      <div class="tipo">
+        <label for="">Ingresos de la casa (+) </label>
+        <label>{{ totalGastadoOtrosIngreso | pCurrency }}</label>
+      </div>
+      <div class="tipo">
+        <label for="">Egresos de la casa (-)</label>
+        <label>{{ totalGastadoOtrosEgreso | pCurrency }}</label>
+      </div>
+      <div class="tipo">
+        <label for="">Tarjeta de debito (-)</label>
+        <label>{{totalGastadoDebito | pCurrency }}</label>
+      </div>
+      <div class="tipo">
+        <label for="">Tarjeta de crédito (-)</label>
+        <label>{{ totalGastadoCreditoNac | pCurrency }}</label>
+      </div>
+      <div class="tipo">
+        <label for="">Tarjeta de crédito internacional (-)</label>
+        <label>{{ totalGastadoCreditoInter | pCurrency }}</label>
+      </div>
+      <div class="tipo">
+        <label for="">Total</label>
+        <label>{{ totalGastos | pCurrency }}</label>
+      </div>
+    </span>
+    <app-loader *ngIf="loading"></app-loader>
+  </div>
+</div>

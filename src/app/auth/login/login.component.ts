@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       .subscribe((resp: IRespuesta) => {
         if (resp.ok) {
           // this.loaderService.setLoading({ show: true, text: 'Validando información...' });
-          this.router.navigateByUrl('/cuenta/debito')
+          this.router.navigateByUrl('/cuenta/resumen')
         } else {
           this.alert.error(resp.mensaje)
         }

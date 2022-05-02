@@ -114,16 +114,17 @@ export class CrearRegistroComponent implements OnInit {
   }
 
   public resetForm() {
-    if (this.contexto === 'debito' || this.contexto === 'otros' ) {
+    const montoMaximo: number = this.contexto === 'debito' || this.contexto === 'otros' ? 2000000 : 1000000
+    if (this.contexto === 'debito' || this.contexto === 'otros') {
       this.form = this.formBuilder.group({
-        monto: [null, [Validators.required, Validators.max(1000000)]],
+        monto: [null, [Validators.required, Validators.max(montoMaximo)]],
         descripcion: [null, [Validators.maxLength(250)]],
         tipoTransaccion: [null, Validators.required],
         fechaCompra: [this.minDate, Validators.required],
       })
     } else {
       this.form = this.formBuilder.group({
-        monto: [null, [Validators.required, Validators.max(1000000)]],
+        monto: [null, [Validators.required, Validators.max(montoMaximo)]],
         descripcion: [null, [Validators.maxLength(250)]],
         fechaCompra: [this.minDate, Validators.required],
         facturacionInmediata: [false],
