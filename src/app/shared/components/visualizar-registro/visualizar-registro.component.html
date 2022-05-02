@@ -5,17 +5,31 @@
       <h3 *ngIf="contexto !== 'otros'">Registro de gastos</h3>
       <h4 *ngIf="registrosCreados.length > 0 && !loading">Total gastado {{ totalGastado | pCurrency }}</h4>
     </div>
-   <app-filtro-busqueda  [loading]="loading"
-                         [service]="contexto"
-                         (handleChangeCriterio)="onSearchCriterio($event)" ></app-filtro-busqueda>
+    <app-filtro-busqueda  [loading]="loading"
+                          [service]="contexto"
+                          (handleChangeCriterio)="onSearchCriterio($event)">
+    </app-filtro-busqueda>
   </div>
+
+  <br>
+  <div>
+    <form class="d-flex">
+      <div class="form-group no-margin">
+        <input [(ngModel)]="search" type="text" class="form-control format__itemForm" placeholder="Filtrar búsqueda"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+    </form>
+  </div>
+  <br>
   <table class="table" *ngIf="registrosCreados.length > 0 && !loading">
     <thead>
       <tr>
-        <th> Monto</th>
         <th> Descripción</th>
-        <th *ngIf="contexto !== 'debito' && contexto !== 'otros'"> Cuotas</th>
-        <th *ngIf="contexto !== 'debito' && contexto !== 'otros'"> N° cuota</th>
+        <th *ngIf="contexto === 'nacional'"> Monto total de la compra</th>
+        <th *ngIf="contexto !== 'nacional'"> Monto</th>
+        <th *ngIf="contexto === 'nacional'"> Valor cuota</th>
+        <th *ngIf="contexto === 'nacional'"> Cuotas</th>
+        <th *ngIf="contexto === 'nacional'"> N° cuota</th>
         <th *ngIf="contexto !== 'debito' && contexto !== 'otros'"> Facturación inmediata</th>
         <th> Tipo de transaccción</th>
         <th> Fecha de la compra</th>
@@ -25,21 +39,24 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of registrosCreados">
-        <td class="tdmoneda">
-          <p>{{ item.monto | pCurrency}}</p>
-        </td>
+      <tr *ngFor="let item of registrosCreados | filterTable: search">
         <td class="tdtext">
           <p>{{ item.descripcion }}</p>
         </td>
-        <td class="tdnumber" *ngIf="contexto !== 'debito' && contexto !== 'otros'">
+        <td class="tdmoneda" *ngIf="contexto === 'nacional'">
+          <p>{{ item.totalCompra | pCurrency}}</p>
+        </td>
+        <td class="tdmoneda">
+          <p>{{ item.monto | pCurrency}}</p>
+        </td>
+        <td class="tdnumber" *ngIf="contexto === 'nacional'">
           <p>{{ item.cuotas }}</p>
         </td>
-        <td class="tdnumber" *ngIf="contexto !== 'debito' && contexto !== 'otros'">
+        <td class="tdnumber" *ngIf="contexto === 'nacional'">
           <p>{{ item.nCuota }}</p>
         </td>
         <td class="tdbutton" *ngIf="contexto !== 'debito' && contexto !== 'otros'">
-          <i class="far fa-check" style="font-size: 20px;" *ngIf="item.facturacionInmediata"></i>
+          <i class="far fa-check" style="font-size: 20px" *ngIf="item.facturacionInmediata"></i>
           <i class="far fa-times" style="font-size: 20px" *ngIf="!item.facturacionInmediata"></i>
         </td>
 
@@ -56,7 +73,8 @@
           <p>{{ item.anio }}</p>
         </td>
         <td class="tdbutton ">
-          <button class="btn button-success" (click)="onEditarRegistro(item)" *ngIf="contexto === 'debito' || contexto === 'otros'">Editar registro</button>
+          <button class="btn button-success" (click)="onEditarRegistro(item)"
+            *ngIf="contexto === 'debito' || contexto === 'otros'">Editar registro</button>
           <button class="btn button-danger" (click)="onBorrarRegistro(item)">Borrar registro</button>
         </td>
       </tr>

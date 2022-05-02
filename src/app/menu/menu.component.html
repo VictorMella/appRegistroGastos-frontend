@@ -5,6 +5,18 @@
     routerLinkActive="active"> {{item.nombre}} </li>
   </ul>
 
+  <div class="btn-group" dropdown *ngIf="!menuActivo">
+    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+            aria-controls="dropdown-basic">
+      Opciones <span class="caret"></span>
+    </button>
+    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+        role="menu" aria-labelledby="button-basic">
+        <li class="list-group-item" *ngFor="let item of menuItems" [routerLink]="[ item.ruta ]"
+        routerLinkActive="active"> {{item.nombre}} </li>
+    </ul>
+  </div>
+
   <ul class="list-group space" *ngIf="!menuActivo">
     <li class="list-group-item" *ngFor="let item of menuUsuario" [routerLink]="[ item.ruta ]"
     routerLinkActive="active" (click)="accion(item.nombre)"> {{item.nombre}} </li>

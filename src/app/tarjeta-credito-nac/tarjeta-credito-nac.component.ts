@@ -197,6 +197,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
     const lsMeses = this.utils.getLsMeses()
     const lsRegistros = data.map(item => {
       item.nombreMes = lsMeses.filter(m => m.id === item.mes)[0].nombre
+      item.totalCompra = item.totalCompra ? item.totalCompra : (item.monto * item.cuotas).toFixed(0)
       return item
     })
     return lsRegistros

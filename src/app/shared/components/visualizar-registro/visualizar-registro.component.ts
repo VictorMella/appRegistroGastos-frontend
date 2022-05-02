@@ -8,6 +8,7 @@ import { IPagination } from 'src/app/core/interfaces/iPagination.interface'
   styleUrls: ['./visualizar-registro.component.scss']
 })
 export class VisualizarRegistroComponent implements OnInit {
+  search: string
 
   @Input() registrosCreados: Array<IRegistrosCreados> = []
   @Input() pagination: IPagination
@@ -19,7 +20,9 @@ export class VisualizarRegistroComponent implements OnInit {
   @Output() handleSeleccionarRegistro: EventEmitter<any> = new EventEmitter();
   @Output() handleBorrarRegistro: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor() {
+    this.search = ''
+  }
 
   ngOnInit(): void { }
 
@@ -36,6 +39,7 @@ export class VisualizarRegistroComponent implements OnInit {
   }
 
   onSearchCriterio({ mes, anio }): void {
+    this.search = ''
     this.handleChangeCriterio.emit({ mes, anio })
   }
 }

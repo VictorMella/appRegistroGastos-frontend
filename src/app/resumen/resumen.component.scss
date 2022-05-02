@@ -1,0 +1,52 @@
+@import "src/assets/scss/colors.scss";
+.resumen-contains{
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin: 110px auto 20px !important;
+  justify-content: space-around;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    margin: 140px auto 20px !important;
+  }
+  .resumen{
+    width: 50%;
+    background-color: #444;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+    h1{
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .tipo{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      label{
+        width: 45%;
+        margin-right: auto;
+        margin-left: auto;
+        padding: .5rem;
+        vertical-align: middle;
+      }
+      label{
+        text-align: right;
+      }
+      label:nth-last-child(1){
+        text-align: left;
+      }
+    }
+    .tipo:nth-last-child(1){
+      border-top: 1px white solid;
+      padding-top: 1rem;
+    }
+  }
+}
+
+

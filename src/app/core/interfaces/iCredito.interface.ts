@@ -8,4 +8,5 @@ export interface ICredito {
   facturacionInmediata: boolean
   cuotas: number
   nCuota: number
+  totalCompra?: number
 }
