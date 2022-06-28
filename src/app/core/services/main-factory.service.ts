@@ -28,11 +28,14 @@ export class MainFactoryService {
     this.limpiarFormulario.next(active);
   }
 
-  public setData(type: string, data: any): void {
-    this.data[type] = data;
+  public setData(type: string, data: any, persist: boolean = false): void {
+    this.data[type] = data
+    if (persist) {
+      sessionStorage.setItem(type, JSON.stringify(data))
+    }
   }
 
-  public getData(type: string): any {
-    return this.data[type];
+  public getData(type: string, persist: boolean = false): any {
+    return persist ? JSON.parse(sessionStorage.getItem(type)) : this.data[type];
   }
 }

@@ -7,11 +7,13 @@
 <app-visualizar-registro  [registrosCreados]="registrosCreadosCredito"
                           [loading]="loading"
                           contexto="nacional"
+                          [descargando]="descargando"
                           [pagination]="paginationSearch"
                           [totalGastado]="totalGastado"
                           (handleChangePagination)="onHandleChangePaginationSearch($event)"
                           (handleChangeCriterio)="onHandleChangeCriterio($event)"
                           (handleSeleccionarRegistro)="onHandleSeleccionarRegistro($event)"
+                          (handleDescargarExcel)="onHandleDescargarExcel($event)"
                           (handleBorrarRegistro)="onHandleBorrarRegistro($event)">
 </app-visualizar-registro>
 

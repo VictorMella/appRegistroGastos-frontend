@@ -15,10 +15,12 @@ export class VisualizarRegistroComponent implements OnInit {
   @Input() loading: boolean
   @Input() totalGastado: number
   @Input() contexto: string
+  @Input() descargando: boolean
   @Output() handleChangePagination: EventEmitter<any> = new EventEmitter();
   @Output() handleChangeCriterio: EventEmitter<any> = new EventEmitter();
   @Output() handleSeleccionarRegistro: EventEmitter<any> = new EventEmitter();
   @Output() handleBorrarRegistro: EventEmitter<any> = new EventEmitter();
+  @Output() handleDescargarExcel: EventEmitter<any> = new EventEmitter();
 
   constructor() {
     this.search = ''
@@ -41,5 +43,9 @@ export class VisualizarRegistroComponent implements OnInit {
   onSearchCriterio({ mes, anio }): void {
     this.search = ''
     this.handleChangeCriterio.emit({ mes, anio })
+  }
+
+  onDescargandoExcel(): void {
+    this.handleDescargarExcel.emit({ descargando: true })
   }
 }

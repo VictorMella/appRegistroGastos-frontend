@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core'
 import { DatePipe } from '@angular/common'
 import { DtoEditCredito } from '../core/interfaces/DtoEditCredito.interface'
 import { DtoInsertCredito } from '../core/interfaces/DtoInsertCredito.interface'
@@ -12,6 +12,9 @@ import { UtilsService } from '../core/services/utils.service'
 import { AuthService } from '../services/auth.service'
 import { CreditoNacService } from '../services/credito-nac.service'
 
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
+
 @Component({
   selector: 'app-tarjeta-credito-nac',
   templateUrl: './tarjeta-credito-nac.component.html',
@@ -19,7 +22,7 @@ import { CreditoNacService } from '../services/credito-nac.service'
 })
 export class TarjetaCreditoNacComponent implements OnInit {
   get usuario() {
-    return this.authService.usuario;
+    return this.authService.usuario
   }
 
   loadingCreandoRegistro: boolean
@@ -30,20 +33,22 @@ export class TarjetaCreditoNacComponent implements OnInit {
   registroSeleccionadoEdicion: IRegistrosCreados
   totalGastado: number
   registrosNacionales: boolean
+  descargando: boolean
 
   @ViewChild('modalConfirmacion') modalConfirmacion: TemplateRef<any>
 
   constructor(public datePipe: DatePipe,
-              private alert: AlertService,
-              public utils: UtilsService,
-              public mainFactory: MainFactoryService,
-              private creditNacService: CreditoNacService,
-              private authService: AuthService,
+    private alert: AlertService,
+    public utils: UtilsService,
+    public mainFactory: MainFactoryService,
+    private creditNacService: CreditoNacService,
+    private authService: AuthService,
   ) {
     this.paginationSearch = this.utils.setPagitation(1, 10, 0)
-    this.registrosNacionales= true
+    this.registrosNacionales = true
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, utils.mesActual, utils.anioActual, this.registrosNacionales)
     this.mainFactory.onLimpiarFormulario(true)
+    this.descargando = false
   }
 
   ngOnInit(): void { }
@@ -64,7 +69,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
     this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, anio, this.registrosNacionales)
   }
 
-  getRegistros(pagina: number, registrosPorPagina: number , mes: number, anio: number, registrosNacionales: boolean) {
+  getRegistros(pagina: number, registrosPorPagina: number, mes: number, anio: number, registrosNacionales: boolean) {
     this.loading = true
     this.creditNacService.getRegistros(pagina, registrosPorPagina, mes, anio, registrosNacionales, this.usuario.identificador)
       .subscribe((resp: IRespuesta) => {
@@ -106,26 +111,57 @@ export class TarjetaCreditoNacComponent implements OnInit {
       identificador
     }
     this.mainFactory.setData('payloadCreditoNacional', payload)
-    this.utils.showModal(this.modalConfirmacion, { id: 1, class: 'modal-md' });
+    this.utils.showModal(this.modalConfirmacion, { id: 1, class: 'modal-md' })
   }
 
   onHandleConfirmBorrarRegistro() {
     const payload = this.mainFactory.getData('payloadCreditoNacional')
     this.creditNacService.deleteCredito(payload)
-    .subscribe((resp: IRespuesta) => {
-      if (resp.ok) {
-        this.alert.success(resp.mensaje)
-        const year = this.mainFactory.getData('selectedYear')
-        const mes = this.mainFactory.getData('selectedMonth')
-        this.mainFactory.activeAñosRegistros(true)
-        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year, this.registrosNacionales)
-      } else {
-        this.alert.error(resp.mensaje)
-      }
-      this.utils.closeModal();
-    }, error => {
-      console.log(error)
+      .subscribe((resp: IRespuesta) => {
+        if (resp.ok) {
+          this.alert.success(resp.mensaje)
+          const year = this.mainFactory.getData('selectedYear')
+          const mes = this.mainFactory.getData('selectedMonth')
+          this.mainFactory.activeAñosRegistros(true)
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year, this.registrosNacionales)
+        } else {
+          this.alert.error(resp.mensaje)
+        }
+        this.utils.closeModal()
+      }, error => {
+        console.log(error)
+      })
+  }
+
+  onHandleDescargarExcel({ descargando }) {
+    this.descargando = descargando
+    let registrosCreados = this.mainFactory.getData('nacional', true)
+    registrosCreados = this.transformData(registrosCreados)
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('ProductData');
+    worksheet.columns = [
+      { header: 'Descripción', key: 'descripcion', width: 30 },
+      { header: 'Monto total de la compra', key: 'totalCompra', width: 20 },
+      { header: 'Valor cuota', key: 'monto', width: 20 },
+      { header: 'Cuotas', key: 'cuotas', width: 10 },
+      { header: 'N°cuota', key: 'nCuota', width: 10 },
+    ];
+    registrosCreados.forEach(e => {
+      e.totalCompra = parseInt(e.totalCompra)
+      worksheet.addRow({
+        descripcion: e.descripcion,
+        totalCompra: e.totalCompra,
+        monto: e.monto,
+        cuotas: e.cuotas,
+        nCuota: e.nCuota
+      }, "n");
+    });
+
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, 'ProductData.xlsx');
     })
+    this.descargando = false
   }
 
   private crearRegistro($event): void {
@@ -152,23 +188,23 @@ export class TarjetaCreditoNacComponent implements OnInit {
   private editarRegistro($event): void {
     const payload: DtoEditCredito = this.getPayloadEditDebito($event)
     this.creditNacService.editCredito(payload)
-    .subscribe((resp: IRespuesta) => {
-      if (resp.ok) {
-        this.alert.success(resp.mensaje)
-        this.idRegistroSeleccionado = null
-        const year = this.mainFactory.getData('selectedYear')
-        const mes = this.mainFactory.getData('selectedMonth')
-        this.mainFactory.activeAñosRegistros(true)
-        this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year, this.registrosNacionales)
-      } else {
-        this.alert.error(resp.mensaje)
-      }
-    }, error => {
-      console.log(error)
-    })
+      .subscribe((resp: IRespuesta) => {
+        if (resp.ok) {
+          this.alert.success(resp.mensaje)
+          this.idRegistroSeleccionado = null
+          const year = this.mainFactory.getData('selectedYear')
+          const mes = this.mainFactory.getData('selectedMonth')
+          this.mainFactory.activeAñosRegistros(true)
+          this.getRegistros(this.paginationSearch.currentPage, this.paginationSearch.itemsPerPage, mes, year, this.registrosNacionales)
+        } else {
+          this.alert.error(resp.mensaje)
+        }
+      }, error => {
+        console.log(error)
+      })
   }
 
-  private getPayloadInsertCredito(formValue: ICredito ): DtoInsertCredito {
+  private getPayloadInsertCredito(formValue: ICredito): DtoInsertCredito {
     return {
       monto: formValue.monto,
       tipo: 'Compras',
@@ -181,7 +217,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
     }
   }
 
-  private getPayloadEditDebito(formValue: ICredito ): DtoEditCredito {
+  private getPayloadEditDebito(formValue: ICredito): DtoEditCredito {
     return {
       _id: this.idRegistroSeleccionado,
       monto: formValue.monto,

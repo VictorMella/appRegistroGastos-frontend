@@ -5,19 +5,26 @@
       <h3 *ngIf="contexto !== 'otros'">Registro de gastos</h3>
       <h4 *ngIf="registrosCreados.length > 0 && !loading">Total gastado {{ totalGastado | pCurrency }}</h4>
     </div>
-    <app-filtro-busqueda  [loading]="loading"
-                          [service]="contexto"
-                          (handleChangeCriterio)="onSearchCriterio($event)">
+    <app-filtro-busqueda [loading]="loading" [service]="contexto" (handleChangeCriterio)="onSearchCriterio($event)">
     </app-filtro-busqueda>
   </div>
 
   <br>
   <div>
-    <form class="d-flex">
+    <form class="search-excel">
       <div class="form-group no-margin">
         <input [(ngModel)]="search" type="text" class="form-control format__itemForm" placeholder="Filtrar búsqueda"
           [ngModelOptions]="{standalone: true}">
       </div>
+      <button class="btn button-excel" (click)="onDescargandoExcel()" [disabled]="descargando" *ngIf="contexto === 'nacional'"
+        [class.cursor__notallowed]="descargando"><img src="../../assets/images/excel-icon.png" alt="Excel">
+        <span *ngIf="!descargando">
+          Excel
+        </span>
+        <span *ngIf="descargando">
+          Descargando
+        </span>
+      </button>
     </form>
   </div>
   <br>

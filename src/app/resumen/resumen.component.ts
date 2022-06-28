@@ -3,6 +3,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core'
 import { forkJoin, of } from 'rxjs'
 import { catchError, tap } from 'rxjs/operators'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
+import { MainFactoryService } from '../core/services/main-factory.service'
 import { UtilsService } from '../core/services/utils.service'
 import { AuthService } from '../services/auth.service'
 import { CreditoNacService } from '../services/credito-nac.service'
@@ -31,7 +32,8 @@ export class ResumenComponent implements OnInit {
     public utils: UtilsService,
     private otrosService: OtrosGastosService,
     private debitoService: DebitoService,
-    private creditNacService: CreditoNacService) {
+    private creditNacService: CreditoNacService,
+    private mainFactory: MainFactoryService) {
     this.loading = true
     this.mesActual = utils.meses.filter(mes => mes.id === utils.mesActual)[0].nombre
     this.getAll()
@@ -50,10 +52,14 @@ export class ResumenComponent implements OnInit {
 
     $listObservables.subscribe(resp => {
       this.totalGastadoOtrosIngreso = resp['otros'].data[0].otrosGastos.filter(item=> item.tipo === 'Ingreso').reduce((acc, curr) => acc + curr.monto, 0)
-      this.totalGastadoOtrosEgreso = resp['otros'].data[0].otrosGastos.filter(item=> item.tipo === 'Egreso').reduce((acc, curr) => acc + curr.monto, 0)
+      this.totalGastadoOtrosEgreso = resp['otros'].data[0].otrosGastos.filter(item => item.tipo === 'Egreso').reduce((acc, curr) => acc + curr.monto, 0)
+      // this.mainFactory.setData('otros', resp['otros'].data[0].otrosGastos, true)
       this.totalGastadoDebito = resp['debito'].data[0].totalMontoMes
+      // this.mainFactory.setData('debito', resp['debito'].data[0].registrosTDebito, true)
       this.totalGastadoCreditoNac = resp['nacional'].data[0].totalMontoMes
+      this.mainFactory.setData('nacional', resp['nacional'].data[0].registrosTCredito, true)
       this.totalGastadoCreditoInter = resp['internacional'].data[0].totalMontoMes
+      // this.mainFactory.setData('internacional', resp['internacional'].data[0].registrosTCredito, true)
       this.totalGastos = this.totalGastadoOtrosIngreso - [this.totalGastadoOtrosEgreso, this.totalGastadoDebito, this.totalGastadoCreditoNac, this.totalGastadoCreditoInter].reduce((acc, curr) => acc + curr, 0)
       this.loading = false
     })
