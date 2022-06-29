@@ -32,7 +32,6 @@
     "npkill": "^0.8.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "xlsx": "^0.18.5",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
