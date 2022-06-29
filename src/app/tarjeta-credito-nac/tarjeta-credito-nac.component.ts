@@ -138,7 +138,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
     let registrosCreados = this.mainFactory.getData('nacional', true)
     registrosCreados = this.transformData(registrosCreados)
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('ProductData');
+    let worksheet = workbook.addWorksheet('TC Nacional');
     worksheet.columns = [
       { header: 'Descripción', key: 'descripcion', width: 30 },
       { header: 'Monto total de la compra', key: 'totalCompra', width: 20 },
@@ -159,7 +159,7 @@ export class TarjetaCreditoNacComponent implements OnInit {
 
     workbook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      fs.saveAs(blob, 'ProductData.xlsx');
+      fs.saveAs(blob, 'TCNACIONAL.xlsx');
     })
     this.descargando = false
   }
