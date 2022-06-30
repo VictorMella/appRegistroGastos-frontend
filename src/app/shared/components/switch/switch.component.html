@@ -5,5 +5,21 @@
     (click)="onToggleSwitch()">
     <span></span>
   </div>
+  <i class="icon far fa-comment-alt-lines" style="margin-left: 10px" [tooltip]="popTemplate" triggers="click"></i>
+  <ng-template #popTemplate>
+    <div >
+      <h5>Facturacion No inmediata</h5>
+      <ul class="list-group">
+        <li class="list-group-item"> Ripley </li>
+        <li class="list-group-item"> Sodimac </li>
+      </ul>
+    </div>
+    <!-- <div >
+      <h5>Facturacion inmediata</h5>
+      <ul class="list-group">
+        <li class="list-group-item"> Ripley </li>
+      </ul>
+    </div> -->
+  </ng-template>
 </div>
 

@@ -18,6 +18,7 @@ import { CoreModule } from '../core/core.module'
 import { ModalComponent } from './components/modal/modal.component';
 import { ConfirmacionComponent } from './components/confirmacion/confirmacion.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
 
 defineLocale('es', esLocale);
 @NgModule({
@@ -39,6 +40,7 @@ defineLocale('es', esLocale);
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
+    TooltipModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     CoreModule
