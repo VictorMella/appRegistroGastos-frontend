@@ -12,8 +12,8 @@ import { UtilsService } from '../core/services/utils.service'
 import { AuthService } from '../services/auth.service'
 import { CreditoNacService } from '../services/credito-nac.service'
 
-import { Workbook } from 'exceljs';
-import * as fs from 'file-saver';
+import { Workbook } from 'exceljs'
+import * as fs from 'file-saver'
 
 @Component({
   selector: 'app-tarjeta-credito-nac',
@@ -135,17 +135,34 @@ export class TarjetaCreditoNacComponent implements OnInit {
 
   onHandleDescargarExcel({ descargando }) {
     this.descargando = descargando
-    let registrosCreados = this.mainFactory.getData('nacional', true)
-    registrosCreados = this.transformData(registrosCreados)
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet('TC Nacional');
+    const year = this.mainFactory.getData('selectedYear')
+    const mes = this.mainFactory.getData('selectedMonth')
+    this.creditNacService.getRegistros(1, 500, mes, year, true, this.usuario.identificador)
+      .subscribe((resp: IRespuesta) => {
+        if (resp.ok) {
+          const registrosCreadosCredito = this.transformData(resp.data[0].registrosTCredito)
+          this.generarExcel(registrosCreadosCredito)
+        } else {
+          this.registrosCreadosCredito = []
+        }
+        this.loading = false
+      }, error => {
+        console.log(error)
+        this.loading = false
+      })
+
+  }
+
+  private generarExcel(registrosCreados: any): void {
+    let workbook = new Workbook()
+    let worksheet = workbook.addWorksheet('TC Nacional')
     worksheet.columns = [
-      { header: 'Descripción', key: 'descripcion', width: 30 },
-      { header: 'Monto total de la compra', key: 'totalCompra', width: 20 },
-      { header: 'Valor cuota', key: 'monto', width: 20 },
-      { header: 'Cuotas', key: 'cuotas', width: 10 },
-      { header: 'N°cuota', key: 'nCuota', width: 10 },
-    ];
+      { header: 'Descripción', key: 'descripcion', width: 50 },
+      { header: 'Monto total de la compra', key: 'totalCompra', width: 22 },
+      { header: 'Valor cuota', key: 'monto', width: 10 },
+      { header: 'Cuotas', key: 'cuotas', width: 7 },
+      { header: 'N°cuota', key: 'nCuota', width: 7 },
+    ]
     registrosCreados.forEach(e => {
       e.totalCompra = parseInt(e.totalCompra)
       worksheet.addRow({
@@ -154,12 +171,12 @@ export class TarjetaCreditoNacComponent implements OnInit {
         monto: e.monto,
         cuotas: e.cuotas,
         nCuota: e.nCuota
-      }, "n");
-    });
+      }, "n")
+    })
 
     workbook.xlsx.writeBuffer().then((data) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      fs.saveAs(blob, 'TCNACIONAL.xlsx');
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+      fs.saveAs(blob, 'TCNACIONAL.xlsx')
     })
     this.descargando = false
   }
