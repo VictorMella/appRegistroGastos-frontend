@@ -143,12 +143,10 @@ export class TarjetaCreditoNacComponent implements OnInit {
           const registrosCreadosCredito = this.transformData(resp.data[0].registrosTCredito)
           this.generarExcel(registrosCreadosCredito)
         } else {
-          this.registrosCreadosCredito = []
+          this.alert.error('No se ha podido obtener la información')
         }
-        this.loading = false
       }, error => {
         console.log(error)
-        this.loading = false
       })
 
   }
