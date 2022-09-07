@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // url: 'http://localhost:3000'
-  url: 'https://registro-cuentas-diarias.herokuapp.com'
+  url: 'https://registro-gastos-backend-victormella.vercel.app'
 };
 
 /*
