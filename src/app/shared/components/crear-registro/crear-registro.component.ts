@@ -114,7 +114,7 @@ export class CrearRegistroComponent implements OnInit {
   }
 
   public resetForm() {
-    const montoMaximo: number = this.contexto === 'debito' || this.contexto === 'otros' ? 2000000 : 1000000
+    const montoMaximo: number = this.contexto === 'debito' || this.contexto === 'otros' ? 3000000 : 2000000
     if (this.contexto === 'debito' || this.contexto === 'otros') {
       this.form = this.formBuilder.group({
         monto: [null, [Validators.required, Validators.max(montoMaximo)]],
