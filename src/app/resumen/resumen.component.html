@@ -3,23 +3,23 @@
     <h1>Resumen del mes de {{ mesActual }}</h1>
     <span  *ngIf="!loading">
       <div class="tipo">
-        <label for="">Ingresos de la casa (+) </label>
+        <label for="">Ingresos (+) </label>
         <label>{{ totalGastadoOtrosIngreso | pCurrency }}</label>
       </div>
       <div class="tipo">
-        <label for="">Egresos de la casa (-)</label>
+        <label for="">Egresos (-)</label>
         <label>{{ totalGastadoOtrosEgreso | pCurrency }}</label>
       </div>
       <div class="tipo">
-        <label for="">Tarjeta de debito (-)</label>
+        <label for="">Debito (-)</label>
         <label>{{totalGastadoDebito | pCurrency }}</label>
       </div>
       <div class="tipo">
-        <label for="">Tarjeta de crédito (-)</label>
+        <label for="">TC nacional (-)</label>
         <label>{{ totalGastadoCreditoNac | pCurrency }}</label>
       </div>
       <div class="tipo">
-        <label for="">Tarjeta de crédito internacional (-)</label>
+        <label for="">TC internacional (-)</label>
         <label>{{ totalGastadoCreditoInter | pCurrency }}</label>
       </div>
       <div class="tipo">
