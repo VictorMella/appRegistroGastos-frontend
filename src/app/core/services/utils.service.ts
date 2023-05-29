@@ -115,7 +115,7 @@ export class UtilsService {
     },
   ];
 
-  cuotas: Array<Number> = [
+  cuotas: Array<number> = [
     1, 3, 6, 9, 10, 12
   ]
 
@@ -174,7 +174,7 @@ export class UtilsService {
     return this.meses
   }
 
-  getLsCuotas(): Array<Number> {
+  getLsCuotas(): Array<number> {
     return this.cuotas
   }
 
