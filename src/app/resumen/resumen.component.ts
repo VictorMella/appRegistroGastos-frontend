@@ -1,9 +1,6 @@
 
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core'
-import { forkJoin, of } from 'rxjs'
-import { catchError, tap } from 'rxjs/operators'
-import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
-import { MainFactoryService } from '../core/services/main-factory.service'
+import { Component} from '@angular/core'
+import { forkJoin} from 'rxjs'
 import { UtilsService } from '../core/services/utils.service'
 import { AuthService } from '../services/auth.service'
 import { CreditoNacService } from '../services/credito-nac.service'
@@ -16,7 +13,7 @@ import { OtrosGastosService } from '../services/otros-gastos.service'
   templateUrl: './resumen.component.html',
   styleUrls: ['./resumen.component.scss']
 })
-export class ResumenComponent implements OnInit {
+export class ResumenComponent {
   get usuario() {
     return this.authService.usuario
   }
@@ -32,22 +29,18 @@ export class ResumenComponent implements OnInit {
     public utils: UtilsService,
     private otrosService: OtrosGastosService,
     private debitoService: DebitoService,
-    private creditNacService: CreditoNacService,
-    private mainFactory: MainFactoryService) {
+    private creditNacService: CreditoNacService) {
     this.loading = true
     this.mesActual = utils.meses.filter(mes => mes.id === utils.mesActual)[0].nombre
-    this.getAll()
-  }
-  ngOnInit(): void {
-
+    this.getAll(this.utils.mesActual, this.utils.anioActual)
   }
 
-  private getAll() {
+  private getAll(mesActual: number, anioActual: number) {
     const $listObservables = forkJoin({
-      otros: this.otrosService.getRegistros(1, 500, this.utils.mesActual, this.utils.anioActual, this.usuario.identificador),
-      debito: this.debitoService.getRegistros(1, 500, this.utils.mesActual, this.utils.anioActual, this.usuario.identificador),
-      nacional: this.creditNacService.getRegistros(1, 500, this.utils.mesActual, this.utils.anioActual, true, this.usuario.identificador),
-      internacional: this.creditNacService.getRegistros(1, 500, this.utils.mesActual, this.utils.anioActual, false, this.usuario.identificador)
+      otros: this.otrosService.getRegistros(1, 500, mesActual, anioActual, this.usuario.identificador),
+      debito: this.debitoService.getRegistros(1, 500, mesActual, anioActual, this.usuario.identificador),
+      nacional: this.creditNacService.getRegistros(1, 500, mesActual, anioActual, true, this.usuario.identificador),
+      internacional: this.creditNacService.getRegistros(1, 500, mesActual, anioActual, false, this.usuario.identificador)
     })
 
     $listObservables.subscribe(resp => {
@@ -60,4 +53,16 @@ export class ResumenComponent implements OnInit {
       this.loading = false
     })
   }
+
+  onSearchCriterio({ mes, anio }): void {
+    const mesSeleccionado = mes ?? this.utils.mesActual
+    const anioSeleccionado = anio ?? this.utils.anioActual
+    this.loading = true
+    const mes2 = this.utils.meses.filter(mes => mes.id === mesSeleccionado)[0].nombre
+    console.log(mes2);
+
+    this.mesActual = mes2
+    this.getAll(mesSeleccionado, anioSeleccionado)
+  }
 }
+

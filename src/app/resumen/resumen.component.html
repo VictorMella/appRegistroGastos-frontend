@@ -1,6 +1,11 @@
 <div class="resumen-contains">
   <div class="resumen">
     <h1>Resumen del mes de {{ mesActual }}</h1>
+      <div class="resumen__filtro">
+      <app-filtro-busqueda [loading]="loading" service="nacional" (handleChangeCriterio)="onSearchCriterio($event)">
+      </app-filtro-busqueda>
+    </div>
+
     <span  *ngIf="!loading">
       <div class="tipo">
         <label for="">Ingresos (+) </label>
