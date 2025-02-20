@@ -116,7 +116,7 @@ export class UtilsService {
   ];
 
   cuotas: Array<number> = [
-    1, 3, 6, 9, 10, 12
+    1, 3, 6, 9, 10, 12, 24
   ]
 
 
