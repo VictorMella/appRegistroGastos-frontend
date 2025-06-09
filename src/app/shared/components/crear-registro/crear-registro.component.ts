@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { add } from 'date-fns'
 import { ITipoTransaccion } from 'src/app/core/interfaces/tipoTransaccion.interface'
@@ -114,7 +114,7 @@ export class CrearRegistroComponent implements OnInit {
   }
 
   public resetForm() {
-    const montoMaximo: number = this.contexto === 'debito' || this.contexto === 'otros' ? 3000000 : 2000000
+    const montoMaximo: number = this.contexto === 'debito' || this.contexto === 'otros' ? 10000000 : 20000000
     if (this.contexto === 'debito' || this.contexto === 'otros') {
       this.form = this.formBuilder.group({
         monto: [null, [Validators.required, Validators.max(montoMaximo)]],
@@ -133,10 +133,6 @@ export class CrearRegistroComponent implements OnInit {
     }
     this.title = 'Guardar'
     this.handleLimpiarRegistroSeleccionado.emit()
-    // this.form.controls['descripcion'].valueChanges
-    //   .subscribe(value => {
-    //     this.changeItem(value)
-    //   })
   }
 
   changeItem(value: any) {
