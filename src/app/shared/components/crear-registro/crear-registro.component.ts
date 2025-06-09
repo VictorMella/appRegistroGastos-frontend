@@ -7,8 +7,6 @@ import { UtilsService } from 'src/app/core/services/utils.service'
 import { AlertService } from 'src/app/core/services/alert.service'
 import { MainFactoryService } from 'src/app/core/services/main-factory.service'
 import { DatePipe } from '@angular/common'
-import { ConditionalExpr } from '@angular/compiler'
-import { fromEvent } from 'rxjs'
 
 @Component({
   selector: 'app-crear-registro',
@@ -114,7 +112,7 @@ export class CrearRegistroComponent implements OnInit {
   }
 
   public resetForm() {
-    const montoMaximo: number = this.contexto === 'debito' || this.contexto === 'otros' ? 10000000 : 20000000
+    const montoMaximo: number = 20000000
     if (this.contexto === 'debito' || this.contexto === 'otros') {
       this.form = this.formBuilder.group({
         monto: [null, [Validators.required, Validators.max(montoMaximo)]],
