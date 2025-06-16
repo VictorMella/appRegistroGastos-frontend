@@ -6,6 +6,7 @@
 @import "assets/scss/colors";
 @import "assets/scss/buttons";
 
+--bs-table-bg: inherit !important;
 app-menu{
   position: fixed;
   top: 0px;
