@@ -1,7 +1,8 @@
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[prevent-key-number]'
+    selector: '[prevent-key-number]',
+    standalone: false
 })
 export class PreventKeyNumberDirective {
 

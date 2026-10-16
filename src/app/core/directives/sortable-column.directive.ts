@@ -3,7 +3,8 @@ import { SortDirection, ISortDirection } from '../interfaces/iSortDirection.inte
 
 
 @Directive({
-  selector: '[sortable-column]'
+    selector: '[sortable-column]',
+    standalone: false
 })
 export class SortableColumnDirective implements AfterViewInit {
   rotate: object;

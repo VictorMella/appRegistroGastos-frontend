@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[error-src-img]'
+    selector: '[error-src-img]',
+    standalone: false
 })
 export class ErrorSrcImgDirective {
 

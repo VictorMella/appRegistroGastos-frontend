@@ -12,9 +12,10 @@ import { UtilsService } from '../core/services/utils.service'
 import { AuthService } from '../services/auth.service'
 import { CreditoNacService } from '../services/credito-nac.service'
 @Component({
-  selector: 'app-tarjeta-credito-inter',
-  templateUrl: './tarjeta-credito-inter.component.html',
-  styleUrls: ['./tarjeta-credito-inter.component.scss']
+    selector: 'app-tarjeta-credito-inter',
+    templateUrl: './tarjeta-credito-inter.component.html',
+    styleUrls: ['./tarjeta-credito-inter.component.scss'],
+    standalone: false
 })
 export class TarjetaCreditoInterComponent implements OnInit {
   get usuario() {

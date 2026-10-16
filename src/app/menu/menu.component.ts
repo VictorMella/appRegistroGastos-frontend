@@ -6,9 +6,10 @@ import { IMenuItem } from 'src/app/core/interfaces/iMenuItem.interface'
 import { UtilsService } from 'src/app/core/services/utils.service'
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+    selector: 'app-menu',
+    templateUrl: './menu.component.html',
+    styleUrls: ['./menu.component.scss'],
+    standalone: false
 })
 export class MenuComponent implements OnInit {
   menuItems: IMenuItem[]

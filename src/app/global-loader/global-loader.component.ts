@@ -3,9 +3,10 @@ import { DOCUMENT } from '@angular/common';
 import { LoaderService } from 'src/app/core/services/loader.service'
 
 @Component({
-  selector: 'app-global-loader',
-  templateUrl: './global-loader.component.html',
-  styleUrls: ['./global-loader.component.scss']
+    selector: 'app-global-loader',
+    templateUrl: './global-loader.component.html',
+    styleUrls: ['./global-loader.component.scss'],
+    standalone: false
 })
 export class GlobalLoaderComponent implements OnInit, OnChanges {
   text = 'Cargando...';

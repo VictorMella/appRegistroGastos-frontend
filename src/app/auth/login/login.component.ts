@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DtoLogin } from 'src/app/core/interfaces/Dtologin.interface';
 import { IRespuesta } from 'src/app/core/interfaces/iRespuesta.interface';
@@ -10,18 +10,19 @@ import { AuthService } from 'src/app/services/auth.service';
 import { retry } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   validForm: boolean;
   title: string;
   loadingLogin: boolean;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private authService: AuthService,
     private alert: AlertService,
     private router: Router,

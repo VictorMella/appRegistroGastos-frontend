@@ -16,9 +16,10 @@ import { Workbook } from 'exceljs'
 import * as fs from 'file-saver'
 
 @Component({
-  selector: 'app-tarjeta-credito-nac',
-  templateUrl: './tarjeta-credito-nac.component.html',
-  styleUrls: ['./tarjeta-credito-nac.component.scss']
+    selector: 'app-tarjeta-credito-nac',
+    templateUrl: './tarjeta-credito-nac.component.html',
+    styleUrls: ['./tarjeta-credito-nac.component.scss'],
+    standalone: false
 })
 export class TarjetaCreditoNacComponent implements OnInit {
   get usuario() {

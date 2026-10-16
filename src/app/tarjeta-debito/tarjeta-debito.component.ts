@@ -13,10 +13,11 @@ import { MainFactoryService } from '../core/services/main-factory.service'
 import { AuthService } from '../services/auth.service'
 
 @Component({
-  selector: 'app-tarjeta-debito',
-  templateUrl: './tarjeta-debito.component.html',
-  styleUrls: ['./tarjeta-debito.component.scss'],
-  providers: [DatePipe]
+    selector: 'app-tarjeta-debito',
+    templateUrl: './tarjeta-debito.component.html',
+    styleUrls: ['./tarjeta-debito.component.scss'],
+    providers: [DatePipe],
+    standalone: false
 })
 export class TarjetaDebitoComponent implements OnInit {
   get usuario() {
