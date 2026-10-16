@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module'
 import { MenuComponent } from './menu/menu.component'
 import { CuentasModule } from './cuentas/cuentas.module'
 import { GlobalLoaderComponent } from './global-loader/global-loader.component'
+import { TokenInterceptor } from './core/interceptors/token.interceptor'
 
 @NgModule({ declarations: [
         AppComponent,
@@ -29,5 +30,8 @@ import { GlobalLoaderComponent } from './global-loader/global-loader.component'
         ToastrModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
-        CuentasModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        CuentasModule], providers: [
+            provideHttpClient(withInterceptorsFromDi()),
+            { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+        ] })
 export class AppModule { }

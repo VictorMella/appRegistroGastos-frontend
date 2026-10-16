@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   // url: 'http://localhost:3000'
-  url: 'https://registro-gastos-backend-victormella.vercel.app'
+  // url: 'https://registro-gastos-backend-victormella.vercel.app'
+  url: 'https://registro-gastos-backend.vercel.app'
 };
 
 /*
@@ -16,3 +17,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+// https://registro-gastos-backend.vercel.app

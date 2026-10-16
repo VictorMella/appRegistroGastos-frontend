@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Observable, of } from 'rxjs'
 import { catchError, delay, map, tap } from 'rxjs/operators'
 import { Usuario } from '../core/interfaces/iUsuario.interface'
@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment'
 import { DtoLogin } from '../core/interfaces/Dtologin.interface'
 import { IRespuesta } from '../core/interfaces/iRespuesta.interface'
 import { DtoCrearUsuario } from '../core/interfaces/DtoCrearUsuario.interface'
+import { TokenService } from '../core/services/token.service'
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
     return { ...this._usuario }
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private tokenService: TokenService) {
     this.time = 1000
   }
 
@@ -29,7 +30,7 @@ export class AuthService {
       .pipe(
         tap(resp => {
           if (resp.ok) {
-            localStorage.setItem('appToken', resp.data.token)
+            this.tokenService.setToken(resp.data.token)
           }
         }),
         catchError(this.getError),
@@ -48,7 +49,7 @@ export class AuthService {
               uid: resp.data.usuario.uid,
               identificador: resp.data.usuario.identificador,
             }
-            localStorage.setItem('appToken', resp.data.token)
+            this.tokenService.setToken(resp.data.token)
           }
         }),
         catchError(this.getError),
@@ -58,13 +59,11 @@ export class AuthService {
 
   validarToken(): Observable<boolean> {
     const url = `${environment.url}/auth/renew`
-    const headers = new HttpHeaders()
-      .set('appToken', localStorage.getItem('appToken') || '')
 
-    return this.http.get<any>(url, { headers })
+    return this.http.get<any>(url)
       .pipe(
         map( resp => {
-          localStorage.setItem('appToken', resp.data.token)
+          this.tokenService.setToken(resp.data.token)
           this._usuario = {
             name: resp.data.usuario.nombre,
             email: resp.data.usuario.correo,
