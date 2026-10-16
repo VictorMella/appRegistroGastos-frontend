@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { DtoCrearUsuario } from 'src/app/core/interfaces/DtoCrearUsuario.interface'
 import { IRespuesta } from 'src/app/core/interfaces/iRespuesta.interface'
@@ -14,13 +14,13 @@ import { AuthService } from 'src/app/services/auth.service'
   styleUrls: ['./registro.component.scss']
 })
 export class RegistroComponent implements OnInit {
-  form: FormGroup
+  form: UntypedFormGroup
   validForm: boolean
   title: string
   loadingCreate: boolean
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private authService: AuthService,
     private alert: AlertService,
     private router: Router,

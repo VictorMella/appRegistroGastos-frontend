@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { BsLocaleService } from 'ngx-bootstrap/datepicker'
 import { add } from 'date-fns'
 import { ITipoTransaccion } from 'src/app/core/interfaces/tipoTransaccion.interface'
@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common'
   styleUrls: ['./crear-registro.component.scss']
 })
 export class CrearRegistroComponent implements OnInit {
-  form: FormGroup
+  form: UntypedFormGroup
   validForm: boolean
   listTiposTransacccion: ITipoTransaccion[]
   lsCuotas: Number[]
@@ -28,7 +28,7 @@ export class CrearRegistroComponent implements OnInit {
 
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private localService: BsLocaleService,
     private utilsService: UtilsService,
     private alert: AlertService,
