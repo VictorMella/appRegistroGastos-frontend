@@ -13,9 +13,10 @@ import { AuthService } from '../services/auth.service'
 import { OtrosGastosService } from '../services/otros-gastos.service'
 
 @Component({
-  selector: 'app-otros-gastos',
-  templateUrl: './otros-gastos.component.html',
-  styleUrls: ['./otros-gastos.component.scss']
+    selector: 'app-otros-gastos',
+    templateUrl: './otros-gastos.component.html',
+    styleUrls: ['./otros-gastos.component.scss'],
+    standalone: false
 })
 export class OtrosGastosComponent implements OnInit {
   get usuario() {

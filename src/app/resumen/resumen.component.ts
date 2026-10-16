@@ -9,9 +9,10 @@ import { OtrosGastosService } from '../services/otros-gastos.service'
 
 
 @Component({
-  selector: 'app-resumen',
-  templateUrl: './resumen.component.html',
-  styleUrls: ['./resumen.component.scss']
+    selector: 'app-resumen',
+    templateUrl: './resumen.component.html',
+    styleUrls: ['./resumen.component.scss'],
+    standalone: false
 })
 export class ResumenComponent {
   get usuario() {

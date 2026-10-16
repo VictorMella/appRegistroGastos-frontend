@@ -6,9 +6,10 @@ import { UtilsService } from 'src/app/core/services/utils.service'
 import { AuthService } from 'src/app/services/auth.service'
 
 @Component({
-  selector: 'app-filtro-busqueda',
-  templateUrl: './filtro-busqueda.component.html',
-  styleUrls: ['./filtro-busqueda.component.scss']
+    selector: 'app-filtro-busqueda',
+    templateUrl: './filtro-busqueda.component.html',
+    styleUrls: ['./filtro-busqueda.component.scss'],
+    standalone: false
 })
 export class FiltroBusquedaComponent implements OnInit {
   meses: Array<IMeses> = []

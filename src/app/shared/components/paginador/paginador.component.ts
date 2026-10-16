@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { IPagination } from 'src/app/core/interfaces/iPagination.interface'
 
 @Component({
-  selector: 'app-paginador',
-  templateUrl: './paginador.component.html',
-  styleUrls: ['./paginador.component.scss']
+    selector: 'app-paginador',
+    templateUrl: './paginador.component.html',
+    styleUrls: ['./paginador.component.scss'],
+    standalone: false
 })
 export class PaginadorComponent implements OnInit, OnChanges {
 

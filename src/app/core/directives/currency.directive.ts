@@ -1,7 +1,8 @@
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[dCurrency]'
+    selector: '[dCurrency]',
+    standalone: false
 })
 export class CurrencyDirective {
 

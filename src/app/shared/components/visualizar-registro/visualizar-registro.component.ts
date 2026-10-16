@@ -3,9 +3,10 @@ import { IRegistrosCreados } from 'src/app/core/interfaces/IRegistrosCreados.int
 import { IPagination } from 'src/app/core/interfaces/iPagination.interface'
 
 @Component({
-  selector: 'app-visualizar-registro',
-  templateUrl: './visualizar-registro.component.html',
-  styleUrls: ['./visualizar-registro.component.scss']
+    selector: 'app-visualizar-registro',
+    templateUrl: './visualizar-registro.component.html',
+    styleUrls: ['./visualizar-registro.component.scss'],
+    standalone: false
 })
 export class VisualizarRegistroComponent implements OnInit {
   search: string

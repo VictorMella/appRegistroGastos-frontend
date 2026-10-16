@@ -9,9 +9,10 @@ import { MainFactoryService } from 'src/app/core/services/main-factory.service'
 import { AuthService } from 'src/app/services/auth.service'
 
 @Component({
-  selector: 'app-registro',
-  templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.scss']
+    selector: 'app-registro',
+    templateUrl: './registro.component.html',
+    styleUrls: ['./registro.component.scss'],
+    standalone: false
 })
 export class RegistroComponent implements OnInit {
   form: UntypedFormGroup
