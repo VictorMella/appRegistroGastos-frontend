@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DtoLogin } from 'src/app/core/interfaces/Dtologin.interface';
@@ -7,7 +7,6 @@ import { AlertService } from 'src/app/core/services/alert.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { MainFactoryService } from 'src/app/core/services/main-factory.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { retry } from 'rxjs/operators';
 
 @Component({
     selector: 'app-login',
@@ -52,16 +51,13 @@ export class LoginComponent implements OnInit {
   loginApp(payload: DtoLogin) {
     this.authService
       .login(payload)
-      .pipe(
-        retry(3) // Reintenta hasta 3 veces si hay error
-      )
       .subscribe(
         (resp: IRespuesta) => {
           if (resp.ok) {
             // this.loaderService.setLoading({ show: true, text: 'Validando información...' });
             this.router.navigateByUrl('/cuenta/resumen');
           } else {
-            this.alert.error(resp.mensaje);
+            this.alert.error(resp.mensaje!);
             console.log(resp);
           }
           this.resetForm();

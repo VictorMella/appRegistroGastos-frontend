@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { IAnios, IMeses } from 'src/app/core/interfaces/iMesesAnios.interface'
+import { IMeses } from 'src/app/core/interfaces/iMesesAnios.interface'
 import { IRespuesta } from 'src/app/core/interfaces/iRespuesta.interface'
 import { MainFactoryService } from 'src/app/core/services/main-factory.service'
 import { UtilsService } from 'src/app/core/services/utils.service'
@@ -40,6 +40,7 @@ export class FiltroBusquedaComponent implements OnInit {
     this.mainFactory.cargarAñosRegistros$
       .subscribe((active) => {
         if (active) {
+          this.cargaAños = true
           this.getYears()
           this.selectedMonth = this.utilsService.mesActual
         }
@@ -123,7 +124,6 @@ export class FiltroBusquedaComponent implements OnInit {
     }else{
       this.getYearsCredito()
     }
-    this.cargaAños = true
     this.years = []
   }
 }
